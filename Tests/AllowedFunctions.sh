@@ -14,6 +14,7 @@ ALLOWED_FUNCTIONS=(
     "malloc@GLIBC_"
     "open@GLIBC_"
     "printf@GLIBC_"
+    "puts@GLIBC_2.2.5"
     "perror@GLIBC_"
     "read@GLIBC_"
     "write@GLIBC_"
