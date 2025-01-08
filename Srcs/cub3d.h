@@ -3,10 +3,10 @@
 
 #include <stdint.h>
 #include <string.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 #define PARSE_ERROR 1
-
-uint8_t filetype_checker(char *path);
 
 /* // Exemplos de uso:
 uint8_t  u8  = 255;       // Representante natural: unsigned char
@@ -18,5 +18,10 @@ int8_t   i8  = -128;      // Representante natural: signed char
 int16_t  i16 = -32768;    // Representante natural: short
 int32_t  i32 = -2147483648; // Representante natural: int
 int64_t  i64 = -9223372036854775807LL; // Representante natural: long lon */
+
+// MAP VALIDATION
+uint8_t filetype_checker(char *path);
+uint8_t isFileValid(char *path);
+uint8_t isFileEmpty(char *path);
 
 #endif // !CUB3D_HPP

@@ -15,3 +15,33 @@ uint8_t filetype_checker(char *path)
 
     return 0;
 }
+
+uint8_t isFileValid(char *path)
+{
+    int32_t fd;
+
+    fd = open(path, O_RDONLY);
+    if (fd == -1)
+        return (PARSE_ERROR);
+    close(fd);
+    return (0);
+}
+
+uint8_t isFileEmpty(char *path)
+{
+    int32_t fd;
+    uint8_t buffer[1];
+    uint32_t nb_read;
+
+    fd = open(path, O_RDONLY);
+    if (fd == -1)
+        return (PARSE_ERROR);
+    
+    nb_read = read(fd, buffer, 1);
+
+    if (nb_read == 0)
+        return (PARSE_ERROR);
+
+    close(fd);
+    return (0);
+}
