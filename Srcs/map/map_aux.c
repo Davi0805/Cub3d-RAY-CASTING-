@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:28:42 by davi              #+#    #+#             */
-/*   Updated: 2025/01/08 18:19:34 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/08 20:32:05 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,18 @@ void    setTexture(t_cub *head, uint8_t orient, char *path)
     return ;   
 }
 
+void    setColor(t_cub *head, uint8_t orient, char *path)
+{
+    if (orient == F)
+    {
+        head->assets.floor_rgb_s = path;
+    }
+    else if(orient == C)
+    {
+        head->assets.ceiling_rgb_s = path;
+    }
+}
+
 char *trimTabSpace(char *str)
 {
     uint32_t i;
@@ -88,7 +100,7 @@ char *trimTabSpace(char *str)
 
 uint8_t     isOrientation(char *line, t_cub *head)
 {
-    if (head->textures_parsed == 4)
+    if (head->textures_parsed == 6)
         return (PARSE_ERROR); // Nao se trata de erro porem estou usando mesmo macro para parar de dar trim
     line = trimTabSpace(line);
     if (line == NULL)
@@ -100,10 +112,11 @@ uint8_t     isOrientation(char *line, t_cub *head)
     else if (ft_strncmp(line, "WE", 2) == 0)
         return (setTexture(head, WE, getTexturePath(line)), WE);
     else if (ft_strncmp(line, "EA", 2) == 0)
-    {
-        //printf("EA line: %s\n", line); // Debug print
         return (setTexture(head, EA, getTexturePath(line)), EA);
-    }
+    else if (ft_strncmp(line, "F", 1) == 0)
+        return (setColor(head, F, getTexturePath(line)), F);
+    else if (ft_strncmp(line, "C", 1) == 0)
+        return(setColor(head, C, getTexturePath(line)), C);
     else
         return (PARSE_ERROR);
 }

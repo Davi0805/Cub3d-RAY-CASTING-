@@ -17,6 +17,9 @@
 #define SO 3
 #define WE 4
 #define EA 5
+#define F 6 // Floor color
+#define C 7 // Ceiling color
+
 
 /* // Exemplos de uso:
 uint8_t  u8  = 255;       // Representante natural: unsigned char
@@ -29,14 +32,24 @@ int16_t  i16 = -32768;    // Representante natural: short
 int32_t  i32 = -2147483648; // Representante natural: int
 int64_t  i64 = -9223372036854775807LL; // Representante natural: long lon */
 
+typedef struct rgb
+{
+    uint32_t r;
+    uint32_t g;
+    uint32_t b;
+}               t_rgb;
+
+
 typedef struct map_assets
 {
     char *no_texture;
     char *so_texture;
     char *we_texture;
     char *ea_texture;
-    uint32_t floor_color;
-    uint32_t ceil_color;
+    char *floor_rgb_s;
+    char *ceiling_rgb_s;
+    t_rgb floor_color;
+    t_rgb ceil_color;
 }               t_assets;
 
 typedef struct cub
