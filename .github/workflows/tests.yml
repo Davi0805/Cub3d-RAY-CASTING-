@@ -18,7 +18,6 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y gcc make
-        sudo apt-get install -y libmlx-dev xorg-dev
 
     # Build the project
     - name: Build
