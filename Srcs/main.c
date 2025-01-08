@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/01/08 15:38:15 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/08 16:21:13 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
     if (allocate_map(head) == PARSE_ERROR)
         return (PARSE_ERROR);
     collect_lines(av[1], head);
+    if (textureValidator(head) == PARSE_ERROR)
+        return (PARSE_ERROR);
     return (0);
 }
 

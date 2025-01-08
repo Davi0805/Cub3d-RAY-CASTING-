@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:44 by davi              #+#    #+#             */
-/*   Updated: 2025/01/08 15:48:04 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/08 16:19:36 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ uint8_t collect_lines(char *path, t_cub *head)
     while(i < head->nb_lines)
     {
         head->maps[i] = get_next_line(fd);
-        printf("[%u] %s", i, head->maps[i]);
+        /* printf("[%u] %s", i, head->maps[i]); */
         i++;
     }
     return (0);

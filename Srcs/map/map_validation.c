@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:31 by davi              #+#    #+#             */
-/*   Updated: 2025/01/08 15:11:34 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/08 16:20:25 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,30 @@ uint8_t isFileEmpty(char *path)
 
     close(fd);
     return (0);
+}
+
+uint8_t textureValidator(t_cub *head)
+{
+    uint8_t i;
+    uint8_t j; // amount of found orientation
+    uint8_t orient; // macro retornada
+
+    j = 0;
+    i = -1;
+    while (++i < head->nb_lines)
+    {
+        orient = isOrientation(head->maps[i]);
+        /* printf("[%d] %s", i, head->maps[i]); */
+        if (orient != PARSE_ERROR)
+        {
+            /* printf("[ORIENT] %d\n", orient); */
+            j++;
+        }
+    }
+    if (j == 4)
+    {
+        printf("TEXTURAS DEFINIDAS!\n");
+        return (0);
+    }
+    return (PARSE_ERROR);
 }

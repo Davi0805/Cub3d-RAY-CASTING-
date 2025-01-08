@@ -9,7 +9,14 @@
 
 #include "libft.h"
 
+// CODES
 #define PARSE_ERROR 1
+
+// ORIENTATION
+#define NO 2
+#define SO 3
+#define WE 4
+#define EA 5
 
 /* // Exemplos de uso:
 uint8_t  u8  = 255;       // Representante natural: unsigned char
@@ -34,6 +41,8 @@ typedef struct cub
 uint8_t filetype_checker(char *path);
 uint8_t isFileValid(char *path);
 uint8_t isFileEmpty(char *path);
+uint8_t     isOrientation(char *line);
+uint8_t textureValidator(t_cub *head);
 
 // MAP INIT
 uint8_t    getNbLines(char *path, t_cub *head);
