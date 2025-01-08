@@ -37,16 +37,18 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 $(LIBFT):
 	@$(MAKE) -C $(LIBFTDIR) && echo "Libft builded!"
 
-test: $(NAME)
+test: re
 	@./Tests/Map\ validation.sh
 
 # Limpeza dos arquivos gerados
 clean:
+	@echo "Clean"
 	rm -rf $(OBJDIR)
 
 fclean: clean
 	rm -f $(NAME)
 	@$(MAKE) -C $(LIBFTDIR) fclean
+	@echo "Binarios apagados!"
 
 re: fclean all
 

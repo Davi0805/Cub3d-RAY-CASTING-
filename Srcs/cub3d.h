@@ -55,6 +55,7 @@ typedef struct map_assets
 typedef struct cub
 {
     uint32_t nb_lines;
+    uint32_t map_line;
     uint8_t textures_parsed;
     char *path;
     char **maps; // Array line by line
@@ -69,10 +70,11 @@ uint8_t isFileEmpty(char *path);
 uint8_t     isOrientation(char *line, t_cub *head);
 uint8_t textureValidator(t_cub *head);
 uint8_t isXpm(char *str);
+uint8_t isMap(t_cub *head);
 
 // MAP INIT
 uint8_t    getNbLines(char *path, t_cub *head);
 uint8_t allocate_map(t_cub *head);
 uint8_t collect_lines(char *path, t_cub *head);
 
-#endif // !CUB3D_HPP
+#endif

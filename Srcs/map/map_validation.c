@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:31 by davi              #+#    #+#             */
-/*   Updated: 2025/01/08 21:59:57 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/08 23:05:17 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,8 +178,30 @@ uint8_t textureValidator(t_cub *head)
             return (PARSE_ERROR);
         if (isColorValid(head) == PARSE_ERROR)
             return (PARSE_ERROR);
+        head->map_line = i + 2;
         printf("PASSOU\n");
         return (0);
     }
+    return (PARSE_ERROR);
+}
+
+// Provavelmente vai ser substituido por uma outra logica
+uint8_t isMap(t_cub *head)
+{
+    uint32_t i;
+    uint32_t j;
+
+    i = head->map_line;
+    while (i < head->nb_lines)
+    {
+        j = -1;
+        while(head->maps[i][++j] != '\0')
+        {
+            if (head->maps[i][j] == '1')
+                return (0);
+        }
+        i++;
+    }
+    printf("[IsMap]: Erro no MAPA\n");
     return (PARSE_ERROR);
 }
