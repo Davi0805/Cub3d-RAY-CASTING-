@@ -25,10 +25,11 @@ jobs:
 
     # Run the tests and allow failure
     - name: Run tests
-      continue-on-error: false  # This will make the workflow fail if tests fail
+      continue-on-error: true  # This will make the workflow fail if tests fail
       run: |
         make test
         exit_code=$?
         if [ $exit_code -ne 0 ]; then
           echo "::error::Tests failed with exit code $exit_code"
+          exit $exit_code
         fi
