@@ -7,7 +7,7 @@ on:
     branches: [ "main", "master" ]
 
 jobs:
-  build-and-test:
+  Parse-Checker:
     runs-on: ubuntu-latest
 
     steps:

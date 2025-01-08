@@ -3,11 +3,9 @@ name: 42 Allowed Functions Tests
 on:
   push:
     branches: [ "**" ]
-  pull_request:
-    branches: [ "**" ]
 
 jobs:
-  build-and-test:
+  Allowed-functions:
     runs-on: ubuntu-latest
 
     steps:
