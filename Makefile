@@ -24,7 +24,7 @@ $(NAME): $(OBJ)
 
 # Regra para compilar os objetos
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@mkdir -p $(OBJDIR)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 test:
