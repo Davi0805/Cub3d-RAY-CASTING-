@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:31 by davi              #+#    #+#             */
-/*   Updated: 2025/01/08 21:12:03 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/08 21:49:31 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,16 @@ uint8_t isColorRgbstring(char *str)
     i = 0;
     if (str == NULL)
         return (PARSE_ERROR);
-    printf("[IS COLOR VALID]: YES\n");
     while (channel < 3)
     {
+        while (str[i] == ' ' || str[i] == '\t')
+            i++;
         while (str[i] != ',' && str[i] != '\0')
         {
             if (str[i] < '0' || str[i] > '9')
                 return (PARSE_ERROR);
-            nb_per_channel++;
+            if (str[i] >= '0' && str[i] <= '9')
+                nb_per_channel++;
             i++;
         }
         if (nb_per_channel == 0 || nb_per_channel > 3)
@@ -123,15 +125,28 @@ uint8_t isColorRgbstring(char *str)
             return (PARSE_ERROR);
         }
     }
+    printf("[IS COLOR VALID]: YES\n");
     return (0);
 }
 
 uint8_t isColorValid(t_cub *head)
 {
+    printf("[ISCOLORVALID] ENTRANDO!\n");
     if(isColorRgbstring(head->assets.floor_rgb_s) == PARSE_ERROR
     || isColorRgbstring(head->assets.ceiling_rgb_s) == PARSE_ERROR)
         return (PARSE_ERROR);
-        
+
+    head->assets.floor_color.r = ft_atoi(head->assets.floor_rgb_s); // Vai parar na primeira virgula
+    head->assets.floor_color.g = ft_atoi(ft_strchr(head->assets.floor_rgb_s, ',') + 1);
+    head->assets.floor_color.b = ft_atoi(ft_strrchr(head->assets.floor_rgb_s, ',') + 1);
+
+    head->assets.ceil_color.r = ft_atoi(head->assets.ceiling_rgb_s); // Vai parar na primeira virgula
+    head->assets.ceil_color.g = ft_atoi(ft_strchr(head->assets.ceiling_rgb_s, ',') + 1); // Retorna primeira virgula e adiciono mais 1
+    head->assets.ceil_color.b = ft_atoi(ft_strrchr(head->assets.ceiling_rgb_s, ',') + 1); // Retorno a utlima virgula e adiciono mais 1
+    
+    printf("[ISCOLORVALID] INT FLOOR COLORS %u %u %u\n", head->assets.floor_color.r, head->assets.floor_color.g, head->assets.floor_color.b);
+    printf("[ISCOLORVALID] INT Ceiling COLORS %u %u %u\n", head->assets.ceil_color.r, head->assets.ceil_color.g, head->assets.ceil_color.b);
+    printf("[ISCOLORVALID] Sucesso em ambos!\n");
     return (0);
 }
 
