@@ -55,6 +55,7 @@ uint8_t isFileValid(char *path);
 uint8_t isFileEmpty(char *path);
 uint8_t     isOrientation(char *line, t_cub *head);
 uint8_t textureValidator(t_cub *head);
+uint8_t isXpm(char *str);
 
 // MAP INIT
 uint8_t    getNbLines(char *path, t_cub *head);

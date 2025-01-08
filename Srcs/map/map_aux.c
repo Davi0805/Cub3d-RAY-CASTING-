@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:28:42 by davi              #+#    #+#             */
-/*   Updated: 2025/01/08 17:59:30 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/08 18:19:34 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,19 @@ uint8_t     isOrientation(char *line, t_cub *head)
     }
     else
         return (PARSE_ERROR);
+}
+
+uint8_t isXpm(char *str)
+{
+    uint32_t i;
+
+    //printf("[IS_XPM]: %s\n", str);
+    i = ft_strlen(str) - 4;
+    
+    if (ft_strncmp(str + i, ".xpm", 4) == 0)
+    {
+        //printf("[IS_XPM]: YES");
+        return (0);
+    }
+    return (PARSE_ERROR);
 }

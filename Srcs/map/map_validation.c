@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:31 by davi              #+#    #+#             */
-/*   Updated: 2025/01/08 17:42:32 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/08 18:19:09 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,22 @@ uint8_t isFileEmpty(char *path)
 
 uint8_t isTextureValid(t_cub *head)
 {
-    if (isFileValid(head->assets.no_texture))
+    if (isFileValid(head->assets.no_texture) || isXpm(head->assets.no_texture))
     {
         printf("[NAO VALIDADO]: NO TEXTURE\n");
         return (PARSE_ERROR);
     }
-    if (isFileValid(head->assets.so_texture))
+    if (isFileValid(head->assets.so_texture) || isXpm(head->assets.so_texture))
     {
         printf("[NAO VALIDADO]: SO TEXTURE\n");
         return (PARSE_ERROR);
     }
-    if (isFileValid(head->assets.we_texture))
+    if (isFileValid(head->assets.we_texture) || isXpm(head->assets.we_texture))
     {
         printf("[NAO VALIDADO]: WE TEXTURE\n");
         return (PARSE_ERROR);
     }
-    if (isFileValid(head->assets.ea_texture))
+    if (isFileValid(head->assets.ea_texture) || isXpm(head->assets.ea_texture))
     {
         printf("[NAO VALIDADO]: EA TEXTURE\n");
         //printf("EA PATH: %s\n", head->assets.ea_texture); // Debug print
