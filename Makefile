@@ -37,7 +37,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 $(LIBFT):
 	@$(MAKE) -C $(LIBFTDIR) && echo "Libft builded!"
 
-test:
+test: $(NAME)
 	@./Tests/Map\ validation.sh
 
 # Limpeza dos arquivos gerados
