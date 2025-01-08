@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:31 by davi              #+#    #+#             */
-/*   Updated: 2025/01/08 16:20:25 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/08 17:42:32 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,27 +58,58 @@ uint8_t isFileEmpty(char *path)
     return (0);
 }
 
+uint8_t isTextureValid(t_cub *head)
+{
+    if (isFileValid(head->assets.no_texture))
+    {
+        printf("[NAO VALIDADO]: NO TEXTURE\n");
+        return (PARSE_ERROR);
+    }
+    if (isFileValid(head->assets.so_texture))
+    {
+        printf("[NAO VALIDADO]: SO TEXTURE\n");
+        return (PARSE_ERROR);
+    }
+    if (isFileValid(head->assets.we_texture))
+    {
+        printf("[NAO VALIDADO]: WE TEXTURE\n");
+        return (PARSE_ERROR);
+    }
+    if (isFileValid(head->assets.ea_texture))
+    {
+        printf("[NAO VALIDADO]: EA TEXTURE\n");
+        //printf("EA PATH: %s\n", head->assets.ea_texture); // Debug print
+        return (PARSE_ERROR);
+    }
+    printf("[TEXTURAS VALIDADAS]\n");
+    return (0);
+}
+
 uint8_t textureValidator(t_cub *head)
 {
     uint8_t i;
-    uint8_t j; // amount of found orientation
     uint8_t orient; // macro retornada
 
-    j = 0;
+    head->textures_parsed = 0;
     i = -1;
-    while (++i < head->nb_lines)
+    while (++i < head->nb_lines && head->textures_parsed != 4)
     {
-        orient = isOrientation(head->maps[i]);
+        orient = isOrientation(head->maps[i], head);
         /* printf("[%d] %s", i, head->maps[i]); */
         if (orient != PARSE_ERROR)
         {
-            /* printf("[ORIENT] %d\n", orient); */
-            j++;
+            head->textures_parsed++;
         }
     }
-    if (j == 4)
+    if (head->textures_parsed == 4)
     {
-        printf("TEXTURAS DEFINIDAS!\n");
+        printf("[NO PATH]: %s\n", head->assets.no_texture);
+        printf("[SO PATH]: %s\n", head->assets.so_texture);
+        printf("[WE PATH]: %s\n", head->assets.we_texture);
+        printf("[EA PATH]: %s\n", head->assets.ea_texture);
+        if (isTextureValid(head) == PARSE_ERROR)
+            return (PARSE_ERROR);
+        printf("PASSOU\n");
         return (0);
     }
     return (PARSE_ERROR);

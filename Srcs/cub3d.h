@@ -29,11 +29,23 @@ int16_t  i16 = -32768;    // Representante natural: short
 int32_t  i32 = -2147483648; // Representante natural: int
 int64_t  i64 = -9223372036854775807LL; // Representante natural: long lon */
 
+typedef struct map_assets
+{
+    char *no_texture;
+    char *so_texture;
+    char *we_texture;
+    char *ea_texture;
+    uint32_t floor_color;
+    uint32_t ceil_color;
+}               t_assets;
+
 typedef struct cub
 {
     uint32_t nb_lines;
+    uint8_t textures_parsed;
     char *path;
     char **maps; // Array line by line
+    t_assets assets; // Texturas
 }       t_cub;
 
 
@@ -41,7 +53,7 @@ typedef struct cub
 uint8_t filetype_checker(char *path);
 uint8_t isFileValid(char *path);
 uint8_t isFileEmpty(char *path);
-uint8_t     isOrientation(char *line);
+uint8_t     isOrientation(char *line, t_cub *head);
 uint8_t textureValidator(t_cub *head);
 
 // MAP INIT
