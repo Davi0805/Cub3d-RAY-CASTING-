@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:31 by davi              #+#    #+#             */
-/*   Updated: 2025/01/08 23:05:17 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/09 02:33:59 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,22 @@ uint8_t isTextureValid(t_cub *head)
 {
     if (isFileValid(head->assets.no_texture) || isXpm(head->assets.no_texture))
     {
-        printf("[NAO VALIDADO]: NO TEXTURE\n");
+        printf("[NAO VALIDADO]: NO %s\n", strerror(errno));
         return (PARSE_ERROR);
     }
     if (isFileValid(head->assets.so_texture) || isXpm(head->assets.so_texture))
     {
-        printf("[NAO VALIDADO]: SO TEXTURE\n");
+        printf("[NAO VALIDADO]: SO %s\n", strerror(errno));
         return (PARSE_ERROR);
     }
     if (isFileValid(head->assets.we_texture) || isXpm(head->assets.we_texture))
     {
-        printf("[NAO VALIDADO]: WE TEXTURE\n");
+        printf("[NAO VALIDADO]: WE %s\n", strerror(errno));
         return (PARSE_ERROR);
     }
     if (isFileValid(head->assets.ea_texture) || isXpm(head->assets.ea_texture))
     {
-        printf("[NAO VALIDADO]: EA TEXTURE\n");
+        printf("[NAO VALIDADO]: EA %s\n", strerror(errno));
         //printf("EA PATH: %s\n", head->assets.ea_texture); // Debug print
         return (PARSE_ERROR);
     }
@@ -108,7 +108,7 @@ uint8_t isColorRgbstring(char *str)
                 nb_per_channel++;
             i++;
         }
-        if (nb_per_channel == 0 || nb_per_channel > 3)
+        if ((nb_per_channel == 0 && channel != 0) || nb_per_channel > 3) //O Primeiro canal pode ser vazio se possuir virgula
             return (PARSE_ERROR);
         if (str[i] == ',')
         {
@@ -168,10 +168,10 @@ uint8_t textureValidator(t_cub *head)
     }
     if (head->textures_parsed == 6)
     {
-        printf("[NO PATH]: %s\n", head->assets.no_texture);
-        printf("[SO PATH]: %s\n", head->assets.so_texture);
-        printf("[WE PATH]: %s\n", head->assets.we_texture);
-        printf("[EA PATH]: %s\n", head->assets.ea_texture);
+        printf("[NO PATH]: %s#\n", head->assets.no_texture);
+        printf("[SO PATH]: %s#\n", head->assets.so_texture);
+        printf("[WE PATH]: %s#\n", head->assets.we_texture);
+        printf("[EA PATH]: %s#\n", head->assets.ea_texture);
         printf("[FLOOR COLOR STRING]: %s\n", head->assets.floor_rgb_s);
         printf("[Ceiling COLOR STRING]: %s\n", head->assets.ceiling_rgb_s);
         if (isTextureValid(head) == PARSE_ERROR)
@@ -179,14 +179,14 @@ uint8_t textureValidator(t_cub *head)
         if (isColorValid(head) == PARSE_ERROR)
             return (PARSE_ERROR);
         head->map_line = i + 2;
+        getMapWidth(head);
         printf("PASSOU\n");
         return (0);
     }
     return (PARSE_ERROR);
 }
 
-// Provavelmente vai ser substituido por uma outra logica
-uint8_t isMap(t_cub *head)
+uint8_t isCharInMap(t_cub *head, char c)
 {
     uint32_t i;
     uint32_t j;
@@ -197,11 +197,37 @@ uint8_t isMap(t_cub *head)
         j = -1;
         while(head->maps[i][++j] != '\0')
         {
-            if (head->maps[i][j] == '1')
+            if (head->maps[i][j] == c)
                 return (0);
         }
         i++;
     }
+    printf("[IsMap]: Erro no MAPA\n");
+    return (PARSE_ERROR);
+}
+
+// is handling player invalid cases unless player multiple
+uint8_t isTherePlayer(t_cub *head)
+{
+    uint32_t i;
+    uint32_t j;
+    uint32_t p_found;
+
+    p_found = 0;
+    i = head->map_line;
+    while (i < head->nb_lines)
+    {
+        j = -1;
+        while(head->maps[i][++j] != '\0')
+        {
+            if (head->maps[i][j] == 'W' || head->maps[i][j] == 'S'
+                || head->maps[i][j] == 'N' || head->maps[i][j] == 'E')
+                p_found++;
+        }
+        i++;
+    }
+    if (p_found == 1)
+        return (0);
     printf("[IsMap]: Erro no MAPA\n");
     return (PARSE_ERROR);
 }

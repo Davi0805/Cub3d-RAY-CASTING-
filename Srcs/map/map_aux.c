@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:28:42 by davi              #+#    #+#             */
-/*   Updated: 2025/01/08 21:59:57 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/09 01:03:02 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,18 @@ uint8_t    getNbLines(char *path, t_cub *head)
 char *getTexturePath(char *line)
 {
     uint32_t i;
+    uint32_t size;
     char *str;
 
     i = 3;
+    size = ft_strlen(line) - 1;
     while(line[i] == ' ' || line[i] == '\t')
         i++;
-    str = ft_substr(line, i, ft_strlen(line));
+    while(line[size] == ' ' || line[size] == '\t')
+    {
+        size--;
+    }
+    str = ft_substr(line, i, size - i + 1);
     return (str);
 }
 
@@ -105,7 +111,7 @@ uint8_t     isOrientation(char *line, t_cub *head)
     line = trimTabSpace(line);
     if (line == NULL)
         return (PARSE_ERROR);
-    else if (ft_strncmp(line, "NO", 2) == 0)
+    if (ft_strncmp(line, "NO", 2) == 0)
         return (setTexture(head, NO, getTexturePath(line)), NO);
     else if (ft_strncmp(line, "SO", 2) == 0)
         return (setTexture(head, SO, getTexturePath(line)), SO);
@@ -134,4 +140,20 @@ uint8_t isXpm(char *str)
         return (0);
     }
     return (PARSE_ERROR);
+}
+
+void getMapWidth(t_cub *head)
+{
+    uint32_t i;
+    uint32_t size;
+
+    i = head->map_line;
+    while(i < head->nb_lines)
+    {
+        if (ft_strlen(head->maps[i]) > head->map_width)
+            size = ft_strlen(head->maps[i]);
+        i++;
+    }
+    head->map_width = size;
+    printf("[MAP WIDTH]%d\n", head->map_width);
 }

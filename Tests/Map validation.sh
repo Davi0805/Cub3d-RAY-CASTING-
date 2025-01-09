@@ -22,6 +22,10 @@ valid_total=0
 invalid_passed=0
 invalid_total=0
 
+# Arrays to store failed maps
+failed_valid_maps=()
+failed_invalid_maps=()
+
 # Debug information
 echo -e "${YELLOW}Checking executable...${NC}"
 if [ -f "$EXECUTABLE" ]; then
@@ -59,6 +63,11 @@ test_map() {
         echo -e "${RED}✗ FAIL${NC}"
         echo -e "Expected exit code: $expected_exit_code"
         echo -e "Actual exit code: $actual_exit_code"
+        if [ "$map_type" == "valid" ]; then
+            failed_valid_maps+=("$map")
+        else
+            failed_invalid_maps+=("$map")
+        fi
     fi
     echo "----------------------------------------"
 }
@@ -94,6 +103,21 @@ done
 echo -e "\n${YELLOW}Test Summary:${NC}"
 echo -e "Valid Maps: ${GREEN}$valid_passed/$valid_total passed${NC}"
 echo -e "Invalid Maps: ${GREEN}$invalid_passed/$invalid_total passed${NC}"
+
+# Print failed maps
+if [ ${#failed_valid_maps[@]} -ne 0 ]; then
+    echo -e "\n${RED}Failed Valid Maps:${NC}"
+    for map in "${failed_valid_maps[@]}"; do
+        echo -e "${RED}$map${NC}"
+    done
+fi
+
+if [ ${#failed_invalid_maps[@]} -ne 0 ]; then
+    echo -e "\n${RED}Failed Invalid Maps:${NC}"
+    for map in "${failed_invalid_maps[@]}"; do
+        echo -e "${RED}$map${NC}"
+    done
+fi
 
 # Calcular porcentagem total de sucesso
 total_passed=$((valid_passed + invalid_passed))

@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:44 by davi              #+#    #+#             */
-/*   Updated: 2025/01/08 21:59:57 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/09 02:12:52 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,48 @@ uint8_t collect_lines(char *path, t_cub *head)
         i++;
     }
     return (0);
+}
+
+void getPlayerPos(t_cub *head)
+{
+    uint32_t i;
+
+    i = head->map_line;
+    while (i < head->nb_lines)
+    {
+        if (ft_strchr(head->maps[i], 'W'))
+        {
+            head->player_pos_y = i;
+            if (ft_strchr(head->maps[i], 'W') > head->maps[i])
+                head->player_pos_x = ft_strchr(head->maps[i], 'W') - head->maps[i];
+            else
+                head->player_pos_x = -1;
+        }
+        else if (ft_strchr(head->maps[i], 'N'))
+        {
+            head->player_pos_y = i;
+            if (ft_strchr(head->maps[i], 'W') > head->maps[i])
+                head->player_pos_x = ft_strchr(head->maps[i], 'W') - head->maps[i];
+            else
+                head->player_pos_x = -1;
+        }
+        else if( ft_strchr(head->maps[i], 'S'))
+        {
+            head->player_pos_y = i;
+            if (ft_strchr(head->maps[i], 'W') > head->maps[i])
+                head->player_pos_x = ft_strchr(head->maps[i], 'W') - head->maps[i];
+            else
+                head->player_pos_x = -1;
+        }
+        else if (ft_strchr(head->maps[i], 'E'))
+        {
+            head->player_pos_y = i;
+            if (ft_strchr(head->maps[i], 'W') > head->maps[i])
+                head->player_pos_x = ft_strchr(head->maps[i], 'W') - head->maps[i];
+            else
+                head->player_pos_x = -1;
+        }
+        i++;
+    }
+    printf("[PLAYER POS] y = %d | x = %d\n", head->player_pos_y, head->player_pos_x);
 }
