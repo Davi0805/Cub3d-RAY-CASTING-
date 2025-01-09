@@ -63,6 +63,7 @@ ALLOWED_FUNCTIONS=(
     "mlx_do_sync"
     
     # System functions used by MiniLibX (X11)
+    "__memset_chk@GLIBC_"
     "calloc@GLIBC_"
     "getenv@GLIBC_"
     "gethostname@GLIBC_"
