@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:31 by davi              #+#    #+#             */
-/*   Updated: 2025/01/08 23:05:17 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/09 00:29:34 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,22 @@ uint8_t isTextureValid(t_cub *head)
 {
     if (isFileValid(head->assets.no_texture) || isXpm(head->assets.no_texture))
     {
-        printf("[NAO VALIDADO]: NO TEXTURE\n");
+        printf("[NAO VALIDADO]: NO %s\n", strerror(errno));
         return (PARSE_ERROR);
     }
     if (isFileValid(head->assets.so_texture) || isXpm(head->assets.so_texture))
     {
-        printf("[NAO VALIDADO]: SO TEXTURE\n");
+        printf("[NAO VALIDADO]: SO %s\n", strerror(errno));
         return (PARSE_ERROR);
     }
     if (isFileValid(head->assets.we_texture) || isXpm(head->assets.we_texture))
     {
-        printf("[NAO VALIDADO]: WE TEXTURE\n");
+        printf("[NAO VALIDADO]: WE %s\n", strerror(errno));
         return (PARSE_ERROR);
     }
     if (isFileValid(head->assets.ea_texture) || isXpm(head->assets.ea_texture))
     {
-        printf("[NAO VALIDADO]: EA TEXTURE\n");
+        printf("[NAO VALIDADO]: EA %s\n", strerror(errno));
         //printf("EA PATH: %s\n", head->assets.ea_texture); // Debug print
         return (PARSE_ERROR);
     }
@@ -108,7 +108,7 @@ uint8_t isColorRgbstring(char *str)
                 nb_per_channel++;
             i++;
         }
-        if (nb_per_channel == 0 || nb_per_channel > 3)
+        if ((nb_per_channel == 0 && channel != 0) || nb_per_channel > 3)
             return (PARSE_ERROR);
         if (str[i] == ',')
         {
@@ -168,10 +168,10 @@ uint8_t textureValidator(t_cub *head)
     }
     if (head->textures_parsed == 6)
     {
-        printf("[NO PATH]: %s\n", head->assets.no_texture);
-        printf("[SO PATH]: %s\n", head->assets.so_texture);
-        printf("[WE PATH]: %s\n", head->assets.we_texture);
-        printf("[EA PATH]: %s\n", head->assets.ea_texture);
+        printf("[NO PATH]: %s#\n", head->assets.no_texture);
+        printf("[SO PATH]: %s#\n", head->assets.so_texture);
+        printf("[WE PATH]: %s#\n", head->assets.we_texture);
+        printf("[EA PATH]: %s#\n", head->assets.ea_texture);
         printf("[FLOOR COLOR STRING]: %s\n", head->assets.floor_rgb_s);
         printf("[Ceiling COLOR STRING]: %s\n", head->assets.ceiling_rgb_s);
         if (isTextureValid(head) == PARSE_ERROR)
