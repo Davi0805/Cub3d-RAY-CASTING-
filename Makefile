@@ -11,6 +11,7 @@ LIBFTDIR = libft
 LIBFT = $(LIBFTDIR)/libft.a
 MINILIBX = libmlx.a
 MINILIBXDIR = ./minilibx-linux
+LDFLAGS = -L/usr/lib/x86_64-linux-gnu
 
 # Compilador e flags
 CC = cc
@@ -28,7 +29,7 @@ all: $(NAME)
 # Criação do executável
 $(NAME): $(OBJ) $(LIBFT) $(MINILIBXDIR)/$(MINILIBX)
 	@echo "Building!"
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -L$(MINILIBXDIR) -lm -lX11 -lXext $(MINILIBXDIR)/$(MINILIBX) && echo "Build completed!"
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(LDFLAGS) -L$(MINILIBXDIR) -lmlx -lm -lX11 -lXext $(MINILIBXDIR)/$(MINILIBX) && echo "Build completed!"
 
 # Regra para compilar os objetos
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
