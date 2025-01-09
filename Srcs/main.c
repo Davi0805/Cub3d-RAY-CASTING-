@@ -6,7 +6,7 @@
 /*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/01/09 16:06:10 by dmelo-ca         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:47:40 by dmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,37 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
     getPlayerPos(head);
     /* if (isMapclosed(head) == PARSE_ERROR)
         return (PARSE_ERROR); */
-    free_map(head);
-    /* free_textures(head); */
+    return (0);
+}
+void    init_minilibx_struct(t_cub *head)
+{
+    head->mlx.mlx_ptr = NULL;
+    head->mlx.win_ptr = NULL;
+    head->mlx.img_addr = NULL;
+    head->mlx.bits_per_pixel = 0;
+    head->mlx.endian = 0;
+    head->mlx.size_line = 0;
+}
+
+
+uint8_t     setup_minilibx(t_cub *head)
+{
+    init_minilibx_struct(head);
+    head->mlx.mlx_ptr = mlx_init();
+    if (head->mlx.mlx_ptr == NULL)
+        printf("[MINILIBX]: Falha no setup!");
+    head->mlx.win_ptr = mlx_new_window(head->mlx.mlx_ptr, WIDTH, HEIGHT, "CUB3D - Oq tu quer ta mole");
+    if (head->mlx.win_ptr == NULL)
+        printf("[MINILIBX]: Falha no setup!");
+    head->mlx.img_ptr = mlx_new_image(head->mlx.mlx_ptr, WIDTH, HEIGHT);
+    if (head->mlx.img_ptr == NULL)
+        printf("[MINILIBX]: Falha no setup!");
+    head->mlx.img_addr = mlx_get_data_addr(head->mlx.img_ptr, &head->mlx.bits_per_pixel, &head->mlx.size_line, &head->mlx.endian);
+    if (head->mlx.img_addr == NULL)
+        printf("[MINILIBX]: Falha no setup!");
+
+    
+    return (0); // Duplicado pois acao n foi definida para if
     return (0);
 }
 
@@ -51,6 +80,9 @@ int main(int ac, char **av)
     init_head(&head);
     if (setup_validation(ac, av, &head) == PARSE_ERROR)
         return (PARSE_ERROR);
+    setup_minilibx(&head);
+    mlx_loop(head.mlx.mlx_ptr);
+    free_map(&head);
     free_textures(&head);
     return (0);
 }

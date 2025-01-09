@@ -9,6 +9,8 @@ OBJDIR = Objs
 # Diretório da biblioteca
 LIBFTDIR = libft
 LIBFT = $(LIBFTDIR)/libft.a
+MINILIBX = libmlx.a
+MINILIBXDIR = ./minilibx-linux
 
 # Compilador e flags
 CC = cc
@@ -24,9 +26,9 @@ OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
 all: $(NAME)
 
 # Criação do executável
-$(NAME): $(OBJ) $(LIBFT)
+$(NAME): $(OBJ) $(LIBFT) $(MINILIBXDIR)/$(MINILIBX)
 	@echo "Building!"
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) && echo "Build completed!"
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -lm -lX11 -lXext $(MINILIBXDIR)/$(MINILIBX) && echo "Build completed!"
 
 # Regra para compilar os objetos
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
@@ -37,13 +39,21 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 $(LIBFT):
 	@$(MAKE) -C $(LIBFTDIR) && echo "Libft builded!"
 
+# Minilibx
+$(MINILIBXDIR)/$(MINILIBX):
+	@make -C $(MINILIBXDIR) && echo MINILIBX Compilada
+
 test: re
 	@./Tests/Map\ validation.sh
+
+allowed_fun:
+	@./Tests/AllowedFunctions.sh ./Cub3d
 
 # Limpeza dos arquivos gerados
 clean:
 	@echo "Clean"
 	rm -rf $(OBJDIR)
+	@cd $(MINILIBXDIR) && make clean
 
 fclean: clean
 	rm -f $(NAME)

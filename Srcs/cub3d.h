@@ -7,7 +7,14 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+// MINILIBX
+# include <X11/keysym.h>
+# include "../minilibx-linux/mlx.h"
+
 #include "libft.h"
+
+#define WIDTH 1920
+#define HEIGHT 1080
 
 // CODES
 #define PARSE_ERROR 1
@@ -52,6 +59,17 @@ typedef struct map_assets
     t_rgb ceil_color;
 }               t_assets;
 
+typedef struct s_mlx_data
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+	void	*img_ptr;
+	void	*img_addr;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
+}				t_mlx_data;
+
 typedef struct cub
 {
     uint32_t nb_lines; //Number of lines in the configs and maps
@@ -63,6 +81,7 @@ typedef struct cub
     char *path;
     char **maps; // Array line by line
     t_assets assets; // Texturas
+    t_mlx_data mlx;
 }       t_cub;
 
 
