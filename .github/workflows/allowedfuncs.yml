@@ -16,6 +16,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y gcc make
+        sudo apt-get install xorg openbox
 
     # Build the project
     - name: Build

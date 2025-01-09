@@ -6,7 +6,7 @@
 /*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/01/09 17:47:40 by dmelo-ca         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:54:57 by dmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ uint8_t     setup_minilibx(t_cub *head)
     if (head->mlx.img_addr == NULL)
         printf("[MINILIBX]: Falha no setup!");
 
-    
-    return (0); // Duplicado pois acao n foi definida para if
     return (0);
 }
 
