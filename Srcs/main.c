@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/01/08 23:03:21 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/09 02:27:20 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,13 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
     collect_lines(av[1], head);
     if (textureValidator(head) == PARSE_ERROR)
         return (PARSE_ERROR);
-    if (isMap(head) == PARSE_ERROR)
+    if (isCharInMap(head, '1') == PARSE_ERROR)
         return (PARSE_ERROR);
+    if (isTherePlayer(head) == PARSE_ERROR)
+        return (PARSE_ERROR);
+    getPlayerPos(head);
+    /* if (isMapclosed(head) == PARSE_ERROR)
+        return (PARSE_ERROR); */
     return (0);
 }
 

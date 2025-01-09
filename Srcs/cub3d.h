@@ -42,21 +42,24 @@ typedef struct rgb
 
 typedef struct map_assets
 {
-    char *no_texture;
+    char *no_texture; //Paths
     char *so_texture;
     char *we_texture;
     char *ea_texture;
-    char *floor_rgb_s;
+    char *floor_rgb_s; //Color field String
     char *ceiling_rgb_s;
-    t_rgb floor_color;
+    t_rgb floor_color; //Struct cores separadas
     t_rgb ceil_color;
 }               t_assets;
 
 typedef struct cub
 {
-    uint32_t nb_lines;
-    uint32_t map_line;
-    uint8_t textures_parsed;
+    uint32_t nb_lines; //Number of lines in the configs and maps
+    uint32_t map_line; // Index do mapa OU apenas depois dos Assets
+    uint32_t map_width;
+    int32_t player_pos_y;
+    int32_t player_pos_x;
+    uint8_t textures_parsed; //Index de Assets carregados
     char *path;
     char **maps; // Array line by line
     t_assets assets; // Texturas
@@ -70,7 +73,11 @@ uint8_t isFileEmpty(char *path);
 uint8_t     isOrientation(char *line, t_cub *head);
 uint8_t textureValidator(t_cub *head);
 uint8_t isXpm(char *str);
-uint8_t isMap(t_cub *head);
+uint8_t isCharInMap(t_cub *head, char c);
+void getMapWidth(t_cub *head);
+void getPlayerPos(t_cub *head);
+uint8_t isMapclosed(t_cub *head);
+uint8_t isTherePlayer(t_cub *head);
 
 // MAP INIT
 uint8_t    getNbLines(char *path, t_cub *head);

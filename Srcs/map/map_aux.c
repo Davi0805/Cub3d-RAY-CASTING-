@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:28:42 by davi              #+#    #+#             */
-/*   Updated: 2025/01/09 00:25:57 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/09 01:03:02 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,4 +140,20 @@ uint8_t isXpm(char *str)
         return (0);
     }
     return (PARSE_ERROR);
+}
+
+void getMapWidth(t_cub *head)
+{
+    uint32_t i;
+    uint32_t size;
+
+    i = head->map_line;
+    while(i < head->nb_lines)
+    {
+        if (ft_strlen(head->maps[i]) > head->map_width)
+            size = ft_strlen(head->maps[i]);
+        i++;
+    }
+    head->map_width = size;
+    printf("[MAP WIDTH]%d\n", head->map_width);
 }

@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:31 by davi              #+#    #+#             */
-/*   Updated: 2025/01/09 00:29:34 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/09 02:25:34 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ uint8_t isColorRgbstring(char *str)
                 nb_per_channel++;
             i++;
         }
-        if ((nb_per_channel == 0 && channel != 0) || nb_per_channel > 3)
+        if ((nb_per_channel == 0 && channel != 0) || nb_per_channel > 3) //O Primeiro canal pode ser vazio se possuir virgula
             return (PARSE_ERROR);
         if (str[i] == ',')
         {
@@ -179,14 +179,14 @@ uint8_t textureValidator(t_cub *head)
         if (isColorValid(head) == PARSE_ERROR)
             return (PARSE_ERROR);
         head->map_line = i + 2;
+        getMapWidth(head);
         printf("PASSOU\n");
         return (0);
     }
     return (PARSE_ERROR);
 }
 
-// Provavelmente vai ser substituido por uma outra logica
-uint8_t isMap(t_cub *head)
+uint8_t isCharInMap(t_cub *head, char c)
 {
     uint32_t i;
     uint32_t j;
@@ -197,7 +197,28 @@ uint8_t isMap(t_cub *head)
         j = -1;
         while(head->maps[i][++j] != '\0')
         {
-            if (head->maps[i][j] == '1')
+            if (head->maps[i][j] == c)
+                return (0);
+        }
+        i++;
+    }
+    printf("[IsMap]: Erro no MAPA\n");
+    return (PARSE_ERROR);
+}
+
+uint8_t isTherePlayer(t_cub *head)
+{
+        uint32_t i;
+    uint32_t j;
+
+    i = head->map_line;
+    while (i < head->nb_lines)
+    {
+        j = -1;
+        while(head->maps[i][++j] != '\0')
+        {
+            if (head->maps[i][j] == 'W' || head->maps[i][j] == 'S'
+                || head->maps[i][j] == 'N' || head->maps[i][j] == 'E')
                 return (0);
         }
         i++;
