@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:31 by davi              #+#    #+#             */
-/*   Updated: 2025/01/09 02:33:59 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/09 15:56:12 by dmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ uint8_t textureValidator(t_cub *head)
 
     head->textures_parsed = 0;
     i = -1;
+    orient = 0;
     while (++i < head->nb_lines && head->textures_parsed != 6)
     {
         orient = isOrientation(head->maps[i], head);
