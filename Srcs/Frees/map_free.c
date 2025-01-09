@@ -6,12 +6,13 @@
 /*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:28:21 by dmelo-ca          #+#    #+#             */
-/*   Updated: 2025/01/09 16:14:17 by dmelo-ca         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:38:42 by dmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+// Da free ao mapa inteiro
 void    free_map(t_cub *head)
 {
     uint32_t i;
@@ -24,6 +25,7 @@ void    free_map(t_cub *head)
     free(head->maps);
 }
 
+// Free nas texturas e cores
 void    free_textures(t_cub *head)
 {
     if (head->assets.no_texture != NULL)

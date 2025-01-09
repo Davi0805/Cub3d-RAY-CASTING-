@@ -6,7 +6,7 @@
 /*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:28:42 by davi              #+#    #+#             */
-/*   Updated: 2025/01/09 16:18:33 by dmelo-ca         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:45:19 by dmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,9 @@ uint8_t isXpm(char *str)
 
     //printf("[IS_XPM]: %s\n", str);
     i = ft_strlen(str) - 4;
+
+    if (i <= 4)
+        return (PARSE_ERROR);
     
     if (ft_strncmp(str + i, ".xpm", 4) == 0)
     {
