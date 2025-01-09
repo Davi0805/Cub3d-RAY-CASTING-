@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:31 by davi              #+#    #+#             */
-/*   Updated: 2025/01/09 02:33:59 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/09 16:42:56 by dmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+// Extensao .cub
 uint8_t filetype_checker(char *path)
 {
     uint32_t i;
@@ -27,7 +28,7 @@ uint8_t filetype_checker(char *path)
 
     return 0;
 }
-
+// Verifica se arquivo existe pelo fd retornado
 uint8_t isFileValid(char *path)
 {
     int32_t fd;
@@ -38,7 +39,7 @@ uint8_t isFileValid(char *path)
     close(fd);
     return (0);
 }
-
+// Verifica se o arquivo esta vazio
 uint8_t isFileEmpty(char *path)
 {
     int32_t fd;
@@ -57,7 +58,7 @@ uint8_t isFileEmpty(char *path)
     close(fd);
     return (0);
 }
-
+// Validacao do path das texturas
 uint8_t isTextureValid(t_cub *head)
 {
     if (isFileValid(head->assets.no_texture) || isXpm(head->assets.no_texture))
@@ -85,6 +86,7 @@ uint8_t isTextureValid(t_cub *head)
     return (0);
 }
 
+// Validar RGB em formato de string
 uint8_t isColorRgbstring(char *str)
 {
     uint32_t i;
@@ -129,6 +131,7 @@ uint8_t isColorRgbstring(char *str)
     return (0);
 }
 
+// Parser func de RGB
 uint8_t isColorValid(t_cub *head)
 {
     printf("[ISCOLORVALID] ENTRANDO!\n");
@@ -149,7 +152,7 @@ uint8_t isColorValid(t_cub *head)
     printf("[ISCOLORVALID] Sucesso em ambos!\n");
     return (0);
 }
-
+// Da parse e valida Texturas e cores
 uint8_t textureValidator(t_cub *head)
 {
     uint8_t i;
@@ -157,6 +160,7 @@ uint8_t textureValidator(t_cub *head)
 
     head->textures_parsed = 0;
     i = -1;
+    orient = 0;
     while (++i < head->nb_lines && head->textures_parsed != 6)
     {
         orient = isOrientation(head->maps[i], head);
@@ -185,7 +189,8 @@ uint8_t textureValidator(t_cub *head)
     }
     return (PARSE_ERROR);
 }
-
+// Procurar char no mapa
+// Usado para validar Personagem e paredes
 uint8_t isCharInMap(t_cub *head, char c)
 {
     uint32_t i;

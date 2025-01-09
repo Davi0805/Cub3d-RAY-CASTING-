@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:44 by davi              #+#    #+#             */
-/*   Updated: 2025/01/09 02:12:52 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/09 16:44:37 by dmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ uint8_t allocate_map(t_cub *head)
         return (PARSE_ERROR);
     return (0);
 }
-
+// Preenche head->maps
 uint8_t collect_lines(char *path, t_cub *head)
 {
     int32_t fd;
@@ -41,6 +41,7 @@ uint8_t collect_lines(char *path, t_cub *head)
     return (0);
 }
 
+// Player pos getter
 void getPlayerPos(t_cub *head)
 {
     uint32_t i;

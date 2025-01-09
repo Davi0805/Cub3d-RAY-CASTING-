@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_aux.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:28:42 by davi              #+#    #+#             */
-/*   Updated: 2025/01/09 01:03:02 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/09 16:45:19 by dmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,20 @@ uint8_t    getNbLines(char *path, t_cub *head)
 {
     int32_t fd;
     uint32_t nb_lines;
+    char *str;
 
     fd = open(path, O_RDONLY);
     if (fd == -1)
         return (PARSE_ERROR);
     
     nb_lines = 0;
-    while(get_next_line(fd) != NULL)
+    str = get_next_line(fd);
+    while(str != NULL)
+    {    
         nb_lines++;
+        free(str);
+        str = get_next_line(fd);
+    }    
     head->nb_lines = nb_lines;
     close(fd);
     return (0);
@@ -34,8 +40,11 @@ char *getTexturePath(char *line)
     uint32_t i;
     uint32_t size;
     char *str;
-
-    i = 3;
+    
+    //F 20,20,20
+    //C 200,200,200
+    i = 2;
+    str = "";
     size = ft_strlen(line) - 1;
     while(line[i] == ' ' || line[i] == '\t')
         i++;
@@ -44,6 +53,8 @@ char *getTexturePath(char *line)
         size--;
     }
     str = ft_substr(line, i, size - i + 1);
+    free(line);
+    printf("[getTexturePath]: %s\n", str);
     return (str);
 }
 
@@ -133,6 +144,9 @@ uint8_t isXpm(char *str)
 
     //printf("[IS_XPM]: %s\n", str);
     i = ft_strlen(str) - 4;
+
+    if (i <= 4)
+        return (PARSE_ERROR);
     
     if (ft_strncmp(str + i, ".xpm", 4) == 0)
     {
@@ -148,6 +162,7 @@ void getMapWidth(t_cub *head)
     uint32_t size;
 
     i = head->map_line;
+    size = 0;
     while(i < head->nb_lines)
     {
         if (ft_strlen(head->maps[i]) > head->map_width)

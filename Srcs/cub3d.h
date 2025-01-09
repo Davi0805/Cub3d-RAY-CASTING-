@@ -34,9 +34,9 @@ int64_t  i64 = -9223372036854775807LL; // Representante natural: long lon */
 
 typedef struct rgb
 {
-    uint32_t r;
-    uint32_t g;
-    uint32_t b;
+    uint8_t r; // Cada canal rgb vai apenas ate 255
+    uint8_t g;
+    uint8_t b;
 }               t_rgb;
 
 
@@ -83,5 +83,12 @@ uint8_t isTherePlayer(t_cub *head);
 uint8_t    getNbLines(char *path, t_cub *head);
 uint8_t allocate_map(t_cub *head);
 uint8_t collect_lines(char *path, t_cub *head);
+
+// Variable initializer
+void    init_head(t_cub *head);
+
+// Free Funcs
+void    free_map(t_cub *head);
+void    free_textures(t_cub *head);
 
 #endif

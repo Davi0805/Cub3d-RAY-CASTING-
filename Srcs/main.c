@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/01/09 02:27:20 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/09 16:06:10 by dmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
     getPlayerPos(head);
     /* if (isMapclosed(head) == PARSE_ERROR)
         return (PARSE_ERROR); */
+    free_map(head);
+    /* free_textures(head); */
     return (0);
 }
 
@@ -46,8 +48,9 @@ int main(int ac, char **av)
 {
     t_cub head;
     
+    init_head(&head);
     if (setup_validation(ac, av, &head) == PARSE_ERROR)
         return (PARSE_ERROR);
-
+    free_textures(&head);
     return (0);
 }
