@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:31 by davi              #+#    #+#             */
-/*   Updated: 2025/01/09 02:25:34 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/09 02:33:59 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,11 +206,14 @@ uint8_t isCharInMap(t_cub *head, char c)
     return (PARSE_ERROR);
 }
 
+// is handling player invalid cases unless player multiple
 uint8_t isTherePlayer(t_cub *head)
 {
-        uint32_t i;
+    uint32_t i;
     uint32_t j;
+    uint32_t p_found;
 
+    p_found = 0;
     i = head->map_line;
     while (i < head->nb_lines)
     {
@@ -219,10 +222,12 @@ uint8_t isTherePlayer(t_cub *head)
         {
             if (head->maps[i][j] == 'W' || head->maps[i][j] == 'S'
                 || head->maps[i][j] == 'N' || head->maps[i][j] == 'E')
-                return (0);
+                p_found++;
         }
         i++;
     }
+    if (p_found == 1)
+        return (0);
     printf("[IsMap]: Erro no MAPA\n");
     return (PARSE_ERROR);
 }
