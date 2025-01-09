@@ -28,7 +28,7 @@ all: $(NAME)
 # Criação do executável
 $(NAME): $(OBJ) $(LIBFT) $(MINILIBXDIR)/$(MINILIBX)
 	@echo "Building!"
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -lm -lX11 -lXext $(MINILIBXDIR)/$(MINILIBX) && echo "Build completed!"
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -lmlx -lm -lX11 -lXext $(MINILIBXDIR)/$(MINILIBX) && echo "Build completed!"
 
 # Regra para compilar os objetos
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
