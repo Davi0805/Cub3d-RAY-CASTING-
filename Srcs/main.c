@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/01/09 17:54:57 by dmelo-ca         ###   ########.fr       */
+/*   Updated: 2025/01/09 22:13:39 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "cub3d.h"
+#include <X11/keysym.h>
+#include <X11/X.h>
 
 uint8_t     setup_validation(int ac, char **av, t_cub *head)
 {
@@ -19,54 +21,49 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
         return (PARSE_ERROR);
     
     // IF ELSES MERAMENTE ILUSTRATIVOS POIS DEPOIS A SAIDA SERA FEITA NA MINILIBX
-    
-    if (filetype_checker(av[1]) == PARSE_ERROR)
+    if (filetype_checker(av[1]) == PARSE_ERROR
+            || isFileValid(av[1]) == PARSE_ERROR
+            || isFileEmpty(av[1]) == PARSE_ERROR)
         return (PARSE_ERROR);
-    if (isFileValid(av[1]) == PARSE_ERROR)
-        return (PARSE_ERROR);
-    if (isFileEmpty(av[1]) == PARSE_ERROR)
-        return (PARSE_ERROR);
+        
     getNbLines(av[1], head);
+    
     if (allocate_map(head) == PARSE_ERROR)
         return (PARSE_ERROR);
+        
     collect_lines(av[1], head);
-    if (textureValidator(head) == PARSE_ERROR)
-        return (PARSE_ERROR);
-    if (isCharInMap(head, '1') == PARSE_ERROR)
-        return (PARSE_ERROR);
-    if (isTherePlayer(head) == PARSE_ERROR)
-        return (PARSE_ERROR);
+    
+    if (textureValidator(head) == PARSE_ERROR
+            || isCharInMap(head, '1') == PARSE_ERROR
+            || isTherePlayer(head) == PARSE_ERROR)
+        parseFailed(head);
+        
     getPlayerPos(head);
-    /* if (isMapclosed(head) == PARSE_ERROR)
-        return (PARSE_ERROR); */
+    
+    // TODO FLOOD FILL
     return (0);
-}
-void    init_minilibx_struct(t_cub *head)
-{
-    head->mlx.mlx_ptr = NULL;
-    head->mlx.win_ptr = NULL;
-    head->mlx.img_addr = NULL;
-    head->mlx.bits_per_pixel = 0;
-    head->mlx.endian = 0;
-    head->mlx.size_line = 0;
 }
 
 
 uint8_t     setup_minilibx(t_cub *head)
 {
     init_minilibx_struct(head);
+    
     head->mlx.mlx_ptr = mlx_init();
     if (head->mlx.mlx_ptr == NULL)
-        printf("[MINILIBX]: Falha no setup!");
+        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
+    
     head->mlx.win_ptr = mlx_new_window(head->mlx.mlx_ptr, WIDTH, HEIGHT, "CUB3D - Oq tu quer ta mole");
     if (head->mlx.win_ptr == NULL)
-        printf("[MINILIBX]: Falha no setup!");
+        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
+    
     head->mlx.img_ptr = mlx_new_image(head->mlx.mlx_ptr, WIDTH, HEIGHT);
     if (head->mlx.img_ptr == NULL)
-        printf("[MINILIBX]: Falha no setup!");
+        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
+    
     head->mlx.img_addr = mlx_get_data_addr(head->mlx.img_ptr, &head->mlx.bits_per_pixel, &head->mlx.size_line, &head->mlx.endian);
     if (head->mlx.img_addr == NULL)
-        printf("[MINILIBX]: Falha no setup!");
+        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
 
     return (0);
 }
@@ -76,11 +73,14 @@ int main(int ac, char **av)
     t_cub head;
     
     init_head(&head);
-    if (setup_validation(ac, av, &head) == PARSE_ERROR)
+    if (setup_validation(ac, av, &head))
         return (PARSE_ERROR);
-    setup_minilibx(&head);
+    if (setup_minilibx(&head))
+        exitHandler(&head);
+
+    mlx_hook(head.mlx.win_ptr, KeyPress, KeyPressMask, handle_keypress, &head); // ESC
+    mlx_hook(head.mlx.win_ptr, ClientMessage, StructureNotifyMask, handle_close, &head);  // X da janela
+
     mlx_loop(head.mlx.mlx_ptr);
-    free_map(&head);
-    free_textures(&head);
     return (0);
 }

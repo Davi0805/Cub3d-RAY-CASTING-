@@ -2,9 +2,9 @@ name: C Parse Tests
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "CUB-1-Map-Validation" ]
   pull_request:
-    branches: [ "main", "master" ]
+    branches: [ "CUB-1-Map-Validation" ]
 
 jobs:
   Parse-Checker:

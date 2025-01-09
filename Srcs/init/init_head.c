@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_head.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:37:55 by dmelo-ca          #+#    #+#             */
-/*   Updated: 2025/01/09 16:06:01 by dmelo-ca         ###   ########.fr       */
+/*   Updated: 2025/01/09 21:57:50 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,14 @@ void    init_head(t_cub *head)
     head->nb_lines = 0;
     head->map_width = 0;
     head->maps = NULL;
+}
+
+void    init_minilibx_struct(t_cub *head)
+{
+    head->mlx.mlx_ptr = NULL;
+    head->mlx.win_ptr = NULL;
+    head->mlx.img_addr = NULL;
+    head->mlx.bits_per_pixel = 0;
+    head->mlx.endian = 0;
+    head->mlx.size_line = 0;
 }

@@ -44,7 +44,7 @@ $(LIBFT):
 $(MINILIBXDIR)/$(MINILIBX):
 	@make -C $(MINILIBXDIR) && echo MINILIBX Compilada
 
-test: re
+test: $(NAME)
 	@./Tests/Map\ validation.sh
 
 allowed_fun:

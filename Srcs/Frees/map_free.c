@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:28:21 by dmelo-ca          #+#    #+#             */
-/*   Updated: 2025/01/09 16:38:42 by dmelo-ca         ###   ########.fr       */
+/*   Updated: 2025/01/09 22:13:16 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,28 @@ void    free_textures(t_cub *head)
         free(head->assets.floor_rgb_s);
     if (head->assets.ceiling_rgb_s)
         free(head->assets.ceiling_rgb_s);
+}
+
+void    parseFailed(t_cub *head)
+{
+    printf("[EXIT HANDLER]\n");
+    free_map(head);
+    free_textures(head);
+    exit(PARSE_ERROR); // Macro para Parse Test
+}
+
+void    exitHandler(t_cub *head)
+{
+    printf("[EXIT HANDLER]\n");
+    if (head->mlx.img_ptr != NULL)
+        mlx_destroy_image(head->mlx.mlx_ptr, head->mlx.img_ptr);
+    if (head->mlx.win_ptr != NULL)
+        mlx_destroy_window(head->mlx.mlx_ptr, head->mlx.win_ptr);
+    if (head->mlx.mlx_ptr != NULL)
+        mlx_destroy_display(head->mlx.mlx_ptr);
+    if (head->mlx.mlx_ptr != NULL)
+        free(head->mlx.mlx_ptr);
+    free_map(head);
+    free_textures(head);
+    exit(0);
 }
