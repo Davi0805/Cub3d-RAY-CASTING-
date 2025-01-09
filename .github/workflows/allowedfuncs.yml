@@ -17,6 +17,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y gcc make
         sudo apt install libx11-dev libxext-dev
+        sudo apt install libbsd-dev
 
 
     # Build the project
