@@ -20,23 +20,22 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
     if (ac != 2)
         return (PARSE_ERROR);
     
-    // IF ELSES MERAMENTE ILUSTRATIVOS POIS DEPOIS A SAIDA SERA FEITA NA MINILIBX
-    if (filetype_checker(av[1]) == PARSE_ERROR
-            || isFileValid(av[1]) == PARSE_ERROR
-            || isFileEmpty(av[1]) == PARSE_ERROR)
-        return (PARSE_ERROR);
+    if (isFileValid(av[1])) return (FINVALID_ERROR); //! check
+    if (filetype_checker(av[1])) return (FTYPE_ERROR); //! check
+    if (isFileEmpty(av[1])) return (FEMPTY_ERROR); //! check
         
-    getNbLines(av[1], head);
     
+    // todo ARTUR HERE
+    getNbLines(av[1], head);
     if (allocate_map(head) == PARSE_ERROR)
         return (PARSE_ERROR);
-        
     collect_lines(av[1], head);
+        
+
     
-    if (textureValidator(head) == PARSE_ERROR
-            || isCharInMap(head, '1') == PARSE_ERROR
-            || isTherePlayer(head) == PARSE_ERROR)
-        parseFailed(head);
+    if (textureValidator(head)) parseFailed(head, MWRONG_TEXTURE);
+    if (isCharInMap(head, '1')) parseFailed(head, MWRONG_FORMAT);
+    if (isTherePlayer(head)) parseFailed(head, MNO_PLAYER);
         
     getPlayerPos(head);
     
@@ -45,42 +44,18 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
 }
 
 
-uint8_t     setup_minilibx(t_cub *head)
-{
-    init_minilibx_struct(head);
-    
-    head->mlx.mlx_ptr = mlx_init();
-    if (head->mlx.mlx_ptr == NULL)
-        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
-    
-    head->mlx.win_ptr = mlx_new_window(head->mlx.mlx_ptr, WIDTH, HEIGHT, "CUB3D - Oq tu quer ta mole");
-    if (head->mlx.win_ptr == NULL)
-        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
-    
-    head->mlx.img_ptr = mlx_new_image(head->mlx.mlx_ptr, WIDTH, HEIGHT);
-    if (head->mlx.img_ptr == NULL)
-        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
-    
-    head->mlx.img_addr = mlx_get_data_addr(head->mlx.img_ptr, &head->mlx.bits_per_pixel, &head->mlx.size_line, &head->mlx.endian);
-    if (head->mlx.img_addr == NULL)
-        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
 
-    return (0);
-}
 
 int main(int ac, char **av)
 {
     t_cub head;
-    
+    int error;
+
     ft_bzero(&head, sizeof(head));
-    if (setup_validation(ac, av, &head))
-        return (PARSE_ERROR);
-    /* if (setup_minilibx(&head))
-        exitHandler(&head);
 
-    mlx_hook(head.mlx.win_ptr, KeyPress, KeyPressMask, handle_keypress, &head); // ESC
-    mlx_hook(head.mlx.win_ptr, ClientMessage, StructureNotifyMask, handle_close, &head);  // X da janela
+    // Valid file
+    if (error = setup_validation(ac, av, &head))
+        return (error);
 
-    mlx_loop(head.mlx.mlx_ptr); */
     return (0);
 }

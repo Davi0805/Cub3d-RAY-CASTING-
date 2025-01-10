@@ -12,21 +12,21 @@
 
 #include "../cub3d.h"
 
-// Extensao .cub
+// Ends in .cub?
 uint8_t filetype_checker(char *path)
 {
     uint32_t i;
 
     i = ft_strlen(path);
-
     if(i <= 4)
-        return (PARSE_ERROR);
-
+        return (FTYPE_ERROR);
+    
+    // *.cub
     i = i - 4;
     if (ft_strncmp(path + i, ".cub", 4) != 0)
-        return (PARSE_ERROR);
+        return (FTYPE_ERROR);
 
-    return 0;
+    return (PARSE_SUCCESS);
 }
 // Verifica se arquivo existe pelo fd retornado
 uint8_t isFileValid(char *path)
@@ -35,29 +35,28 @@ uint8_t isFileValid(char *path)
 
     fd = open(path, O_RDONLY);
     if (fd == -1)
-        return (PARSE_ERROR);
+        return (FINVALID_ERROR);
     close(fd);
-    return (0);
+    return (PARSE_SUCCESS);
 }
 // Verifica se o arquivo esta vazio
 uint8_t isFileEmpty(char *path)
 {
     int32_t fd;
-    uint8_t buffer[1];
-    uint32_t nb_read;
+    uint8_t has_content;
 
     fd = open(path, O_RDONLY);
     if (fd == -1)
-        return (PARSE_ERROR);
+        return (FEMPTY_ERROR);
     
-    nb_read = read(fd, buffer, 1);
-
-    if (nb_read == 0)
-        return (PARSE_ERROR);
+    // Trying to read 1 byte from the file
+    if (read(fd, &has_content, 1) == 0)
+        return (FEMPTY_ERROR);
 
     close(fd);
-    return (0);
+    return (PARSE_SUCCESS);
 }
+
 // Validacao do path das texturas
 uint8_t isTextureValid(t_cub *head)
 {

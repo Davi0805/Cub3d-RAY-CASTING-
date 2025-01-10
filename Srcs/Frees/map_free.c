@@ -42,12 +42,12 @@ void    free_textures(t_cub *head)
         free(head->assets.ceiling_rgb_s);
 }
 
-void    parseFailed(t_cub *head)
+void    parseFailed(t_cub *head, uint16_t error)
 {
     printf("[EXIT HANDLER]\n");
     free_map(head);
     free_textures(head);
-    exit(PARSE_ERROR); // Macro para Parse Test
+    exit(error); // Macro para Parse Test
 }
 
 void    exitHandler(t_cub *head)

@@ -18,8 +18,17 @@
 #define WIDTH 1920
 #define HEIGHT 1080
 
-// CODES
+// ERROR CODES
 #define PARSE_ERROR 1
+//TODO
+#define PARSE_SUCCESS 0
+#define ARG_ERROR 1
+#define FTYPE_ERROR 2
+#define FEMPTY_ERROR 3
+#define FINVALID_ERROR 4
+#define MWRONG_TEXTURE 4
+#define MWRONG_FORMAT 4
+#define MNO_PLAYER 4
 
 // ORIENTATION
 #define NO 2
@@ -30,22 +39,10 @@
 #define C 7 // Ceiling
 
 
-/* 
-Exemplos de uso:
-uint8_t  u8  = 255;       // Representante natural: unsigned char
-uint16_t u16 = 65535;     // Representante natural: unsigned short
-uint32_t u32 = 4294967295U; // Representante natural: unsigned int
-uint64_t u64 = 18446744073709551615ULL; // Representante natural: unsigned long long
-
-int8_t   i8  = -128;      // Representante natural: signed char
-int16_t  i16 = -32768;    // Representante natural: short
-int32_t  i32 = -2147483648; // Representante natural: int
-int64_t  i64 = -9223372036854775807LL; // Representante natural: long lon
-*/
-
 typedef struct rgb
 {
-    uint8_t r; // Cada canal rgb vai apenas ate 255
+    // RGB ranges from 0-255
+    uint8_t r;
     uint8_t g;
     uint8_t b;
 }               t_rgb;
@@ -125,7 +122,7 @@ uint8_t collect_lines(char *path, t_cub *head);
 
 // Variable initializer
 void    init_head(t_cub *head);
-void    init_minilibx_struct(t_cub *head);
+// void    init_minilibx_struct(t_cub *head);
 
 // Key Hooks
 int handle_keypress(int keycode, t_cub *head);
@@ -135,6 +132,6 @@ int handle_close(t_cub *head);
 void    free_map(t_cub *head);
 void    free_textures(t_cub *head);
 void    exitHandler(t_cub *head);
-void    parseFailed(t_cub *head);
+void    parseFailed(t_cub *head, uint16_t error)
 
 #endif
