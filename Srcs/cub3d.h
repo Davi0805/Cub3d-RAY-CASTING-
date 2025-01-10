@@ -78,18 +78,30 @@ typedef struct s_mlx_data
 	int		endian;
 }				t_mlx_data;
 
+typedef struct s_player
+{
+    int32_t px;
+    int32_t py;
+    int8_t  start_dir;
+
+} t_player;
+
+
 typedef struct cub
 {
     uint32_t nb_lines; //Number of lines in the configs and maps
     uint32_t map_line; // Index do mapa OU apenas depois dos Assets
-    uint32_t map_width;
-    int32_t player_pos_y;
-    int32_t player_pos_x;
+    uint32_t map_width; //? is this really needed
+   
+    // Player
+    t_player player;
+
     uint8_t textures_parsed; //Index de Assets carregados
     char *path;
     char **maps; // Array line by line
+
     t_assets assets; // Texturas
-    t_mlx_data mlx;
+    t_mlx_data mlx; // MLX stuff
 }       t_cub;
 
 

@@ -72,7 +72,7 @@ int main(int ac, char **av)
 {
     t_cub head;
     
-    init_head(&head);
+    ft_bzero(&head, sizeof(head));
     if (setup_validation(ac, av, &head))
         return (PARSE_ERROR);
     /* if (setup_minilibx(&head))

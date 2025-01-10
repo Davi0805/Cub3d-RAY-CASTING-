@@ -51,37 +51,37 @@ void getPlayerPos(t_cub *head)
     {
         if (ft_strchr(head->maps[i], 'W'))
         {
-            head->player_pos_y = i;
+            head->player.py= i;
             if (ft_strchr(head->maps[i], 'W') > head->maps[i])
-                head->player_pos_x = ft_strchr(head->maps[i], 'W') - head->maps[i];
+                head->player.px = ft_strchr(head->maps[i], 'W') - head->maps[i];
             else
-                head->player_pos_x = -1;
+                head->player.px = -1;
         }
         else if (ft_strchr(head->maps[i], 'N'))
         {
-            head->player_pos_y = i;
+            head->player.py= i;
             if (ft_strchr(head->maps[i], 'W') > head->maps[i])
-                head->player_pos_x = ft_strchr(head->maps[i], 'W') - head->maps[i];
+                head->player.px = ft_strchr(head->maps[i], 'W') - head->maps[i];
             else
-                head->player_pos_x = -1;
+                head->player.px = -1;
         }
         else if( ft_strchr(head->maps[i], 'S'))
         {
-            head->player_pos_y = i;
+            head->player.py= i;
             if (ft_strchr(head->maps[i], 'W') > head->maps[i])
-                head->player_pos_x = ft_strchr(head->maps[i], 'W') - head->maps[i];
+                head->player.px = ft_strchr(head->maps[i], 'W') - head->maps[i];
             else
-                head->player_pos_x = -1;
+                head->player.px = -1;
         }
         else if (ft_strchr(head->maps[i], 'E'))
         {
-            head->player_pos_y = i;
+            head->player.py= i;
             if (ft_strchr(head->maps[i], 'W') > head->maps[i])
-                head->player_pos_x = ft_strchr(head->maps[i], 'W') - head->maps[i];
+                head->player.px = ft_strchr(head->maps[i], 'W') - head->maps[i];
             else
-                head->player_pos_x = -1;
+                head->player.px = -1;
         }
         i++;
     }
-    printf("[PLAYER POS] y = %d | x = %d\n", head->player_pos_y, head->player_pos_x);
+    printf("[PLAYER POS] y = %d | x = %d\n", head->player.py, head->player.px);
 }
