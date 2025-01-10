@@ -50,7 +50,9 @@ int main(int ac, char **av)
     ft_bzero(&head, sizeof(head));
 
     // Valid file
-    if (error = setup_validation(ac, av, &head))
+    error = setup_validation(ac, av, &head);
+    
+    if (error) 
         return (error);
 
     return (0);

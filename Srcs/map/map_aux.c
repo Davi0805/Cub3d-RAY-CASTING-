@@ -86,6 +86,8 @@ void    setColor(t_cub *head, uint8_t orient, char *path)
     if (orient == F)
     {
         head->assets.floor_rgb_s = path;
+        // todo 
+        // iscolorrgbstring para aqui probabbly
     }
     else if(orient == C)
     {
@@ -93,23 +95,28 @@ void    setColor(t_cub *head, uint8_t orient, char *path)
     }
 }
 
-char *trimTabSpace(char *str)
+char *ft_trim(char *str)
 {
     uint32_t i;
-    int32_t j; // Limite
+    uint32_t j;
     char *trimmed;
+
+    if (!str)
+        return (NULL);
 
     i = 0;
     j = ft_strlen(str) - 1;
-    if (j <= 0)
-        return (NULL);
-    while (str[i] == ' ' || str[i] == '\t')
+
+    while (ft_isspace(str[i]))
         i++;
-    while (str[j] == ' ' || str[j] == '\t')
+    while (ft_isspace(str[j]))
         j--;
-    
-    trimmed = ft_substr(str, i, j - i);
-    //printf("[TRIM]: %s\n", trimmed);
+
+    if (i > j)
+        trimmed = ft_substr(str, 0, 0);
+    else
+        trimmed = ft_substr(str, i, j - i + 1);
+    free(str); //! leak?
     return (trimmed);
 }
 
@@ -117,9 +124,11 @@ uint8_t     isOrientation(char *line, t_cub *head)
 {
     if (head->textures_parsed == 6)
         return (PARSE_ERROR); // Nao se trata de erro porem estou usando mesmo macro para parar de dar trim
-    line = trimTabSpace(line);
+    
+    line = ft_trim(line);
     if (line == NULL)
-        return (PARSE_ERROR);
+        return (SYSCALL_ERROR);
+
     if (ft_strncmp(line, "NO", 2) == 0)
         return (setTexture(head, NO, getTexturePath(line)), NO);
     else if (ft_strncmp(line, "SO", 2) == 0)
@@ -129,11 +138,11 @@ uint8_t     isOrientation(char *line, t_cub *head)
     else if (ft_strncmp(line, "EA", 2) == 0)
         return (setTexture(head, EA, getTexturePath(line)), EA);
     else if (ft_strncmp(line, "F", 1) == 0)
-        return (setColor(head, F, getTexturePath(line)), F);
+        return (setColor(head, F, getTexturePath(line)), F); // iscolorrgbstring para aqui probabbly
     else if (ft_strncmp(line, "C", 1) == 0)
-        return(setColor(head, C, getTexturePath(line)), C);
+        return(setColor(head, C, getTexturePath(line)), C); // iscolorrgbstring para aqui probabbly
     else
-        return (PARSE_ERROR);
+        return (OTHER);
 }
 
 uint8_t isXpm(char *str)
@@ -144,14 +153,14 @@ uint8_t isXpm(char *str)
     i = ft_strlen(str) - 4;
 
     if (i <= 4)
-        return (PARSE_ERROR);
+        return (MWRONG_TEXTURE);
     
     if (ft_strncmp(str + i, ".xpm", 4) == 0)
     {
         //printf("[IS_XPM]: YES");
         return (0);
     }
-    return (PARSE_ERROR);
+    return (MWRONG_TEXTURE);
 }
 
 void getMapWidth(t_cub *head)

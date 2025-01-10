@@ -6,6 +6,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <errno.h>
 
 // MINILIBX
 # include <X11/keysym.h>
@@ -33,13 +34,16 @@
 #define SYSCALL_ERROR 8
 
 // ORIENTATION
-#define NO 2
-#define SO 3
-#define WE 4
-#define EA 5
-#define F 6 // Floor
-#define C 7 // Ceiling
-
+enum orientation
+{
+NO = 1,
+SO = 2,
+WE = 3,
+EA = 4,
+F = 5, // Floor
+C = 6, // Ceiling
+OTHER = 100
+};
 
 typedef struct rgb
 {
@@ -91,9 +95,10 @@ typedef struct cub
     // File validation
     uint32_t nb_lines; //Number of lines in the file
     char **fcontent; // Array[][] line by line
-    uint32_t map_line; // Index do mapa OU apenas depois dos Assets
+
+    uint32_t map_line; //? Index do mapa OU apenas depois dos Assets
     uint32_t map_width; //? is this really needed
-    uint8_t textures_parsed; //Index de Assets carregados
+    uint8_t textures_parsed; //? Index de Assets carregados
    
     // Player
     t_player player;
@@ -136,6 +141,6 @@ int handle_close(t_cub *head);
 void    free_map(t_cub *head);
 void    free_textures(t_cub *head);
 void    exitHandler(t_cub *head);
-void    parseFailed(t_cub *head, uint16_t error)
+void    parseFailed(t_cub *head, uint16_t error);
 
 #endif
