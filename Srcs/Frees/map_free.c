@@ -17,12 +17,17 @@ void    free_map(t_cub *head)
 {
     uint32_t i;
 
-    i = -1;
-    while (++i < head->nb_lines)
+    if (!head->fcontent)
+        return ;
+    i = 0;
+    while (i < head->nb_lines)
     {
-        free(head->maps[i]);
+        if (head->fcontent[i])
+            free(head->fcontent[i]);
+        i++;
     }
-    free(head->maps);
+    if (head->fcontent)
+        free(head->fcontent);
 }
 
 // Free nas texturas e cores

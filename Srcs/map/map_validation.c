@@ -162,8 +162,8 @@ uint8_t textureValidator(t_cub *head)
     orient = 0;
     while (++i < head->nb_lines && head->textures_parsed != 6)
     {
-        orient = isOrientation(head->maps[i], head);
-        /* printf("[%d] %s", i, head->maps[i]); */
+        orient = isOrientation(head->fcontent[i], head);
+        /* printf("[%d] %s", i, head->fcontent[i]); */
         if (orient != PARSE_ERROR)
         {
             head->textures_parsed++;
@@ -199,9 +199,9 @@ uint8_t isCharInMap(t_cub *head, char c)
     while (i < head->nb_lines)
     {
         j = -1;
-        while(head->maps[i][++j] != '\0')
+        while(head->fcontent[i][++j] != '\0')
         {
-            if (head->maps[i][j] == c)
+            if (head->fcontent[i][j] == c)
                 return (0);
         }
         i++;
@@ -222,10 +222,9 @@ uint8_t isTherePlayer(t_cub *head)
     while (i < head->nb_lines)
     {
         j = -1;
-        while(head->maps[i][++j] != '\0')
-        {
-            if (head->maps[i][j] == 'W' || head->maps[i][j] == 'S'
-                || head->maps[i][j] == 'N' || head->maps[i][j] == 'E')
+        while(head->fcontent[i][++j] != '\0')
+        {          
+            if (ft_strchr("WNSE", (int)head->fcontent[i][j]))
                 p_found++;
         }
         i++;
@@ -234,4 +233,49 @@ uint8_t isTherePlayer(t_cub *head)
         return (0);
     printf("[IsMap]: Erro no MAPA\n");
     return (PARSE_ERROR);
+}
+
+// Player pos getter
+void getPlayerPos(t_cub *head)
+{
+    uint32_t i;
+
+    i = head->map_line;
+    while (i < head->nb_lines)
+    {
+        if (ft_strchr(head->fcontent[i], 'W'))
+        {
+            head->player.py= i;
+            if (ft_strchr(head->fcontent[i], 'W') > head->fcontent[i])
+                head->player.px = ft_strchr(head->fcontent[i], 'W') - head->fcontent[i];
+            else
+                head->player.px = -1;
+        }
+        else if (ft_strchr(head->fcontent[i], 'N'))
+        {
+            head->player.py= i;
+            if (ft_strchr(head->fcontent[i], 'W') > head->fcontent[i])
+                head->player.px = ft_strchr(head->fcontent[i], 'W') - head->fcontent[i];
+            else
+                head->player.px = -1;
+        }
+        else if( ft_strchr(head->fcontent[i], 'S'))
+        {
+            head->player.py= i;
+            if (ft_strchr(head->fcontent[i], 'W') > head->fcontent[i])
+                head->player.px = ft_strchr(head->fcontent[i], 'W') - head->fcontent[i];
+            else
+                head->player.px = -1;
+        }
+        else if (ft_strchr(head->fcontent[i], 'E'))
+        {
+            head->player.py= i;
+            if (ft_strchr(head->fcontent[i], 'W') > head->fcontent[i])
+                head->player.px = ft_strchr(head->fcontent[i], 'W') - head->fcontent[i];
+            else
+                head->player.px = -1;
+        }
+        i++;
+    }
+    printf("[PLAYER POS] y = %d | x = %d\n", head->player.py, head->player.px);
 }

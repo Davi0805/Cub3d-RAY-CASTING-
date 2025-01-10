@@ -26,17 +26,13 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
         
     
     // todo ARTUR HERE
-    getNbLines(av[1], head);
-    if (allocate_map(head) == PARSE_ERROR)
-        return (PARSE_ERROR);
-    collect_lines(av[1], head);
-        
-
+    if (allocate_file(av, head)) return (PARSE_ERROR); //! check
     
     if (textureValidator(head)) parseFailed(head, MWRONG_TEXTURE);
     if (isCharInMap(head, '1')) parseFailed(head, MWRONG_FORMAT);
     if (isTherePlayer(head)) parseFailed(head, MNO_PLAYER);
         
+    
     getPlayerPos(head);
     
     // TODO FLOOD FILL

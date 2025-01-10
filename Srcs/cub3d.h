@@ -26,9 +26,11 @@
 #define FTYPE_ERROR 2
 #define FEMPTY_ERROR 3
 #define FINVALID_ERROR 4
-#define MWRONG_TEXTURE 4
-#define MWRONG_FORMAT 4
-#define MNO_PLAYER 4
+#define MWRONG_TEXTURE 5
+#define MWRONG_FORMAT 6
+#define MNO_PLAYER 7
+
+#define SYSCALL_ERROR 8
 
 // ORIENTATION
 #define NO 2
@@ -86,19 +88,21 @@ typedef struct s_player
 
 typedef struct cub
 {
-    uint32_t nb_lines; //Number of lines in the configs and maps
+    // File validation
+    uint32_t nb_lines; //Number of lines in the file
+    char **fcontent; // Array[][] line by line
     uint32_t map_line; // Index do mapa OU apenas depois dos Assets
     uint32_t map_width; //? is this really needed
+    uint8_t textures_parsed; //Index de Assets carregados
    
     // Player
     t_player player;
 
-    uint8_t textures_parsed; //Index de Assets carregados
-    char *path;
-    char **maps; // Array line by line
-
-    t_assets assets; // Texturas
-    t_mlx_data mlx; // MLX stuff
+    // Texturas
+    t_assets assets;
+    
+    // MLX stuff
+    t_mlx_data mlx;
 }       t_cub;
 
 
@@ -117,7 +121,7 @@ uint8_t isTherePlayer(t_cub *head);
 
 // MAP INIT
 uint8_t getNbLines(char *path, t_cub *head);
-uint8_t allocate_map(t_cub *head);
+uint8_t allocate_file(char ** av, t_cub *head);
 uint8_t collect_lines(char *path, t_cub *head);
 
 // Variable initializer

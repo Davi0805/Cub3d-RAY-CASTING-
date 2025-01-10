@@ -15,24 +15,22 @@
 uint8_t    getNbLines(char *path, t_cub *head)
 {
     int32_t fd;
-    uint32_t nb_lines;
     char *str;
 
     fd = open(path, O_RDONLY);
     if (fd == -1)
-        return (PARSE_ERROR);
+        return (SYSCALL_ERROR);
     
-    nb_lines = 0;
+    head->nb_lines = 0;
     str = get_next_line(fd);
     while(str != NULL)
     {    
-        nb_lines++;
+        head->nb_lines++;
         free(str);
         str = get_next_line(fd);
     }    
-    head->nb_lines = nb_lines;
     close(fd);
-    return (0);
+    return (PARSE_SUCCESS);
 }
 
 char *getTexturePath(char *line)
@@ -165,8 +163,8 @@ void getMapWidth(t_cub *head)
     size = 0;
     while(i < head->nb_lines)
     {
-        if (ft_strlen(head->maps[i]) > head->map_width)
-            size = ft_strlen(head->maps[i]);
+        if (ft_strlen(head->fcontent[i]) > head->map_width)
+            size = ft_strlen(head->fcontent[i]);
         i++;
     }
     head->map_width = size;
