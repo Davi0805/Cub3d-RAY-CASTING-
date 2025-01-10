@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/01/09 22:13:39 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/10 14:38:19 by dmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ int main(int ac, char **av)
     init_head(&head);
     if (setup_validation(ac, av, &head))
         return (PARSE_ERROR);
-    if (setup_minilibx(&head))
+    /* if (setup_minilibx(&head))
         exitHandler(&head);
 
     mlx_hook(head.mlx.win_ptr, KeyPress, KeyPressMask, handle_keypress, &head); // ESC
     mlx_hook(head.mlx.win_ptr, ClientMessage, StructureNotifyMask, handle_close, &head);  // X da janela
 
-    mlx_loop(head.mlx.mlx_ptr);
+    mlx_loop(head.mlx.mlx_ptr); */
     return (0);
 }
