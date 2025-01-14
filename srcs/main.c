@@ -34,7 +34,10 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
     // MAP Validation
     verifyMap(head);
     // 1 e 1 só player
-    // 
+    // nao ha letras no meio
+    // mapa fechado (flood fill)
+
+
     // if (isCharInMap(head, '1')) parseFailed(head, MWRONG_FORMAT);
     // if (isTherePlayer(head)) parseFailed(head, MNO_PLAYER);
     

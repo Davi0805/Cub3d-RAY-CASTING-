@@ -29,9 +29,8 @@
 #define FINVALID_ERROR 4
 #define MWRONG_TEXTURE 5
 #define MWRONG_FORMAT 6
-#define MNO_PLAYER 7
 
-#define SYSCALL_ERROR 8
+#define SYSCALL_ERROR 7
 
 // ORIENTATION
 enum orientation
@@ -124,6 +123,8 @@ uint8_t allocate_file(char ** av, t_cub *head);
 uint8_t collect_lines(char *path, t_cub *head);
 
 uint8_t     allocateMap(t_cub *head, char **fcontent, char *map_path);
+    verifyMap(head);
+
 
 // Variable initializer
 void    init_head(t_cub *head);
