@@ -3,7 +3,7 @@ MAKEFLAGS += --silent
 NAME = Cub3d
 
 # Diretórios
-SRCDIR = Srcs
+SRCDIR = srcs
 OBJDIR = Objs
 
 # Diretório da biblioteca
