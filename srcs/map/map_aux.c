@@ -109,7 +109,7 @@ char *ft_trim(char *str)
 
     while (ft_isspace(str[i]))
         i++;
-    while (ft_isspace(str[j]))
+    while (j > i && ft_isspace(str[j]))
         j--;
 
     if (i > j)
