@@ -100,8 +100,8 @@ typedef struct cub
     t_player player;
 
     // Map
-    char ** map;
-    
+    char **map;
+
     // Texturas
     t_assets assets;
     
@@ -114,14 +114,9 @@ typedef struct cub
 uint8_t filetype_checker(char *path);
 uint8_t isFileValid(char *path);
 uint8_t isFileEmpty(char *path);
-uint8_t isOrientation(char **line, t_cub *head, int textures_parsed);
+uint8_t isOrientation(t_cub *head, int i, int textures_parsed);
 uint8_t textureValidator(t_cub *head);
 uint8_t isXpm(char *str);
-uint8_t isCharInMap(t_cub *head, char c);
-void getMapWidth(t_cub *head);
-void getPlayerPos(t_cub *head);
-uint8_t isMapclosed(t_cub *head);
-uint8_t isTherePlayer(t_cub *head);
 
 // MAP INIT
 uint8_t getNbLines(char *path, t_cub *head);

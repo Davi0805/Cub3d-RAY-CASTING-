@@ -29,6 +29,7 @@ typedef struct s_list
 
 }					t_list;
 
+bool				ft_stremptyspaces(char *str);
 long				ft_atol(const char *str);
 char				*ft_strappend(char *s1, char *s2);
 char 				*ft_strcat(char *dest, char *src);

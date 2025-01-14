@@ -51,7 +51,7 @@ char *getTexturePath(char *line)
         size--;
     }
     str = ft_substr(line, i, size - i + 1);
-    free(line);
+    // free(line);
     printf("[getTexturePath]: %s\n", str);
     return (str);
 }
@@ -120,30 +120,31 @@ char *ft_trim(char *str)
     return (trimmed);
 }
 
-uint8_t isOrientation(char **line, t_cub *head, int textures_parsed)
+uint8_t isOrientation(t_cub *head, int i, int textures_parsed)
 {
-    if (textures_parsed == 6)
+      if (textures_parsed == 6)
         return (MWRONG_TEXTURE);
-
-    *line = ft_trim(*line);  // Trim the content of fcontent[i]
-    if (*line == NULL)
+    
+    head->fcontent[i] = ft_trim(head->fcontent[i]);
+    if (head->fcontent[i] == NULL)
         return (SYSCALL_ERROR);
 
-    if (ft_strncmp(*line, "NO", 2) == 0)
-        return (setTexture(head, NO, getTexturePath(*line)), NO);
-    else if (ft_strncmp(*line, "SO", 2) == 0)
-        return (setTexture(head, SO, getTexturePath(*line)), SO);
-    else if (ft_strncmp(*line, "WE", 2) == 0)
-        return (setTexture(head, WE, getTexturePath(*line)), WE);
-    else if (ft_strncmp(*line, "EA", 2) == 0)
-        return (setTexture(head, EA, getTexturePath(*line)), EA);
-    else if (ft_strncmp(*line, "F", 1) == 0)
-        return (setColor(head, F, getTexturePath(*line)), F);
-    else if (ft_strncmp(*line, "C", 1) == 0)
-        return (setColor(head, C, getTexturePath(*line)), C);
+    if (ft_strncmp(head->fcontent[i], "NO", 2) == 0)
+        return (setTexture(head, NO, getTexturePath(head->fcontent[i])), NO);
+    else if (ft_strncmp(head->fcontent[i], "SO", 2) == 0)
+        return (setTexture(head, SO, getTexturePath(head->fcontent[i])), SO);
+    else if (ft_strncmp(head->fcontent[i], "WE", 2) == 0)
+        return (setTexture(head, WE, getTexturePath(head->fcontent[i])), WE);
+    else if (ft_strncmp(head->fcontent[i], "EA", 2) == 0)
+        return (setTexture(head, EA, getTexturePath(head->fcontent[i])), EA);
+    else if (ft_strncmp(head->fcontent[i], "F", 1) == 0)
+        return (setColor(head, F, getTexturePath(head->fcontent[i])), F);
+    else if (ft_strncmp(head->fcontent[i], "C", 1) == 0)
+        return (setColor(head, C, getTexturePath(head->fcontent[i])), C);
     else
         return (OTHER);
 }
+
 
 uint8_t isXpm(char *str)
 {

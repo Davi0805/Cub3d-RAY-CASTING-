@@ -25,7 +25,7 @@ SRCS = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
     ft_atoi_base.c get_next_line.c ft_printf.c ft_printf_chars.c \
     ft_printf_putptr.c ft_printf_putnum_base.c ft_append_char_to_str.c \
     ft_isspace.c ft_trim.c ft_strcmp.c ft_strcpy.c ft_strcat.c ft_strappend.c \
-	ft_atol.c
+	ft_atol.c ft_stremptyspace.c
 
 
 SRCS_BONUS = 	ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c\
