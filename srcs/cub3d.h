@@ -123,6 +123,8 @@ uint8_t getNbLines(char *path, t_cub *head);
 uint8_t allocate_file(char ** av, t_cub *head);
 uint8_t collect_lines(char *path, t_cub *head);
 
+uint8_t     allocateMap(t_cub *head, char **fcontent, char *map_path);
+
 // Variable initializer
 void    init_head(t_cub *head);
 // void    init_minilibx_struct(t_cub *head);
@@ -132,8 +134,11 @@ int handle_keypress(int keycode, t_cub *head);
 int handle_close(t_cub *head);
 
 // Free Funcs
-void    free_map(t_cub *head);
+void    freeFile(t_cub *head);
 void    free_textures(t_cub *head);
+void freeMap(t_cub *head);
+
+
 void    exitHandler(t_cub *head);
 void    parseFailed(t_cub *head, uint16_t error);
 

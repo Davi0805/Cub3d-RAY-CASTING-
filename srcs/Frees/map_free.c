@@ -13,7 +13,7 @@
 #include "../cub3d.h"
 
 // Da free ao mapa inteiro
-void    free_map(t_cub *head)
+void    freeFile(t_cub *head)
 {
     uint32_t i;
 
@@ -47,10 +47,18 @@ void    free_textures(t_cub *head)
         free(head->assets.ceiling_rgb_s);
 }
 
+void freeMap(t_cub *head)
+{
+    for (int i = 0; head->map[i]; i++)
+        free(head->map[i]); // rows
+    free(head->map); // cols
+    return ;
+}
+
 void    parseFailed(t_cub *head, uint16_t error)
 {
     printf("[EXIT HANDLER]\n");
-    free_map(head);
+    freeFile(head);
     free_textures(head);
     exit(error); // Macro para Parse Test
 }
@@ -66,7 +74,7 @@ void    exitHandler(t_cub *head)
         mlx_destroy_display(head->mlx.mlx_ptr);
     if (head->mlx.mlx_ptr != NULL)
         free(head->mlx.mlx_ptr);
-    free_map(head);
+    freeFile(head);
     free_textures(head);
     exit(0);
 }

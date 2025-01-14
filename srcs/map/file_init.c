@@ -12,19 +12,6 @@
 
 #include "../cub3d.h"
 
-uint8_t allocate_file(char ** av, t_cub *head)
-{
-    if (getNbLines(av[1], head)) return (SYSCALL_ERROR);
-
-    head->fcontent = ft_calloc(head->nb_lines, sizeof(char *));
-    if (!head->fcontent)
-        return (SYSCALL_ERROR);
-
-    if (collect_lines(av[1], head)) return (free_map(head), SYSCALL_ERROR);    
-    return (0);
-}
-
-
 // Preenche head->fcontent
 uint8_t collect_lines(char *path, t_cub *head)
 {
@@ -45,3 +32,14 @@ uint8_t collect_lines(char *path, t_cub *head)
     return (PARSE_SUCCESS);
 }
 
+uint8_t allocate_file(char ** av, t_cub *head)
+{
+    if (getNbLines(av[1], head)) return (SYSCALL_ERROR);
+
+    head->fcontent = ft_calloc(head->nb_lines, sizeof(char *));
+    if (!head->fcontent)
+        return (SYSCALL_ERROR);
+
+    if (collect_lines(av[1], head)) return (freeFile(head), SYSCALL_ERROR);    
+    return (0);
+}
