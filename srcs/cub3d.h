@@ -96,13 +96,12 @@ typedef struct cub
     uint32_t nb_lines; //Number of lines in the file
     char **fcontent; // Array[][] line by line
 
-    uint32_t map_line; //? Index do mapa OU apenas depois dos Assets
-    uint32_t map_width; //? is this really needed
-    uint8_t textures_parsed; //? Index de Assets carregados
-   
     // Player
     t_player player;
 
+    // Map
+    char ** map;
+    
     // Texturas
     t_assets assets;
     
@@ -115,7 +114,7 @@ typedef struct cub
 uint8_t filetype_checker(char *path);
 uint8_t isFileValid(char *path);
 uint8_t isFileEmpty(char *path);
-uint8_t isOrientation(char **line, t_cub *head);
+uint8_t isOrientation(char **line, t_cub *head, int textures_parsed);
 uint8_t textureValidator(t_cub *head);
 uint8_t isXpm(char *str);
 uint8_t isCharInMap(t_cub *head, char c);

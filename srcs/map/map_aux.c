@@ -120,12 +120,12 @@ char *ft_trim(char *str)
     return (trimmed);
 }
 
-uint8_t isOrientation(char **line, t_cub *head)  // Change to accept char**
+uint8_t isOrientation(char **line, t_cub *head, int textures_parsed)
 {
-    if (head->textures_parsed == 6)
-        return (PARSE_ERROR);
+    if (textures_parsed == 6)
+        return (MWRONG_TEXTURE);
 
-    *line = ft_trim(*line);  // Modify the content of fcontent[i]
+    *line = ft_trim(*line);  // Trim the content of fcontent[i]
     if (*line == NULL)
         return (SYSCALL_ERROR);
 
@@ -161,21 +161,4 @@ uint8_t isXpm(char *str)
         return (0);
     }
     return (MWRONG_TEXTURE);
-}
-
-void getMapWidth(t_cub *head)
-{
-    uint32_t i;
-    uint32_t size;
-
-    i = head->map_line;
-    size = 0;
-    while(i < head->nb_lines)
-    {
-        if (ft_strlen(head->fcontent[i]) > head->map_width)
-            size = ft_strlen(head->fcontent[i]);
-        i++;
-    }
-    head->map_width = size;
-    printf("[MAP WIDTH]%d\n", head->map_width);
 }

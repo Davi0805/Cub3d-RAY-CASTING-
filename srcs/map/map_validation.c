@@ -99,18 +99,25 @@ uint8_t isColorRgbstring(char *str)
         return (PARSE_ERROR);
     while (channel < 3)
     {
-        while (str[i] == ' ' || str[i] == '\t')
+        // spaces
+        while (ft_isspace(str[i]))
             i++;
+
+        // number?
         while (str[i] != ',' && str[i] != '\0')
         {
-            if (str[i] < '0' || str[i] > '9')
-                return (PARSE_ERROR);
-            if (str[i] >= '0' && str[i] <= '9')
-                nb_per_channel++;
+            if (!ft_isdigit(str[i]))
+                return (MWRONG_TEXTURE);
+            nb_per_channel++;
             i++;
         }
+        
+        // TODO DAVI WTF IS THIS COMMENT BETTER PLSSSSS
         if ((nb_per_channel == 0 && channel != 0) || nb_per_channel > 3) //O Primeiro canal pode ser vazio se possuir virgula
-            return (PARSE_ERROR);
+            return (MWRONG_TEXTURE);
+        
+        // next channel?
+        //TODO consegues limpar isto?
         if (str[i] == ',')
         {
             nb_per_channel = 0;
@@ -120,8 +127,10 @@ uint8_t isColorRgbstring(char *str)
         else if (str[i] == '\0' && channel == 2)
             channel++;
         else
-            return (PARSE_ERROR);
+            return (MWRONG_TEXTURE);
     }
+
+    //? debug
     printf("[IS COLOR VALID]: YES\n");
     return (0);
 }
@@ -129,49 +138,54 @@ uint8_t isColorRgbstring(char *str)
 // Parser func de RGB
 uint8_t isColorValid(t_cub *head)
 {
-    // t_rgb *fcolor = &(head->assets.floor_color);
-    // t_rgb *ccolor = &(head->assets.ceil_color.r);
+    if(isColorRgbstring(head->assets.floor_rgb_s)
+    || isColorRgbstring(head->assets.ceiling_rgb_s))
+        return (MWRONG_TEXTURE);
 
-    if(isColorRgbstring(head->assets.floor_rgb_s) == PARSE_ERROR
-    || isColorRgbstring(head->assets.ceiling_rgb_s) == PARSE_ERROR)
-        return (PARSE_ERROR);
+    t_rgb *fcolor = &(head->assets.floor_color);
+    t_rgb *ccolor = &(head->assets.ceil_color);
 
-    head->assets.floor_color.r = ft_atoi(head->assets.floor_rgb_s); // Vai parar na primeira virgula
-    head->assets.floor_color.g = ft_atoi(ft_strchr(head->assets.floor_rgb_s, ',') + 1);
-    head->assets.floor_color.b = ft_atoi(ft_strrchr(head->assets.floor_rgb_s, ',') + 1);
+    fcolor->r = ft_atoi(head->assets.floor_rgb_s); // Vai parar na primeira virgula
+    fcolor->g = ft_atoi(ft_strchr(head->assets.floor_rgb_s, ',') + 1);
+    fcolor->b = ft_atoi(ft_strrchr(head->assets.floor_rgb_s, ',') + 1);
 
-    head->assets.ceil_color.r = ft_atoi(head->assets.ceiling_rgb_s); // Vai parar na primeira virgula
-    head->assets.ceil_color.g = ft_atoi(ft_strchr(head->assets.ceiling_rgb_s, ',') + 1); // Retorna primeira virgula e adiciono mais 1
-    head->assets.ceil_color.b = ft_atoi(ft_strrchr(head->assets.ceiling_rgb_s, ',') + 1); // Retorno a utlima virgula e adiciono mais 1
-    
-    printf("[ISCOLORVALID] INT FLOOR COLORS %u %u %u\n", head->assets.floor_color.r, head->assets.floor_color.g, head->assets.floor_color.b);
-    printf("[ISCOLORVALID] INT Ceiling COLORS %u %u %u\n", head->assets.ceil_color.r, head->assets.ceil_color.g, head->assets.ceil_color.b);
-    printf("[ISCOLORVALID] Sucesso em ambos!\n");
+    ccolor->r = ft_atoi(head->assets.ceiling_rgb_s); // Vai parar na primeira virgula
+    ccolor->g = ft_atoi(ft_strchr(head->assets.ceiling_rgb_s, ',') + 1); // Retorna primeira virgula e adiciono mais 1
+    ccolor->b = ft_atoi(ft_strrchr(head->assets.ceiling_rgb_s, ',') + 1); // Retorno a utlima virgula e adiciono mais 1
+
+    //? debug
+    {
+        printf("[ISCOLORVALID] INT FLOOR COLORS %u %u %u\n", fcolor->r, head->assets.floor_color.g, head->assets.floor_color.b);
+        printf("[ISCOLORVALID] INT Ceiling COLORS %u %u %u\n", ccolor->r, head->assets.ceil_color.g, head->assets.ceil_color.b);
+        printf("[ISCOLORVALID] Sucesso em ambos!\n");
+    }    
     return (0);
 }
 // Da parse e valida Texturas e cores
 uint8_t textureValidator(t_cub *head)
 {
     uint8_t i;
+    u_int32_t textures_parsed;
 
+    textures_parsed = 0;
     i = 0;
-    while (i < head->nb_lines && head->textures_parsed != 6)
+    while (i < head->nb_lines && textures_parsed != 6)
     {
         errno = 0;
-        if(isOrientation(&head->fcontent[i], head) != OTHER)
+        if(isOrientation(&head->fcontent[i], head, textures_parsed) != OTHER)
         {
             if (errno != 0)
                 return (SYSCALL_ERROR);
-            head->textures_parsed++;
+            textures_parsed++;
         }
         i++;
     }
 
     // All need to be present
-    if (head->textures_parsed != 6)
+    if (textures_parsed != 6)
         return (MWRONG_TEXTURE);
 
-    //? DEBUGGING
+    //? debug
     {
         printf("[NO PATH]: %s#\n", head->assets.no_texture);
         printf("[SO PATH]: %s#\n", head->assets.so_texture);
@@ -182,10 +196,8 @@ uint8_t textureValidator(t_cub *head)
     }
     
     if (isTextureValid(head)) return (MWRONG_TEXTURE);
-    if (isColorValid(head) == PARSE_ERROR)
-        return (PARSE_ERROR);
-    head->map_line = i + 2;
-    getMapWidth(head);
+    if (isColorValid(head)) return (MWRONG_TEXTURE);
+
     printf("PASSOU\n");
     return (0);
 }

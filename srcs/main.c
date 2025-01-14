@@ -15,6 +15,11 @@
 #include <X11/keysym.h>
 #include <X11/X.h>
 
+uint8_t     allocate_map()
+{
+
+}
+
 uint8_t     setup_validation(int ac, char **av, t_cub *head)
 {
     if (ac != 2)
@@ -28,7 +33,19 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
     // todo ARTUR HERE
     if (allocate_file(av, head)) return (PARSE_ERROR); //! check
     
-    if (textureValidator(head)) parseFailed(head, MWRONG_TEXTURE);
+    if (textureValidator(head)) parseFailed(head, MWRONG_TEXTURE); //!check
+
+    
+    // MAP FETCH
+    // Read file contents and allocate map
+    
+    // MAP Validation
+    // Is there a map?
+    /*
+        - Só contem 0/1 , N/S/W/E x1
+    */
+
+    // 
     if (isCharInMap(head, '1')) parseFailed(head, MWRONG_FORMAT);
     if (isTherePlayer(head)) parseFailed(head, MNO_PLAYER);
         
