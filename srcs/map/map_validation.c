@@ -158,7 +158,7 @@ uint8_t textureValidator(t_cub *head)
     while (i < head->nb_lines && head->textures_parsed != 6)
     {
         errno = 0;
-        if(isOrientation(head->fcontent[i], head) != OTHER)
+        if(isOrientation(&head->fcontent[i], head) != OTHER)
         {
             if (errno != 0)
                 return (SYSCALL_ERROR);

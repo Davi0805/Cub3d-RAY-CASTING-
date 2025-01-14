@@ -120,27 +120,27 @@ char *ft_trim(char *str)
     return (trimmed);
 }
 
-uint8_t     isOrientation(char *line, t_cub *head)
+uint8_t isOrientation(char **line, t_cub *head)  // Change to accept char**
 {
     if (head->textures_parsed == 6)
-        return (PARSE_ERROR); // Nao se trata de erro porem estou usando mesmo macro para parar de dar trim
-    
-    line = ft_trim(line);
-    if (line == NULL)
+        return (PARSE_ERROR);
+
+    *line = ft_trim(*line);  // Modify the content of fcontent[i]
+    if (*line == NULL)
         return (SYSCALL_ERROR);
 
-    if (ft_strncmp(line, "NO", 2) == 0)
-        return (setTexture(head, NO, getTexturePath(line)), NO);
-    else if (ft_strncmp(line, "SO", 2) == 0)
-        return (setTexture(head, SO, getTexturePath(line)), SO);
-    else if (ft_strncmp(line, "WE", 2) == 0)
-        return (setTexture(head, WE, getTexturePath(line)), WE);
-    else if (ft_strncmp(line, "EA", 2) == 0)
-        return (setTexture(head, EA, getTexturePath(line)), EA);
-    else if (ft_strncmp(line, "F", 1) == 0)
-        return (setColor(head, F, getTexturePath(line)), F); // iscolorrgbstring para aqui probabbly
-    else if (ft_strncmp(line, "C", 1) == 0)
-        return(setColor(head, C, getTexturePath(line)), C); // iscolorrgbstring para aqui probabbly
+    if (ft_strncmp(*line, "NO", 2) == 0)
+        return (setTexture(head, NO, getTexturePath(*line)), NO);
+    else if (ft_strncmp(*line, "SO", 2) == 0)
+        return (setTexture(head, SO, getTexturePath(*line)), SO);
+    else if (ft_strncmp(*line, "WE", 2) == 0)
+        return (setTexture(head, WE, getTexturePath(*line)), WE);
+    else if (ft_strncmp(*line, "EA", 2) == 0)
+        return (setTexture(head, EA, getTexturePath(*line)), EA);
+    else if (ft_strncmp(*line, "F", 1) == 0)
+        return (setColor(head, F, getTexturePath(*line)), F);
+    else if (ft_strncmp(*line, "C", 1) == 0)
+        return (setColor(head, C, getTexturePath(*line)), C);
     else
         return (OTHER);
 }

@@ -115,7 +115,7 @@ typedef struct cub
 uint8_t filetype_checker(char *path);
 uint8_t isFileValid(char *path);
 uint8_t isFileEmpty(char *path);
-uint8_t isOrientation(char *line, t_cub *head);
+uint8_t isOrientation(char **line, t_cub *head);
 uint8_t textureValidator(t_cub *head);
 uint8_t isXpm(char *str);
 uint8_t isCharInMap(t_cub *head, char c);
