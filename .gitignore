@@ -1,6 +1,6 @@
 *.o
 Cub3d
 *.a
-.vscode
+.vscode/*
 Objs
 objs
