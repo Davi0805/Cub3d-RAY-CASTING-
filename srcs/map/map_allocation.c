@@ -3,6 +3,9 @@
 
 static bool        isMapLine(char * line)
 {
+    while (*line && ft_isspace(*line)) 
+        line++;
+
     if (ft_strncmp(line, "NO", 2) != 0 && ft_strncmp(line, "SO", 2) != 0 &&
     ft_strncmp(line, "WE", 2) != 0 && ft_strncmp(line, "EA", 2) != 0 &&
     ft_strncmp(line, "F", 1) != 0 && ft_strncmp(line, "C", 1) != 0 && 

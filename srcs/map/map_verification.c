@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static bool checkCharacters(t_cub *head)
+static bool hasBadChars(t_cub *head)
 {
     char **map = head->map;
 
@@ -27,18 +27,18 @@ static bool checkCharacters(t_cub *head)
         }
         y++;
     }
-    return false; // all good
+    return hasPlayer ? false : true;
 }
 
 bool floodFill(char **map, int y, int x, char to_fill)
 {
     if (x < 0 || y < 0 || map[y] == NULL || (map[y][x] == '\n' || map[y][x] == '\0'))
-        return  printf("Edge reached at (%d, %d)\n", y, x), true; // if out of bounds === map not closed
+        return true; // if out of bounds === map not closed
 
     if (map[y][x] != to_fill && !ft_strchr("NSEW", map[y][x])) // wall
         return false;
     
-    map[y][x] = 'F'; // 0s in the map will become F!!!
+    map[y][x] = 'x'; // 0s in the map will become F!!!
 
     bool edge = false;
     edge |= floodFill(map, y, x - 1, to_fill);
@@ -50,23 +50,50 @@ bool floodFill(char **map, int y, int x, char to_fill)
 
 static bool mapNotClosed(t_cub *head)
 {
-    printf("player pos x=%d y=%d\n", head->player.px, head->player.py);
     return (floodFill(head->map, head->player.py, head->player.px, '0'));
+}
+
+static bool mapHasBadSpaces(char **map)
+{
+    int y = 0, x;
+    while (map[y])
+    {
+        x = 0;
+
+        while (ft_isspace(map[y][x]))
+            x++;
+        
+        while (map[y][x] != '\n' && map[y][x] != '\0')
+        {
+            
+            // ____111___11__
+            x++;
+        }
+        y++;
+    }
+    return false; // all good
 }
 
 uint8_t verifyMap(t_cub *head)
 {
 
     // Checks for invalid charcaters and 1 player only
-    if (checkCharacters(head)) return (MWRONG_FORMAT);
-    printf("PASSOU checkCharacters\n");
+    if (hasBadChars(head)) return (MWRONG_FORMAT);
+    printf("PASSOU hasBadChars\n");
 
     // check for spaces in beetween 1---1 (logica das aspas do minishell)
+    if (mapHasBadSpaces(head->map)) return (MWRONG_FORMAT);
 
     // Checks for closed map with flood fill
     if (mapNotClosed(head))
         return (MWRONG_FORMAT);
-    printf("PASSOU1 mapNotClosed\n");
+    printf("PASSOU1 mapNotClosed\n\n");
+
+    for (int i = 0; head->map[i] ; i++)
+    {
+        for (int j = 0; head->map[i][j]; j++)
+            printf("%c", head->map[i][j]);
+    }
 
     return (PARSE_SUCCESS);
 }

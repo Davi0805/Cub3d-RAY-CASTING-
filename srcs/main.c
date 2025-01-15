@@ -28,9 +28,9 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
 
     // MAP FETCH
     // Read file contents and allocate map
-    allocateMap(head, head->fcontent, av[1]); //! check
+    if (allocateMap(head, head->fcontent, av[1])) parseFailed(head, MWRONG_TEXTURE); //! check
     // MAP Validation
-    verifyMap(head);
+    if (verifyMap(head)) parseFailed (head, MWRONG_TEXTURE);
     // 1 e 1 só player
     // nao ha letras no meio
     // mapa fechado (flood fill)

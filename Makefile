@@ -15,7 +15,7 @@ LDFLAGS = -L/usr/lib/x86_64-linux-gnu
 
 # Compilador e flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(LIBFTDIR) -g
+CFLAGS = -Wall -Wextra -Werror -I$(LIBFTDIR) -I$(SRCDIR) -g
 
 # Obtém todos os arquivos .c no diretório Srcs
 SRC = $(shell find $(SRCDIR) -name '*.c')
