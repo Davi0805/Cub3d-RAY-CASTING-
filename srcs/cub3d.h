@@ -24,13 +24,13 @@
 //TODO
 #define PARSE_SUCCESS 0
 #define ARG_ERROR 1
-#define FTYPE_ERROR 2
-#define FEMPTY_ERROR 3
-#define FINVALID_ERROR 4
-#define MWRONG_TEXTURE 5
-#define MWRONG_FORMAT 6
+#define FTYPE_ERROR 1
+#define FEMPTY_ERROR 1
+#define FINVALID_ERROR 1
+#define MWRONG_TEXTURE 1
+#define MWRONG_FORMAT 1
 
-#define SYSCALL_ERROR 7
+#define SYSCALL_ERROR 1
 
 // ORIENTATION
 enum orientation
@@ -122,12 +122,11 @@ uint8_t getNbLines(char *path, t_cub *head);
 uint8_t allocate_file(char ** av, t_cub *head);
 uint8_t collect_lines(char *path, t_cub *head);
 
-uint8_t     allocateMap(t_cub *head, char **fcontent, char *map_path);
-    verifyMap(head);
-
+uint8_t allocateMap(t_cub *head, char **fcontent, char *map_path);
+uint8_t verifyMap(t_cub *head);
 
 // Variable initializer
-void    init_head(t_cub *head);
+void init_head(t_cub *head);
 // void    init_minilibx_struct(t_cub *head);
 
 // Key Hooks
@@ -135,12 +134,12 @@ int handle_keypress(int keycode, t_cub *head);
 int handle_close(t_cub *head);
 
 // Free Funcs
-void    freeFile(t_cub *head);
-void    free_textures(t_cub *head);
+void freeFile(t_cub *head);
+void free_textures(t_cub *head);
 void freeMap(t_cub *head);
 
 
-void    exitHandler(t_cub *head);
-void    parseFailed(t_cub *head, uint16_t error);
+void exitHandler(t_cub *head);
+void parseFailed(t_cub *head, uint16_t error);
 
 #endif

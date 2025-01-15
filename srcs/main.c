@@ -20,12 +20,10 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
     if (ac != 2)
         return (PARSE_ERROR);
     
-    if (isFileValid(av[1])) return (FINVALID_ERROR); //! check
-    if (filetype_checker(av[1])) return (FTYPE_ERROR); //! check
-    if (isFileEmpty(av[1])) return (FEMPTY_ERROR); //! check
-    
-    // todo ARTUR HERE
-    if (allocate_file(av, head)) return (PARSE_ERROR); //! check
+    if (isFileValid(av[1])) parseFailed (head, FINVALID_ERROR); //! check
+    if (filetype_checker(av[1])) parseFailed (head, FTYPE_ERROR); //! check
+    if (isFileEmpty(av[1])) parseFailed (head, FEMPTY_ERROR); //! check
+    if (allocate_file(av, head)) parseFailed (head, PARSE_ERROR); //! check
     if (textureValidator(head)) parseFailed(head, MWRONG_TEXTURE); //!check
 
     // MAP FETCH
@@ -37,14 +35,11 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
     // nao ha letras no meio
     // mapa fechado (flood fill)
 
-
     // if (isCharInMap(head, '1')) parseFailed(head, MWRONG_FORMAT);
     // if (isTherePlayer(head)) parseFailed(head, MNO_PLAYER);
     
-        
     // getPlayerPos(head);
     
-    // TODO FLOOD FILL
     return (0);
 }
 

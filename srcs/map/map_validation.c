@@ -199,7 +199,7 @@ uint8_t textureValidator(t_cub *head)
     if (isTextureValid(head)) return (MWRONG_TEXTURE);
     if (isColorValid(head)) return (MWRONG_TEXTURE);
 
-    printf("PASSOU\n");
+    printf("PASSOU TEXTURE VALIDATOR\n");
     return (0);
 }
 
