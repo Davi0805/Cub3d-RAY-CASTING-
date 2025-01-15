@@ -15,6 +15,7 @@ static bool checkCharacters(t_cub *head)
             {
                 if (hasPlayer)
                     return true;
+                head->player.start_dir = map[y][x]; // fetch starting dir
                 hasPlayer = true;
             }
             else if (!ft_strchr("01", map[y][x])) // bad char
@@ -26,10 +27,10 @@ static bool checkCharacters(t_cub *head)
     return false; // all good
 }
 
-static bool mapNotClosed(t_cub *head)
-{
-
-}
+// static bool mapNotClosed(t_cub *head)
+// {
+    
+// }
 
 uint8_t verifyMap(t_cub *head)
 {
