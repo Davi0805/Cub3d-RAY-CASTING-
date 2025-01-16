@@ -77,15 +77,9 @@ void setTexture(t_cub *head, int8_t orient, char *path)
 void    setColor(t_cub *head, uint8_t orient, char *path)
 {
     if (orient == F)
-    {
         head->assets.floor_rgb_s = path;
-        // todo 
-        // iscolorrgbstring para aqui probabbly
-    }
     else if(orient == C)
-    {
         head->assets.ceiling_rgb_s = path;
-    }
 }
 
 char *ft_trim(char *str)
@@ -109,7 +103,7 @@ char *ft_trim(char *str)
         trimmed = ft_substr(str, 0, 0);
     else
         trimmed = ft_substr(str, i, j - i + 1);
-    free(str); //! leak?
+    free(str);
     return (trimmed);
 }
 

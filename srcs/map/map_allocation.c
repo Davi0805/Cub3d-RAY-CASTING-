@@ -88,14 +88,10 @@ return (PARSE_SUCCESS);
 
 uint8_t     allocateMap(t_cub *head, char **fcontent, char *map_path)
 {
-    (void)fcontent;
-    int height = getMapHeight(map_path); //!check
-
-    printf("height = %d\n", height);
+    int height = getMapHeight(map_path);
 
     // something after the map or small map
     if (height < 3) return MWRONG_FORMAT;
-
 
     // map lines from 0 ends in NULL
     head->map = (char **)ft_calloc(height + 1, sizeof(char *));
