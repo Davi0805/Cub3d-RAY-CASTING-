@@ -2,9 +2,9 @@
 
 # Set Valgrind command options
 val="valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes"
-bin="../Cub3d"
-mapsDir="../Maps/Invalid/"
-logFile="../log.txt"
+bin="Cub3d"
+mapsDir="Maps/Invalid/"
+logFile="log.txt"
 valgrindErrors="definitely lost|indirectly lost|possibly lost|Invalid read|invalid access|segfault|address not mapped|stack overflow|heap corruption|ERROR SUMMARY: [1-9][0-9]* errors"
 
 # Color codes for output

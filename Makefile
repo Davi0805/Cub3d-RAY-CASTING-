@@ -50,6 +50,9 @@ test: $(NAME)
 allowed_fun:
 	@./Tests/AllowedFunctions.sh ./Cub3d
 
+val: all
+	@./Tests/Valgrind.sh	
+
 # Limpeza dos arquivos gerados
 clean:
 	@echo "Clean"
