@@ -2,7 +2,7 @@ name: 42 Allowed Functions Tests
 
 on:
   push:
-    branches: [ "**" ]
+    branches: [ "main" ]
 
 jobs:
   Allowed-functions:
