@@ -149,6 +149,8 @@ void freeFile(t_cub *head);
 void free_textures(t_cub *head);
 void freeMap(t_cub *head);
 
+// DDA
+void    drawLine(t_mlx_data mlx, int x1, int y1, int x2, int y2);
 
 void exitHandler(t_cub *head);
 void parseFailed(t_cub *head, uint16_t error);

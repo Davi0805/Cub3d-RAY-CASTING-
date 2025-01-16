@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:38:40 by davi              #+#    #+#             */
-/*   Updated: 2025/01/16 16:53:24 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/16 17:22:50 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void    drawLine(t_mlx_data mlx, int x1, int y1, int x2, int y2)
     i = 0;
     while (i <= dda.steps)
     {
-        put_pixel(mlx, x1, y1, 0x00FFFFFF);
+        // ! SUBSTITUIR POR UMA LOGICA DE TEXTURA OU COR
+        put_pixel(mlx, x1, y1, 0xFF0000);
         x1 += dda.xinc;
         y1 += dda.yinc;
         i++;
