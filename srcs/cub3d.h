@@ -80,6 +80,17 @@ typedef struct s_mlx_data
 	int		endian;
 }				t_mlx_data;
 
+// Variaveis para calculo do dda
+typedef struct s_dda
+{
+    // tlvz mudar para float
+    int dx;
+    int dy;
+    int steps;
+    int xinc;
+    int yinc;
+}               t_dda;
+
 typedef struct s_player
 {
     int32_t px;
