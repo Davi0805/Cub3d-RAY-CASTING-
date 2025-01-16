@@ -138,6 +138,7 @@ uint8_t isColorRgbstring(char *str)
 // Parser func de RGB
 uint8_t isColorValid(t_cub *head)
 {
+    if (!head->assets.ceiling_rgb_s || !head->assets.floor_rgb_s) return (MWRONG_TEXTURE);
     if(isColorRgbstring(head->assets.floor_rgb_s)
     || isColorRgbstring(head->assets.ceiling_rgb_s))
         return (MWRONG_TEXTURE);
@@ -165,6 +166,7 @@ uint8_t isColorValid(t_cub *head)
 uint8_t textureValidator(t_cub *head)
 {
     uint8_t i;
+    
     u_int32_t textures_parsed;
 
     textures_parsed = 0;

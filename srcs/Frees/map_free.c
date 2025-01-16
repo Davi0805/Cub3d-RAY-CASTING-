@@ -43,7 +43,7 @@ void    free_textures(t_cub *head)
         free(head->assets.ea_texture);
     if (head->assets.floor_rgb_s != NULL)
         free(head->assets.floor_rgb_s);
-    if (head->assets.ceiling_rgb_s)
+    if (head->assets.ceiling_rgb_s != NULL)
         free(head->assets.ceiling_rgb_s);
 }
 
@@ -59,6 +59,7 @@ void    parseFailed(t_cub *head, uint16_t error)
 {
     printf("[EXIT HANDLER]\n");
     freeFile(head);
+    if (head->map) freeMap(head);
     free_textures(head);
     exit(error); // Macro para Parse Test
 }

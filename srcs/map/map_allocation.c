@@ -21,7 +21,7 @@ static int         getMapHeight(char *map_path)
 {
     int fd = open(map_path, O_RDONLY);
     if (!fd)
-        return (SYSCALL_ERROR);
+        return (-1);
     
     char *line = get_next_line(fd);
     while (line && !isMapLine(line))
@@ -29,9 +29,9 @@ static int         getMapHeight(char *map_path)
         free(line);
         line = get_next_line(fd);
         if (!line) // end of file reached
-            return (close(fd), MWRONG_FORMAT); // no map
+            return (close(fd), -1); // no map
     }
-
+    
     int h = 0;
     bool flag = false; // error checking flag
     while (line)
@@ -54,7 +54,7 @@ static int         getMapHeight(char *map_path)
         while (line)
         {
             if (!ft_stremptyspaces(line))
-                return (close(fd), free(line), -1); // error for spaced map (2 maps)
+                h = -1; // error for spaced map (2 maps)
             free(line);
             line = get_next_line(fd);
         }
@@ -91,8 +91,11 @@ uint8_t     allocateMap(t_cub *head, char **fcontent, char *map_path)
     (void)fcontent;
     int height = getMapHeight(map_path); //!check
 
-    // something after the map
-    if (height < 0) return MWRONG_FORMAT;
+    printf("height = %d\n", height);
+
+    // something after the map or small map
+    if (height < 3) return MWRONG_FORMAT;
+
 
     // map lines from 0 ends in NULL
     head->map = (char **)ft_calloc(height + 1, sizeof(char *));
@@ -102,6 +105,5 @@ uint8_t     allocateMap(t_cub *head, char **fcontent, char *map_path)
     // copies each line
     if (allocateRows(head, fcontent, height))
         return (MWRONG_FORMAT);
-
     return (PARSE_SUCCESS);
 }

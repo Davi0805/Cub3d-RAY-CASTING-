@@ -51,34 +51,27 @@ char *getTexturePath(char *line)
         size--;
     }
     str = ft_substr(line, i, size - i + 1);
-    // free(line);
     printf("[getTexturePath]: %s\n", str);
     return (str);
 }
 
-void    setTexture(t_cub *head, uint8_t orient, char *path)
+void setTexture(t_cub *head, int8_t orient, char *path)
 {
-    if (orient == NO)
+    char **textures[4]; // Declaração do array de ponteiros
+
+    // Inicialização c
+    textures[0] = &head->assets.no_texture;
+    textures[1] = &head->assets.so_texture;
+    textures[2] = &head->assets.we_texture;
+    textures[3] = &head->assets.ea_texture;
+
+    if (orient >= NO && orient <= EA)
     {
-        head->assets.no_texture = path;
-        return ;
+        if (*textures[orient])
+            free(path);
+        else
+            *textures[orient] = path;
     }
-    else if (orient == SO)
-    {
-        head->assets.so_texture = path;
-        return ;
-    }
-    else if (orient == WE)
-    {
-        head->assets.we_texture = path;
-        return ;
-    }
-    else if (orient == EA)
-    {
-        head->assets.ea_texture = path;
-        return ;
-    }
-    return ;   
 }
 
 void    setColor(t_cub *head, uint8_t orient, char *path)
@@ -122,7 +115,7 @@ char *ft_trim(char *str)
 
 uint8_t isOrientation(t_cub *head, int i, int textures_parsed)
 {
-      if (textures_parsed == 6)
+    if (textures_parsed == 6)
         return (MWRONG_TEXTURE);
     
     head->fcontent[i] = ft_trim(head->fcontent[i]);

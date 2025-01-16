@@ -35,12 +35,12 @@
 // ORIENTATION
 enum orientation
 {
-NO = 1,
-SO = 2,
-WE = 3,
-EA = 4,
-F = 5, // Floor
-C = 6, // Ceiling
+NO = 0,
+SO = 1,
+WE = 2,
+EA = 3,
+F = 4, // Floor
+C = 5, // Ceiling
 OTHER = 100
 };
 
