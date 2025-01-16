@@ -26,9 +26,10 @@ uint8_t collect_lines(char *path, t_cub *head)
     while(i < head->nb_lines)
     {
         head->fcontent[i] = get_next_line(fd);
-        if (!head->fcontent[i]) return (SYSCALL_ERROR);
+        if (!head->fcontent[i]) return (close(fd), SYSCALL_ERROR);
         i++;
     }
+    close(fd);
     return (PARSE_SUCCESS);
 }
 

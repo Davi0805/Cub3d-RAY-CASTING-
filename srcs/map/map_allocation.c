@@ -29,7 +29,7 @@ static int         getMapHeight(char *map_path)
         free(line);
         line = get_next_line(fd);
         if (!line) // end of file reached
-            return (MWRONG_FORMAT); // no map
+            return (close(fd), MWRONG_FORMAT); // no map
     }
 
     int h = 0;
@@ -54,7 +54,7 @@ static int         getMapHeight(char *map_path)
         while (line)
         {
             if (!ft_stremptyspaces(line))
-                return (free(line), -1); // error for spaced map (2 maps)
+                return (close(fd), free(line), -1); // error for spaced map (2 maps)
             free(line);
             line = get_next_line(fd);
         }

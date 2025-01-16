@@ -51,7 +51,7 @@ uint8_t isFileEmpty(char *path)
     
     // Trying to read 1 byte from the file
     if (read(fd, &has_content, 1) == 0)
-        return (FEMPTY_ERROR);
+        return (close(fd), FEMPTY_ERROR);
 
     close(fd);
     return (PARSE_SUCCESS);
