@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:28:21 by dmelo-ca          #+#    #+#             */
-/*   Updated: 2025/01/09 22:13:16 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/16 17:02:01 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ void    exitHandler(t_cub *head)
         free(head->mlx.mlx_ptr);
     freeFile(head);
     free_textures(head);
+    freeMap(head);
     exit(0);
 }
