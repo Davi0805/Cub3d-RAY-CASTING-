@@ -7,6 +7,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
+#include <math.h>
 
 // MINILIBX
 # include <X11/keysym.h>
@@ -18,6 +19,13 @@
 
 #define WIDTH 1920
 #define HEIGHT 1080
+
+// GAME CONFIGS
+#define SPEED 35
+#define SCALE 25
+
+// RADIANOS
+#define PI 3.14159265359
 
 // ERROR CODES
 #define PARSE_ERROR 1
@@ -93,8 +101,11 @@ typedef struct s_dda
 
 typedef struct s_player
 {
-    int32_t px;
-    int32_t py;
+    float px;
+    float py;
+    float pdx; // delta x
+    float pdy; // delta y
+    float pa; // angulo do player
     int8_t  start_dir;
 
 } t_player;
@@ -151,6 +162,10 @@ void freeMap(t_cub *head);
 
 // DDA
 void    drawLine(t_mlx_data mlx, int x1, int y1, int x2, int y2);
+void	put_pixel(t_mlx_data mlx, int x, int y, int color);
+void    draw_square(t_mlx_data mlx, int x, int y, int size, int color);
+void drawMiniMap(t_cub head);
+void draw_player(t_cub head);
 
 void exitHandler(t_cub *head);
 void parseFailed(t_cub *head, uint16_t error);

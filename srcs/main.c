@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/01/10 14:38:19 by dmelo-ca         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:47:10 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,35 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
 }
 
 
+uint8_t     setup_minilibx(t_cub *head)
+{
+    // init_minilibx_struct(head);
+    
+    head->mlx.mlx_ptr = mlx_init();
+    if (head->mlx.mlx_ptr == NULL)
+        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
+    
+    head->mlx.win_ptr = mlx_new_window(head->mlx.mlx_ptr, WIDTH, HEIGHT, "CUB3D - Oq tu quer ta mole");
+    if (head->mlx.win_ptr == NULL)
+        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
+    
+    head->mlx.img_ptr = mlx_new_image(head->mlx.mlx_ptr, WIDTH, HEIGHT);
+    if (head->mlx.img_ptr == NULL)
+        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
+    
+    head->mlx.img_addr = mlx_get_data_addr(head->mlx.img_ptr, &head->mlx.bits_per_pixel, &head->mlx.size_line, &head->mlx.endian);
+    if (head->mlx.img_addr == NULL)
+        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
+
+    return (0);
+}
 
 
 int main(int ac, char **av)
 {
     t_cub head;
     int error;
-
+    
     ft_bzero(&head, sizeof(head));
 
     // Valid file
@@ -58,6 +80,29 @@ int main(int ac, char **av)
     
     if (error) 
         return (error);
+    
+    if (setup_minilibx(&head))
+        exitHandler(&head);
+        
+    // drawLine(head.mlx, 2, 2, 255, 255);
+
+    // multiplicado player pos por escala
+    head.player.px *= SCALE;
+    head.player.py *= SCALE;
+
+    head.player.pdx = cos(head.player.pa);
+    head.player.pdy = sin(head.player.pa);
+
+    
+    drawMiniMap(head);
+    //draw_square(head.mlx, head.player.px, head.player.py, SCALE, 0xFF0000);
+    draw_player(head);
+    mlx_put_image_to_window(head.mlx.mlx_ptr, head.mlx.win_ptr, head.mlx.img_ptr, 0, 0);
+    
+    mlx_hook(head.mlx.win_ptr, KeyPress, KeyPressMask, handle_keypress, &head); // ESC
+    mlx_hook(head.mlx.win_ptr, ClientMessage, StructureNotifyMask, handle_close, &head);  // X da janela
+
+    mlx_loop(head.mlx.mlx_ptr);
 
     freeMap(&head);
     freeFile(&head);

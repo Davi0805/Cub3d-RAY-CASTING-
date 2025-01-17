@@ -6,13 +6,13 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:38:40 by davi              #+#    #+#             */
-/*   Updated: 2025/01/16 17:22:50 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/17 14:32:04 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	put_pixel(t_mlx_data mlx, int x, int y, int color)
+void	put_pixel(t_mlx_data mlx, int x, int y, int color)
 {
 	char	*dst;
 
@@ -43,7 +43,7 @@ void    drawLine(t_mlx_data mlx, int x1, int y1, int x2, int y2)
     while (i <= dda.steps)
     {
         // ! SUBSTITUIR POR UMA LOGICA DE TEXTURA OU COR
-        put_pixel(mlx, x1, y1, 0xFF0000);
+        put_pixel(mlx, x1, y1, 0x0000FF);
         x1 += dda.xinc;
         y1 += dda.yinc;
         i++;
