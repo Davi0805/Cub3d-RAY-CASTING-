@@ -22,10 +22,10 @@
 
 // GAME CONFIGS
 #define SPEED 35
-#define SCALE 25
+#define SCALE 50
 
 // RADIANOS
-#define PI 3.14159265359
+#define PI 3.1415926535
 
 // ERROR CODES
 #define PARSE_ERROR 1
@@ -95,8 +95,8 @@ typedef struct s_dda
     int dx;
     int dy;
     int steps;
-    int xinc;
-    int yinc;
+    float xinc;
+    float yinc;
 }               t_dda;
 
 typedef struct s_player

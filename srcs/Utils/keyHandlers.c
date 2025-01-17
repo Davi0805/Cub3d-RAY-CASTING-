@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:59:36 by davi              #+#    #+#             */
-/*   Updated: 2025/01/17 15:46:47 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/17 16:23:15 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void updatePlayerDirection(t_player *player)
     else if (player->pa < 0)
         player->pa += 2 * PI;
 
-    player->pdx = cos(player->pa) * SPEED;
-    player->pdy = sin(player->pa) * SPEED;
+    player->pdx = cos(player->pa);
+    player->pdy = sin(player->pa);
 }
 
 int handle_keypress(int keycode, t_cub *head)
@@ -43,8 +43,8 @@ int handle_keypress(int keycode, t_cub *head)
     }
     if (keycode == XK_w)
     {
-        head->player.px += head->player.pdx;
-        head->player.py += head->player.pdy;
+        head->player.px += head->player.pdx * SPEED;
+        head->player.py += head->player.pdy * SPEED;
 
         mlx_destroy_image(head->mlx.mlx_ptr, head->mlx.img_ptr);
         void *newImg = mlx_new_image(head->mlx.mlx_ptr, WIDTH, HEIGHT);
@@ -66,10 +66,9 @@ int handle_keypress(int keycode, t_cub *head)
         draw_player(*head);
         mlx_put_image_to_window(head->mlx.mlx_ptr, head->mlx.win_ptr, newImg, 0, 0);
     }
-        if (keycode == XK_a)
+    if (keycode == XK_a)
     {
         head->player.pa -= 0.1;
-
 
         updatePlayerDirection(&head->player);
                  

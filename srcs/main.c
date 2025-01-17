@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/01/17 15:47:10 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/17 15:50:10 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int main(int ac, char **av)
 
     
     drawMiniMap(head);
-    //draw_square(head.mlx, head.player.px, head.player.py, SCALE, 0xFF0000);
     draw_player(head);
     mlx_put_image_to_window(head.mlx.mlx_ptr, head.mlx.win_ptr, head.mlx.img_ptr, 0, 0);
     

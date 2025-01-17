@@ -6,7 +6,7 @@
 /*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:38:40 by davi              #+#    #+#             */
-/*   Updated: 2025/01/17 14:32:04 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/17 16:27:07 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void    drawLine(t_mlx_data mlx, int x1, int y1, int x2, int y2)
     else
         dda.steps = abs(dda.dy);
         
-    dda.xinc = dda.dx / dda.steps;
-    dda.yinc = dda.dy / dda.steps;
+    dda.xinc = dda.dx / (float)dda.steps;
+    dda.yinc = dda.dy / (float)dda.steps;
 
     i = 0;
     while (i <= dda.steps)
