@@ -17,6 +17,8 @@ LDFLAGS = -L/usr/lib/x86_64-linux-gnu
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I$(LIBFTDIR) -I$(SRCDIR) -g
 
+SANFLAGS = -Wall -Wextra -Werror -I$(LIBFTDIR) -I$(SRCDIR) -g -fsanitize=address -fsanitize=leak -fsanitize=undefined -fno-omit-frame-pointer
+
 # Obtém todos os arquivos .c no diretório Srcs
 SRC = $(shell find $(SRCDIR) -name '*.c')
 
@@ -44,6 +46,13 @@ $(LIBFT):
 $(MINILIBXDIR)/$(MINILIBX):
 	@make -C $(MINILIBXDIR) && echo MINILIBX Compilada
 
+# San compilation
+san: $(OBJ) $(LIBFT) $(MINILIBXDIR)/$(MINILIBX)
+	@echo "Building with sanitizers!"
+	$(CC) $(SANFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(LDFLAGS) -L$(MINILIBXDIR) -lmlx -lm -lX11 -lXext $(MINILIBXDIR)/$(MINILIBX)
+	@echo "Sanitizer build completed!"
+	@./Tests/Sanitize.sh
+
 test: $(NAME)
 	@./Tests/Map\ validation.sh
 
@@ -52,6 +61,8 @@ allowed_fun:
 
 val: all
 	@./Tests/Valgrind.sh	
+
+san: $(SAN)
 
 # Limpeza dos arquivos gerados
 clean:
