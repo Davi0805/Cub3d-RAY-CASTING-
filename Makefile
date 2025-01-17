@@ -53,6 +53,7 @@ san: fclean $(OBJ) $(LIBFT) $(MINILIBXDIR)/$(MINILIBX)
 	$(CC) $(SANFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(LDFLAGS) -L$(MINILIBXDIR) -lmlx -lm -lX11 -lXext $(MINILIBXDIR)/$(MINILIBX)
 	@echo "Sanitizer build completed!"
 	@./Tests/Sanitize.sh
+	make fclean
 
 test: $(NAME)
 	@./Tests/Map\ validation.sh

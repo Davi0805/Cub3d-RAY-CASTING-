@@ -58,30 +58,16 @@ uint8_t isFileEmpty(char *path)
 }
 
 // Validacao do path das texturas
-uint8_t isTextureValid(t_cub *head) //todo printfs
+uint8_t isTextureValid(t_cub *head)
 {
     if (isFileValid(head->assets.no_texture) || isXpm(head->assets.no_texture))
-    {
-        printf("[NAO VALIDADO]: NO %s\n", strerror(errno));
         return (MWRONG_TEXTURE);
-    }
     if (isFileValid(head->assets.so_texture) || isXpm(head->assets.so_texture))
-    {
-        printf("[NAO VALIDADO]: SO %s\n", strerror(errno));
         return (MWRONG_TEXTURE);
-    }
     if (isFileValid(head->assets.we_texture) || isXpm(head->assets.we_texture))
-    {
-        printf("[NAO VALIDADO]: WE %s\n", strerror(errno));
         return (MWRONG_TEXTURE);
-    }
     if (isFileValid(head->assets.ea_texture) || isXpm(head->assets.ea_texture))
-    {
-        printf("[NAO VALIDADO]: EA %s\n", strerror(errno));
-        //printf("EA PATH: %s\n", head->assets.ea_texture); // Debug print
         return (MWRONG_TEXTURE);
-    }
-    printf("[TEXTURAS VALIDADAS]\n");
     return (PARSE_SUCCESS);
 }
 
@@ -130,9 +116,7 @@ uint8_t isColorRgbstring(char *str)
             return (MWRONG_TEXTURE);
     }
 
-    //? debug
-    printf("[IS COLOR VALID]: YES\n");
-    return (0);
+    return (PARSE_SUCCESS);
 }
 
 // Parser func de RGB
@@ -153,13 +137,7 @@ uint8_t isColorValid(t_cub *head)
     ccolor->g = ft_atoi(ft_strchr(head->assets.ceiling_rgb_s, ',') + 1); // Retorna primeira virgula e adiciono mais 1
     ccolor->b = ft_atoi(ft_strrchr(head->assets.ceiling_rgb_s, ',') + 1); // Retorno a utlima virgula e adiciono mais 1
 
-    //? debug
-    {
-        printf("[ISCOLORVALID] INT FLOOR COLORS %u %u %u\n", fcolor->r, head->assets.floor_color.g, head->assets.floor_color.b);
-        printf("[ISCOLORVALID] INT Ceiling COLORS %u %u %u\n", ccolor->r, head->assets.ceil_color.g, head->assets.ceil_color.b);
-        printf("[ISCOLORVALID] Sucesso em ambos!\n");
-    }    
-    return (0);
+    return (PARSE_SUCCESS);
 }
 // Da parse e valida Texturas e cores
 uint8_t textureValidator(t_cub *head)
@@ -173,7 +151,6 @@ uint8_t textureValidator(t_cub *head)
     while (i < head->nb_lines && textures_parsed != 6)
     {
         errno = 0;
-        // if(isOrientation(&head->fcontent[i], head, textures_parsed) != OTHER)
         if(isOrientation(head, i, textures_parsed) != OTHER)
         {
             if (errno != 0)
@@ -186,22 +163,10 @@ uint8_t textureValidator(t_cub *head)
     // All need to be present
     if (textures_parsed != 6)
         return (MWRONG_TEXTURE);
-
-    //? debug
-    {
-        printf("[NO PATH]: %s#\n", head->assets.no_texture);
-        printf("[SO PATH]: %s#\n", head->assets.so_texture);
-        printf("[WE PATH]: %s#\n", head->assets.we_texture);
-        printf("[EA PATH]: %s#\n", head->assets.ea_texture);
-        printf("[FLOOR COLOR STRING]: %s\n", head->assets.floor_rgb_s);
-        printf("[Ceiling COLOR STRING]: %s\n", head->assets.ceiling_rgb_s);
-    }
     
     if (isTextureValid(head)) return (MWRONG_TEXTURE);
     if (isColorValid(head)) return (MWRONG_TEXTURE);
-
-    printf("PASSOU TEXTURE VALIDATOR\n");
-    return (0);
+    return (PARSE_SUCCESS);
 }
 
 

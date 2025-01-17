@@ -33,14 +33,12 @@ uint8_t    getNbLines(char *path, t_cub *head)
     return (PARSE_SUCCESS);
 }
 
-char *getTexturePath(char *line)
+static char *getTexturePath(char *line)
 {
     uint32_t i;
     uint32_t size;
     char *str;
     
-    //F 20,20,20
-    //C 200,200,200
     i = 2;
     str = "";
     size = ft_strlen(line) - 1;
@@ -51,11 +49,10 @@ char *getTexturePath(char *line)
         size--;
     }
     str = ft_substr(line, i, size - i + 1);
-    printf("[getTexturePath]: %s\n", str);
     return (str);
 }
 
-void setTexture(t_cub *head, int8_t orient, char *path)
+static void setTexture(t_cub *head, int8_t orient, char *path)
 {
     char **textures[4]; // Declaração do array de ponteiros
 
@@ -74,7 +71,7 @@ void setTexture(t_cub *head, int8_t orient, char *path)
     }
 }
 
-void    setColor(t_cub *head, uint8_t orient, char *path)
+static void    setColor(t_cub *head, uint8_t orient, char *path)
 {
     if (orient == F)
         head->assets.floor_rgb_s = path;
@@ -82,7 +79,7 @@ void    setColor(t_cub *head, uint8_t orient, char *path)
         head->assets.ceiling_rgb_s = path;
 }
 
-char *ft_trim(char *str)
+static char *trimspaces(char *str)
 {
     uint32_t i;
     uint32_t j;
@@ -112,7 +109,7 @@ uint8_t isOrientation(t_cub *head, int i, int textures_parsed)
     if (textures_parsed == 6)
         return (MWRONG_TEXTURE);
     
-    head->fcontent[i] = ft_trim(head->fcontent[i]);
+    head->fcontent[i] = trimspaces(head->fcontent[i]);
     if (head->fcontent[i] == NULL)
         return (SYSCALL_ERROR);
 
@@ -137,16 +134,12 @@ uint8_t isXpm(char *str)
 {
     uint32_t i;
 
-    //printf("[IS_XPM]: %s\n", str);
     i = ft_strlen(str) - 4;
 
     if (i <= 4)
         return (MWRONG_TEXTURE);
     
     if (ft_strncmp(str + i, ".xpm", 4) == 0)
-    {
-        //printf("[IS_XPM]: YES");
-        return (0);
-    }
+        return (PARSE_SUCCESS);
     return (MWRONG_TEXTURE);
 }

@@ -53,47 +53,14 @@ static bool mapNotClosed(t_cub *head)
     return (floodFill(head->map, head->player.py, head->player.px, '0'));
 }
 
-static bool mapHasBadSpaces(char **map)
-{
-    int y = 0, x;
-    while (map[y])
-    {
-        x = 0;
-
-        while (ft_isspace(map[y][x]))
-            x++;
-        
-        while (map[y][x] != '\n' && map[y][x] != '\0')
-        {
-            
-            // ____111___11__
-            x++;
-        }
-        y++;
-    }
-    return false; // all good
-}
-
 uint8_t verifyMap(t_cub *head)
 {
-
     // Checks for invalid charcaters and 1 player only
     if (hasBadChars(head)) return (MWRONG_FORMAT);
-    printf("PASSOU hasBadChars\n");
-
-    // check for spaces in beetween 1---1 (logica das aspas do minishell)
-    if (mapHasBadSpaces(head->map)) return (MWRONG_FORMAT);
 
     // Checks for closed map with flood fill
     if (mapNotClosed(head))
         return (MWRONG_FORMAT);
-    printf("PASSOU1 mapNotClosed\n\n");
-
-    for (int i = 0; head->map[i] ; i++)
-    {
-        for (int j = 0; head->map[i][j]; j++)
-            printf("%c", head->map[i][j]);
-    }
 
     return (PARSE_SUCCESS);
 }

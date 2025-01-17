@@ -57,25 +57,8 @@ void freeMap(t_cub *head)
 
 void    parseFailed(t_cub *head, uint16_t error)
 {
-    printf("[EXIT HANDLER]\n");
     freeFile(head);
     if (head->map) freeMap(head);
     free_textures(head);
     exit(error); // Macro para Parse Test
-}
-
-void    exitHandler(t_cub *head)
-{
-    printf("[EXIT HANDLER]\n");
-    if (head->mlx.img_ptr != NULL)
-        mlx_destroy_image(head->mlx.mlx_ptr, head->mlx.img_ptr);
-    if (head->mlx.win_ptr != NULL)
-        mlx_destroy_window(head->mlx.mlx_ptr, head->mlx.win_ptr);
-    if (head->mlx.mlx_ptr != NULL)
-        mlx_destroy_display(head->mlx.mlx_ptr);
-    if (head->mlx.mlx_ptr != NULL)
-        free(head->mlx.mlx_ptr);
-    freeFile(head);
-    free_textures(head);
-    exit(0);
 }

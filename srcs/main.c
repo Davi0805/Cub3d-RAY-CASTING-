@@ -20,45 +20,38 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
     if (ac != 2)
         return (PARSE_ERROR);
     
-    if (isFileValid(av[1])) parseFailed (head, FINVALID_ERROR); //! check
-    if (filetype_checker(av[1])) parseFailed (head, FTYPE_ERROR); //! check
-    if (isFileEmpty(av[1])) parseFailed (head, FEMPTY_ERROR); //! check
-    if (allocate_file(av, head)) parseFailed (head, PARSE_ERROR); //! check
-    if (textureValidator(head)) parseFailed(head, MWRONG_TEXTURE); //!check
+    // File type
+    if (filetype_checker(av[1])) parseFailed (head, FTYPE_ERROR);
+    // File opens
+    if (isFileValid(av[1])) parseFailed (head, FINVALID_ERROR);
+    // Has contents
+    if (isFileEmpty(av[1])) parseFailed (head, FEMPTY_ERROR);
+    
+    // Heap storing the file contents into a buffer
+    if (allocate_file(av, head)) parseFailed (head, PARSE_ERROR);
+    // TEXTURES Validation
+    if (textureValidator(head)) parseFailed(head, MWRONG_TEXTURE);
 
-    // MAP FETCH
     // Read file contents and allocate map
-    if (allocateMap(head, head->fcontent, av[1])) parseFailed(head, MWRONG_TEXTURE); //! check
+    if (allocateMap(head, head->fcontent, av[1])) parseFailed(head, MWRONG_TEXTURE);
     // MAP Validation
     if (verifyMap(head)) parseFailed (head, MWRONG_TEXTURE);
-    // 1 e 1 só player
-    // nao ha letras no meio
-    // mapa fechado (flood fill)
-
-    // if (isCharInMap(head, '1')) parseFailed(head, MWRONG_FORMAT);
-    // if (isTherePlayer(head)) parseFailed(head, MNO_PLAYER);
     
-    // getPlayerPos(head);
-    
-    return (0);
+    return (PARSE_SUCCESS);
 }
-
-
-
 
 int main(int ac, char **av)
 {
     t_cub head;
-    int error;
 
+    // Init everything to 0's
     ft_bzero(&head, sizeof(head));
-
     // Valid file
-    error = setup_validation(ac, av, &head);
-    
-    if (error) 
-        return (error);
+    if (setup_validation(ac, av, &head))
+        return (1);
 
+
+    // Resource deallocation
     freeMap(&head);
     freeFile(&head);
     free_textures(&head);
