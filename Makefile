@@ -47,7 +47,8 @@ $(MINILIBXDIR)/$(MINILIBX):
 	@make -C $(MINILIBXDIR) && echo MINILIBX Compilada
 
 # San compilation
-san: $(OBJ) $(LIBFT) $(MINILIBXDIR)/$(MINILIBX)
+san: CFLAGS=$(SANFLAGS)
+san: fclean $(OBJ) $(LIBFT) $(MINILIBXDIR)/$(MINILIBX)
 	@echo "Building with sanitizers!"
 	$(CC) $(SANFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(LDFLAGS) -L$(MINILIBXDIR) -lmlx -lm -lX11 -lXext $(MINILIBXDIR)/$(MINILIBX)
 	@echo "Sanitizer build completed!"
