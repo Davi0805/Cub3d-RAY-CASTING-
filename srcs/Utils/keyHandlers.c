@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyHandlers.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 21:59:36 by davi              #+#    #+#             */
-/*   Updated: 2025/01/17 16:23:15 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/21 17:38:21 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void updatePlayerDirection(t_player *player)
     else if (player->pa < 0)
         player->pa += 2 * PI;
 
-    player->pdx = cos(player->pa);
-    player->pdy = sin(player->pa);
+    player->pdx = cos(player->pa) * 5;
+    player->pdy = sin(player->pa) * 5;
 }
 
 int handle_keypress(int keycode, t_cub *head)
@@ -34,50 +34,81 @@ int handle_keypress(int keycode, t_cub *head)
         head->player.px -= head->player.pdx;
         head->player.py -= head->player.pdy;
 
-        mlx_destroy_image(head->mlx.mlx_ptr, head->mlx.img_ptr);
-        void *newImg = mlx_new_image(head->mlx.mlx_ptr, WIDTH, HEIGHT);
-        head->mlx.img_ptr = newImg;
+        ft_memset(head->mlx.img_addr, 0, HEIGHT * head->mlx.size_line);
         drawMiniMap(*head);
         draw_player(*head);
-        mlx_put_image_to_window(head->mlx.mlx_ptr, head->mlx.win_ptr, newImg, 0, 0);
+        // RAYCASTER
+        {
+            for (int i = 0; )   
+
+
+        drawLine(head.mlx, x, y, x + dx, y + dy);
+        
+        
+        }
+        
+        mlx_put_image_to_window(head->mlx.mlx_ptr, head->mlx.win_ptr, head->mlx.img_ptr, 0, 0);
     }
     if (keycode == XK_w)
     {
-        head->player.px += head->player.pdx * SPEED;
-        head->player.py += head->player.pdy * SPEED;
+        head->player.px += head->player.pdx;
+        head->player.py += head->player.pdy;
 
-        mlx_destroy_image(head->mlx.mlx_ptr, head->mlx.img_ptr);
-        void *newImg = mlx_new_image(head->mlx.mlx_ptr, WIDTH, HEIGHT);
-        head->mlx.img_ptr = newImg;
+        ft_memset(head->mlx.img_addr, 0, HEIGHT * head->mlx.size_line);
         drawMiniMap(*head);
         draw_player(*head);
-        mlx_put_image_to_window(head->mlx.mlx_ptr, head->mlx.win_ptr, newImg, 0, 0);
+        // RAYCASTER
+        {
+            for (int i = 0; )   
+
+
+                drawLine(head.mlx, x, y, x + dx, y + dy);
+        
+        
+        }
+        
+        mlx_put_image_to_window(head->mlx.mlx_ptr, head->mlx.win_ptr, head->mlx.img_ptr, 0, 0);
     }
     if (keycode == XK_d)
     {
-        head->player.pa += 0.1;
+        head->player.pa += (1) * (PI / 180.0);
 
         updatePlayerDirection(&head->player);
 
-        mlx_destroy_image(head->mlx.mlx_ptr, head->mlx.img_ptr);
-        void *newImg = mlx_new_image(head->mlx.mlx_ptr, WIDTH, HEIGHT);
-        head->mlx.img_ptr = newImg;
+        ft_memset(head->mlx.img_addr, 0, HEIGHT * head->mlx.size_line);
         drawMiniMap(*head);
         draw_player(*head);
-        mlx_put_image_to_window(head->mlx.mlx_ptr, head->mlx.win_ptr, newImg, 0, 0);
+        // RAYCASTER
+        {
+            for (int i = 0; )   
+
+
+        drawLine(head.mlx, x, y, x + dx, y + dy);
+        
+        
+        }
+        
+        mlx_put_image_to_window(head->mlx.mlx_ptr, head->mlx.win_ptr, head->mlx.img_ptr, 0, 0);
     }
     if (keycode == XK_a)
     {
-        head->player.pa -= 0.1;
+        head->player.pa -= (1) * (PI / 180.0);
 
         updatePlayerDirection(&head->player);
                  
-        mlx_destroy_image(head->mlx.mlx_ptr, head->mlx.img_ptr);
-        void *newImg = mlx_new_image(head->mlx.mlx_ptr, WIDTH, HEIGHT);
-        head->mlx.img_ptr = newImg;
+        ft_memset(head->mlx.img_addr, 0, HEIGHT * head->mlx.size_line);
         drawMiniMap(*head);
         draw_player(*head);
-        mlx_put_image_to_window(head->mlx.mlx_ptr, head->mlx.win_ptr, newImg, 0, 0);
+        // RAYCASTER
+        {
+
+
+        drawLine(head.mlx, x, y, x + dx, y + dy);
+        
+        
+        }
+        
+        mlx_put_image_to_window(head->mlx.mlx_ptr, head->mlx.win_ptr, head->mlx.img_ptr, 0, 0);
     }
     printf("PlayerX %f\n", head->player.px);
     printf("PlayerY %f\n", head->player.py);

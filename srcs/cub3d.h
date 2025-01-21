@@ -96,6 +96,8 @@ typedef struct s_dda
     int dy;
     int steps;
     float xinc;
+    float x;
+    float y;
     float yinc;
 }               t_dda;
 
