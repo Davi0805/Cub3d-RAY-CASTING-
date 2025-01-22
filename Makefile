@@ -3,21 +3,24 @@ MAKEFLAGS += --silent
 NAME = Cub3d
 
 # Diretórios
-SRCDIR = srcs
-OBJDIR = Objs
+INCDIR = code/inc
+SRCDIR = code/srcs
+OBJDIR = code/objs
+LIBDIR = code/lib
 
 # Diretório da biblioteca
-LIBFTDIR = libft
+LIBFTDIR = $(LIBDIR)/libft
+MINILIBXDIR = $(LIBDIR)/minilibx-linux
 LIBFT = $(LIBFTDIR)/libft.a
 MINILIBX = libmlx.a
-MINILIBXDIR = ./minilibx-linux
-LDFLAGS = -L/usr/lib/x86_64-linux-gnu
 
 # Compilador e flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(LIBFTDIR) -I$(SRCDIR) -g
+IFLAGS = -I$(INCDIR) -I$(LIBFTDIR) -I$(MINILIBXDIR) 
+CFLAGS = -Wall -Wextra -Werror -g
+LFLAGS = -L$(LIBFTDIR) -L$(MINILIBXDIR) -lft -lmlx -lm -lX11 -lXext
 
-SANFLAGS = -Wall -Wextra -Werror -I$(LIBFTDIR) -I$(SRCDIR) -g -fsanitize=address -fsanitize=leak -fsanitize=undefined -fno-omit-frame-pointer
+SANFLAGS = -Wall -Wextra -Werror $(IFLAGS) -g -fsanitize=address -fsanitize=leak -fsanitize=undefined -fno-omit-frame-pointer
 
 # Obtém todos os arquivos .c no diretório Srcs
 SRC = $(shell find $(SRCDIR) -name '*.c')
@@ -31,16 +34,17 @@ all: $(NAME)
 # Criação do executável
 $(NAME): $(OBJ) $(LIBFT) $(MINILIBXDIR)/$(MINILIBX)
 	@echo "Building!"
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(LDFLAGS) -L$(MINILIBXDIR) -lmlx -lm -lX11 -lXext $(MINILIBXDIR)/$(MINILIBX) && echo "Build completed!"
+	$(CC) $(IFLAGS) $(CFLAGS) $(OBJ) $(LFLAGS) -o $(NAME) && echo "Build completed!"
 
 # Regra para compilar os objetos
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(IFLAGS) $(CFLAGS) -c $< -o $@
 
 # Regra para compilar a biblioteca
 $(LIBFT):
 	@$(MAKE) -C $(LIBFTDIR) && echo "Libft builded!"
+	@$(MAKE) clean -C $(LIBFTDIR)
 
 # Minilibx
 $(MINILIBXDIR)/$(MINILIBX):
@@ -50,8 +54,7 @@ $(MINILIBXDIR)/$(MINILIBX):
 san: CFLAGS=$(SANFLAGS)
 san: fclean $(OBJ) $(LIBFT) $(MINILIBXDIR)/$(MINILIBX)
 	@echo "Building with sanitizers!"
-	$(CC) $(SANFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(LDFLAGS) -L$(MINILIBXDIR) -lmlx -lm -lX11 -lXext $(MINILIBXDIR)/$(MINILIBX)
-	@echo "Sanitizer build completed!"
+	$(CC) $(IFLAGS) $(CFLAGS) $(OBJ) $(LFLAGS) $(SANFLAGS) -o $(NAME) && echo "Sanitizer build completed!"
 	@./Tests/Sanitize.sh
 	make fclean
 

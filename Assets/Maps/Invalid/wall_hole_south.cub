@@ -1,0 +1,21 @@
+NO Assets/Tester Textures/test/north.xpm
+SO Assets/Tester Textures/test/south.xpm
+WE Assets/Tester Textures/test/west.xpm
+EA Assets/Tester Textures/test/east.xpm
+
+F 20,20,20
+C 200,200,200
+
+11111
+10001
+10S01
+10001
+10001
+10001
+11001
+10001
+10001
+10001
+10001
+10001
+11011
