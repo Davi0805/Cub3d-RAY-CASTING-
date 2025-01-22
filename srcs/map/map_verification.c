@@ -16,8 +16,8 @@ static bool hasBadChars(t_cub *head)
                 if (hasPlayer)
                     return true;
                 head->player.start_dir = map[y][x]; // fetch starting dir
-                head->player.px = x; // fetch starting px
-                head->player.py = y; // fetch starting py
+                head->player.posX = x; // fetch starting px
+                head->player.posY = y; // fetch starting py
 
                 hasPlayer = true;
             }
@@ -50,7 +50,7 @@ bool floodFill(char **map, int y, int x, char to_fill)
 
 static bool mapNotClosed(t_cub *head)
 {
-    return (floodFill(head->map, head->player.py, head->player.px, '0'));
+    return (floodFill(head->map, head->player.posY, head->player.posX, '0'));
 }
 
 uint8_t verifyMap(t_cub *head)

@@ -6,6 +6,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <math.h>
 #include <errno.h>
 
 // MINILIBX
@@ -16,8 +17,11 @@
 // Libft
 #include "libft.h"
 
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 800
+#define HEIGHT 600
+
+#define MOVESPEED 0.2
+#define ROTSPEED 0.1
 
 // ERROR CODES
 #define PARSE_ERROR 1
@@ -43,6 +47,40 @@ F = 4, // Floor
 C = 5, // Ceiling
 OTHER = 100
 };
+
+typedef struct s_dda
+{
+    // tlvz mudar para float
+    int dx;
+    int dy;
+    int steps;
+    float xinc;
+    float x;
+    float y;
+    float yinc;
+}               t_dda;
+
+
+typedef struct s_ray
+{
+    double cameraX;
+    double DirX;
+    double DirY;
+    int mapX;
+    int mapY;
+    double deltaDistX;
+    double deltaDistY;
+    int hit;
+    int stepX;
+    int stepY;
+    double sideDistX;
+    double sideDistY;
+    double perpWallDist;
+    int side;
+    int drawStart;
+    int drawEnd;
+    int lineHeight;
+} t_ray;
 
 typedef struct rgb
 {
@@ -82,8 +120,12 @@ typedef struct s_mlx_data
 
 typedef struct s_player
 {
-    int32_t px;
-    int32_t py;
+    double posX;
+    double posY;
+    double dirX;
+    double dirY;
+    double planeX;
+    double planeY;
     int8_t  start_dir;
 
 } t_player;
