@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
 // Preenche head->fcontent
 uint8_t collect_lines(char *path, t_cub *head)
