@@ -61,7 +61,7 @@ uint8_t     setup_minilibx(t_cub *head)
     return (0);
 }
 
-void	put_pixel(t_mlx_data mlx, int x, int y, int color)
+void	ft_put_pixel(t_mlx_data mlx, int x, int y, int color)
 {
 	char	*dst;
 
@@ -100,7 +100,7 @@ void drawLine(t_mlx_data mlx, int x1, int y1, int x2, int y2, int color)
     while (i <= dda.steps)
     {
         // Coloca o pixel arredondando as coordenadas
-        put_pixel(mlx, (int)(dda.x + 0.5), (int)(dda.y + 0.5), color);
+        ft_put_pixel(mlx, (int)(dda.x + 0.5), (int)(dda.y + 0.5), color);
 
         // Atualiza as coordenadas com os incrementos
         dda.x += dda.xinc;
@@ -304,6 +304,10 @@ int read_keys(int key, t_cub *head)
         head->player.planeX = head->player.planeX * cos(rot_speed) - head->player.planeY * sin(rot_speed);
         head->player.planeY = old_plane_x * sin(rot_speed) + head->player.planeY * cos(rot_speed);
     }
+
+    
+    raycaster(head);
+    
     return (0);
 }
 
@@ -329,11 +333,11 @@ int main(int ac, char **av)
     head.player.planeX = 0;
     head.player.planeY = 0.66;
 
-
+    raycaster(&head);
     
 
      
-    mlx_loop_hook(head.mlx.mlx_ptr, raycaster, (void *)&head);
+//  mlx_loop_hook(head.mlx.mlx_ptr, raycaster, (void *)&head);
     mlx_key_hook(head.mlx.win_ptr, read_keys, &head);
 	mlx_hook(head.mlx.win_ptr, DestroyNotify, 1L << 0, ExitFun, &head);
 	mlx_loop(head.mlx.mlx_ptr);
