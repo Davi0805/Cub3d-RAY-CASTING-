@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:28:21 by dmelo-ca          #+#    #+#             */
-/*   Updated: 2025/01/09 22:13:16 by davi             ###   ########.fr       */
+/*   Updated: 2025/01/22 10:28:02 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,20 @@ void    parseFailed(t_cub *head, uint16_t error)
     if (head->map) freeMap(head);
     free_textures(head);
     exit(error); // Macro para Parse Test
+}
+
+int ExitFun(t_cub *head) 
+{
+    if (head->mlx.img_ptr != NULL)
+        mlx_destroy_image(head->mlx.mlx_ptr, head->mlx.img_ptr);
+    if (head->mlx.win_ptr != NULL)
+        mlx_destroy_window(head->mlx.mlx_ptr, head->mlx.win_ptr);
+    if (head->mlx.mlx_ptr != NULL)
+        mlx_destroy_display(head->mlx.mlx_ptr);
+    if (head->mlx.mlx_ptr != NULL)
+        free(head->mlx.mlx_ptr);
+    freeFile(head);
+    if (head->map) freeMap(head);
+    free_textures(head);
+    exit(0);
 }

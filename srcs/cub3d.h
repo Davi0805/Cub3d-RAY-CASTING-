@@ -131,5 +131,7 @@ void freeFile(t_cub *head);
 void free_textures(t_cub *head);
 void freeMap(t_cub *head);
 void parseFailed(t_cub *head, uint16_t error);
+int ExitFun(t_cub *head);
+
 
 #endif

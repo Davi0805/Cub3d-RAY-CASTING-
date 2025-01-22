@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/01/10 14:38:19 by dmelo-ca         ###   ########.fr       */
+/*   Updated: 2025/01/22 10:32:36 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,40 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
     
     return (PARSE_SUCCESS);
 }
+    
+uint8_t     setup_minilibx(t_cub *head)
+{
+    head->mlx.mlx_ptr = mlx_init();
+    if (head->mlx.mlx_ptr == NULL)
+        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
+    
+    head->mlx.win_ptr = mlx_new_window(head->mlx.mlx_ptr, WIDTH, HEIGHT, "CUB3D - Oq tu quer ta mole");
+    if (head->mlx.win_ptr == NULL)
+        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
+    
+    head->mlx.img_ptr = mlx_new_image(head->mlx.mlx_ptr, WIDTH, HEIGHT);
+    if (head->mlx.img_ptr == NULL)
+        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
+    
+    head->mlx.img_addr = mlx_get_data_addr(head->mlx.img_ptr, &head->mlx.bits_per_pixel, &head->mlx.size_line, &head->mlx.endian);
+    if (head->mlx.img_addr == NULL)
+        return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
+
+    return (0);
+}
+
+
+int read_keys(int key, t_cub *head)
+{
+    if (key == XK_Escape)
+        ExitFun(head);
+    else if(key == XK_w) {}
+    else if(key == XK_s) {}
+    else if(key == XK_a) {}
+    else if(key == XK_d) {}
+
+    return (0);
+}
 
 int main(int ac, char **av)
 {
@@ -50,10 +84,40 @@ int main(int ac, char **av)
     if (setup_validation(ac, av, &head))
         return (1);
 
+    if (setup_minilibx(&head))
+        return (1);
+    
+    // Actual program
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    mlx_key_hook(head.mlx.win_ptr, read_keys, &head);
+	mlx_hook(head.mlx.win_ptr, DestroyNotify, 1L << 0, ExitFun, &head);
+	mlx_loop(head.mlx.mlx_ptr);
 
     // Resource deallocation
-    freeMap(&head);
-    freeFile(&head);
-    free_textures(&head);
+    ExitFun(&head);
     return (0);
 }
