@@ -2,7 +2,7 @@
 
 # Set Valgrind command options
 bin="Cub3d"
-mapsDir="Maps/Invalid/"
+mapsDir="Assets/Maps/Invalid/"
 logFile="log.txt"
 sanitizeErrors="heap-use-after-free|stack-use-after-scope|global-buffer-overflow|stack-buffer-overflow|use-after-poison|double free|invalid free|address not mapped|undefined behavior|null pointer|memory leak|detected memory leaks|division by zero|alignment error|object size|shift-exponent|unsigned integer overflow|signed integer overflow|SEGV on unknown address|abort"
 
