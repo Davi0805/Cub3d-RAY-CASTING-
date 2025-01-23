@@ -24,6 +24,7 @@
 
 #define MOVESPEED 0.2
 #define ROTSPEED 0.1
+#define FOV 0.66
 
 // ERROR CODES
 #define PARSE_ERROR 1
@@ -152,7 +153,6 @@ typedef struct cub
     t_mlx_data mlx;
 }       t_cub;
 
-
 // MAP VALIDATION
 uint8_t filetype_checker(char *path);
 uint8_t isFileValid(char *path);
@@ -169,6 +169,21 @@ uint8_t collect_lines(char *path, t_cub *head);
 uint8_t allocateMap(t_cub *head, char **fcontent, char *map_path);
 uint8_t verifyMap(t_cub *head);
 
+
+// Player movement
+int ReadKeys(int key, t_cub *head);
+
+void PlayerForward(t_player *player, char **map);
+void PlayerBackword(t_player *player, char **map);
+void PlayerLeft(t_player *player, char **map);
+void PlayerRight(t_player *player, char **map);
+
+// Ray caster
+int Raycaster(t_cub *head);
+
+// Draw utils
+void DrawLine(t_mlx_data mlx, int x1, int y1, int x2, int y2, int color);
+void PutPixelToImg(t_mlx_data mlx, int x, int y, int color);
 
 // Free Funcs
 void freeFile(t_cub *head);

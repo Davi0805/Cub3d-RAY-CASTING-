@@ -1,5 +1,38 @@
 #include "cub3d.h"
 
+static void GetStartingDir(t_player *player, char direction)
+{
+    if (direction == 'N') 
+    { 
+        player->dirX = 0;
+        player->dirY = -1;
+        player->planeX = FOV; 
+        player->planeY = 0;
+    }
+    else if (direction == 'S') 
+    { 
+        player->dirX = 0;
+        player->dirY = 1;
+        player->planeX = -FOV;
+        player->planeY = 0;
+
+    }
+    else if (direction == 'E') 
+    { 
+        player->dirX = 1;
+        player->dirY = 0;
+        player->planeX = 0;
+        player->planeY = FOV;
+    }
+    else if (direction == 'W') 
+    { 
+        player->dirX = -1;
+        player->dirY = 0;
+        player->planeX = 0;
+        player->planeY = -FOV;
+    }
+}
+
 static bool hasBadChars(t_cub *head)
 {
     char **map = head->map;
@@ -15,7 +48,7 @@ static bool hasBadChars(t_cub *head)
             {
                 if (hasPlayer)
                     return true;
-                head->player.start_dir = map[y][x]; // fetch starting dir
+                GetStartingDir(&head->player, map[y][x]); // fetch player dir
                 head->player.posX = x; // fetch starting px
                 head->player.posY = y; // fetch starting py
 
