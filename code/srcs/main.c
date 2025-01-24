@@ -80,7 +80,7 @@ int main(int ac, char **av)
     head.player.posX += 0.5f;
     head.player.posY += 0.5f;
 
-    Raycaster(&head);
+    Raycaster(&head); // fisrt sceene before any keypress
     
 //  mlx_loop_hook(head.mlx.mlx_ptr, raycaster, (void *)&head); // CPU GOES BRRRRRRRRRRRR
     mlx_key_hook(head.mlx.win_ptr, ReadKeys, &head);
