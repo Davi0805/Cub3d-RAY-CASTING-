@@ -76,9 +76,6 @@ int main(int ac, char **av)
 
     if (setup_minilibx(&head))
         return (1);
-    
-    head.player.posX += 0.5f;
-    head.player.posY += 0.5f;
 
     Raycaster(&head); // fisrt sceene before any keypress
     

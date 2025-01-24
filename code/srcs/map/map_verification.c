@@ -49,8 +49,8 @@ static bool hasBadChars(t_cub *head)
                 if (hasPlayer)
                     return true;
                 GetStartingDir(&head->player, map[y][x]); // fetch player dir
-                head->player.posX = x; // fetch starting px
-                head->player.posY = y; // fetch starting py
+                head->player.posX = x + 0.5f; // fetch starting px and center it
+                head->player.posY = y + 0.5f; // fetch starting py and center it
 
                 hasPlayer = true;
             }

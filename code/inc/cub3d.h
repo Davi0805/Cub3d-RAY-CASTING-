@@ -177,6 +177,8 @@ void PlayerForward(t_player *player, char **map);
 void PlayerBackword(t_player *player, char **map);
 void PlayerLeft(t_player *player, char **map);
 void PlayerRight(t_player *player, char **map);
+void PlayerRotateRight(t_player *player);
+void PlayerRotateLeft(t_player *player);
 
 // Ray caster
 int Raycaster(t_cub *head);
@@ -184,6 +186,7 @@ int Raycaster(t_cub *head);
 // Draw utils
 void DrawLine(t_mlx_data mlx, int x1, int y1, int x2, int y2, int color);
 void PutPixelToImg(t_mlx_data mlx, int x, int y, int color);
+void DrawVertPixelLine(t_cub *head, int color, t_ray *ray, int x); //todo change whats recieved
 
 // Free Funcs
 void freeFile(t_cub *head);
