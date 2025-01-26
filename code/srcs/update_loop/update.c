@@ -8,7 +8,7 @@ static void UpdatePlayerPosition(t_cub *head)
 	if(moves->w_key == true) 
 		PlayerForward(&head->player, head->map, head);
 	if(moves->s_key == true) 
-		PlayerBackword(&head->player, head->map, head);
+		PlayerBackward(&head->player, head->map, head);
 	if(moves->a_key == true) 
 		PlayerLeft(&head->player, head->map, head);
 	if(moves->d_key == true) 

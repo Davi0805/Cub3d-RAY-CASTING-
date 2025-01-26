@@ -4,6 +4,7 @@
 // + MOVESPEED * pDir
 void PlayerForward(t_player *player, char **map, t_cub *head)
 {
+
     // X axis check
     int pMapy = (int)(player->posY);
     int pMapx = (int)(player->posX + player->dirX * MOVESPEED);
@@ -22,7 +23,7 @@ void PlayerForward(t_player *player, char **map, t_cub *head)
 
 // If possible, updates player x and y position on the map by 
 // - MOVESPEED * pDir
-void PlayerBackword(t_player *player, char **map, t_cub *head)
+void PlayerBackward(t_player *player, char **map, t_cub *head)
 {
     // X axis check
     int pMapy = (int)(player->posY);

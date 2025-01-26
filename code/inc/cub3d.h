@@ -183,7 +183,7 @@ uint8_t verifyMap(t_cub *head);
 
 // Player movement
 void PlayerForward(t_player *player, char **map, t_cub *head);
-void PlayerBackword(t_player *player, char **map, t_cub *head);
+void PlayerBackward(t_player *player, char **map, t_cub *head);
 void PlayerLeft(t_player *player, char **map, t_cub *head);
 void PlayerRight(t_player *player, char **map, t_cub *head);
 void PlayerRotateRight(t_player *player);   
