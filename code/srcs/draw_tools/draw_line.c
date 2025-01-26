@@ -1,5 +1,7 @@
 #include "cub3d.h"
 
+// DDA line draw algorithm
+// Draws a line starting at (x1,y1) and ending at (x2,y2) with color <color>
 void DrawLine(t_mlx_data mlx, int x1, int y1, int x2, int y2, int color)
 {
     t_dda dda;
@@ -8,31 +10,31 @@ void DrawLine(t_mlx_data mlx, int x1, int y1, int x2, int y2, int color)
     dda.dx = x2 - x1;
     dda.dy = y2 - y1;
 
-    // Determina o número de passos necessários (baseado na maior diferença)
+    // How many steps (biggest)
     if (abs(dda.dx) > abs(dda.dy))
         dda.steps = abs(dda.dx);
     else
         dda.steps = abs(dda.dy);
 
-    // Calcula os incrementos para cada eixo
+    // Calculate increments
     dda.xinc = dda.dx / (float)dda.steps;
     dda.yinc = dda.dy / (float)dda.steps;
 
-    // Inicializa as coordenadas com floats
+    // to floats
     dda.x = x1;
     dda.y = y1;
-
-    // Itera pelos passos para desenhar a linha
+    // Line drawing
     i = 0;
     while (i <= dda.steps)
     {
-        // Coloca o pixel arredondando as coordenadas
-        PutPixelToImg(mlx, (int)(dda.x + 0.49), (int)(dda.y + 0.49), color);
+        // Draws the pixel and rounds it cuz floats
+        PutPixelToImg(mlx, (int)(dda.x + 0.5), (int)(dda.y + 0.5), color);
 
-        // Atualiza as coordenadas com os incrementos
+        // Next pixel
         dda.x += dda.xinc;
         dda.y += dda.yinc;
 
+        // Next step
         i++;
     }
 }

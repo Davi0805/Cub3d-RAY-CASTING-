@@ -63,6 +63,7 @@ void    parseFailed(t_cub *head, uint16_t error)
     exit(error); // Macro para Parse Test
 }
 
+// Frees everything and exits
 int ExitFun(t_cub *head) 
 {
     if (head->mlx.img_ptr != NULL)
