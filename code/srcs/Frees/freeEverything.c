@@ -76,5 +76,7 @@ int ExitFun(t_cub *head)
     freeFile(head);
     if (head->map) freeMap(head);
     free_textures(head);
+    if (head->mapLineLens)
+        free(head->mapLineLens);
     exit(0);
 }

@@ -43,7 +43,7 @@ static void GetSideDist(const t_player *player, t_ray *ray)
 }
 
 // Perform DDA
-static void CastRay(t_ray *ray, char **map)
+static void CastRay(t_ray *ray, char **map, t_cub *head)
 {
     while (true)
     {
@@ -59,13 +59,13 @@ static void CastRay(t_ray *ray, char **map)
             ray->mapY += ray->stepY;
             ray->side = 1;
         }
-
-        if (map[ray->mapY][ray->mapX] == '1' 
-         || ray->mapX < 0 
-         || ray->mapY < 0 
-         || map[ray->mapY] == NULL 
-         || map[ray->mapY][ray->mapX] == '\n'
-         || map[ray->mapY][ray->mapX] == '\0')
+        if (ray->mapX < 0
+        || ray->mapY < 0
+        || ray->mapY >= head->mapHeight 
+        || ray->mapX >= head->mapLineLens[ray->mapY] 
+        || map[ray->mapY][ray->mapX] == '1' 
+        || map[ray->mapY][ray->mapX] == '\0' 
+        || map[ray->mapY][ray->mapX] == '\n')
         {
             ray->hit = 1;
             return ;
@@ -107,7 +107,7 @@ int Raycaster(t_cub *head)
         // get side distance and step based on direction
         GetSideDist(&head->player, &ray);
         // dda until hit a wall
-        CastRay(&ray, head->map);
+        CastRay(&ray, head->map, head);
         // Start and end position of the wall hit
         BuildRay(&head->player, &ray);
 
@@ -119,10 +119,6 @@ int Raycaster(t_cub *head)
         // Drawing every vertical line of pixels of the image
         DrawVertPixelLine(head, color, &ray, x);
     }
-    // put to the screen
-    mlx_put_image_to_window(head->mlx.mlx_ptr, head->mlx.win_ptr, head->mlx.img_ptr, 0, 0);
-    mlx_destroy_image(head->mlx.mlx_ptr, head->mlx.img_ptr);
-    head->mlx.img_ptr = mlx_new_image(head->mlx.mlx_ptr, WIDTH, HEIGHT);
-    head->mlx.img_addr = mlx_get_data_addr(head->mlx.img_ptr, &head->mlx.bits_per_pixel, &head->mlx.size_line, &head->mlx.endian);
+    
     return (0);
 }

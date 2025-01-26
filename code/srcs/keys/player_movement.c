@@ -2,77 +2,84 @@
 
 // If possible, updates player x and y position on the map by 
 // + MOVESPEED * pDir
-void PlayerForward(t_player *player, char **map)
+void PlayerForward(t_player *player, char **map, t_cub *head)
 {
-    printf("pressed W\n");
-
     // X axis check
     int pMapy = (int)(player->posY);
     int pMapx = (int)(player->posX + player->dirX * MOVESPEED);
-    if (pMapx > 0 && pMapy > 0 &&  map[pMapy] != NULL && map[pMapy][pMapx] != '1' && map[pMapy][pMapx] != '0' && map[pMapy][pMapx] != '\n')
-        player->posX += player->dirX * MOVESPEED;
+    if (pMapx > 0 && pMapy > 0 // less than 0
+     && pMapy < head->mapHeight && pMapx < head->mapLineLens[pMapy] // more than map len 
+     && map[pMapy][(int)(pMapx)] != '1')
+            player->posX += player->dirX * MOVESPEED;
     
     // Y axis check
     pMapx = (int)(player->posX);
     pMapy = (int)(player->posY + player->dirY * MOVESPEED);
-    if (pMapx > 0 && pMapy > 0 &&  map[pMapy] != NULL && map[pMapy][pMapx] != '1' && map[pMapy][pMapx] != '0' && map[pMapy][pMapx] != '\n')
+    if (pMapx > 0 && pMapy > 0 // less than 0
+     && pMapy < head->mapHeight && pMapx < head->mapLineLens[pMapy] // more than map len 
+     && map[pMapy][(int)(pMapx)] != '1')
         player->posY += player->dirY * MOVESPEED;
 }
 
 // If possible, updates player x and y position on the map by 
 // - MOVESPEED * pDir
-void PlayerBackword(t_player *player, char **map)
+void PlayerBackword(t_player *player, char **map, t_cub *head)
 {
-    printf("pressed S\n");
-
     // X axis check
     int pMapy = (int)(player->posY);
     int pMapx = (int)(player->posX - player->dirX * MOVESPEED);
-    if (pMapx > 0 && pMapy > 0 &&  map[pMapy] != NULL && map[pMapy][pMapx] != '1' && map[pMapy][pMapx] != '\0' && map[pMapy][pMapx] != '\n')
+    if (pMapx > 0 && pMapy > 0 // less than 0
+     && pMapy < head->mapHeight && pMapx < head->mapLineLens[pMapy] // more than map len 
+     && map[pMapy][(int)(pMapx)] != '1')
         player->posX -= player->dirX * MOVESPEED;
 
     // Y axis check
     pMapy = (int)(player->posY - player->dirY * MOVESPEED);
     pMapx = (int)(player->posX);
-    if (pMapx > 0 && pMapy > 0 &&  map[pMapy] != NULL && map[pMapy][pMapx] != '1' && map[pMapy][pMapx] != '\0' && map[pMapy][pMapx] != '\n')
-        player->posY -= player->dirY * MOVESPEED;
+    if (pMapx > 0 && pMapy > 0 // less than 0
+     && pMapy < head->mapHeight && pMapx < head->mapLineLens[pMapy] // more than map len 
+     && map[pMapy][(int)(pMapx)] != '1')
+            player->posY -= player->dirY * MOVESPEED;
 }
 
 // If possible, updates player x and y position on the map by 
 // - MOVESPEED * pDir
-void PlayerLeft(t_player *player, char **map)
+void PlayerLeft(t_player *player, char **map, t_cub *head)
 {
-    printf("pressed A\n");
-
     // X axis check
     int pMapy = (int)(player->posY);
     int pMapx = (int)(player->posX - player->planeX * MOVESPEED);
-    if (pMapx > 0 && pMapy > 0 &&  map[pMapy] != NULL && map[pMapy][pMapx] != '1' && map[pMapy][pMapx] != '\0' && map[pMapy][pMapx] != '\n')
-        player->posX -= player->planeX * MOVESPEED;
+    if (pMapx > 0 && pMapy > 0 // less than 0
+     && pMapy < head->mapHeight && pMapx < head->mapLineLens[pMapy] // more than map len 
+     && map[pMapy][(int)(pMapx)] != '1')
+            player->posX -= player->planeX * MOVESPEED;
 
     // Y axis check
     pMapy = (int)(player->posY - player->planeY * MOVESPEED);
     pMapx = (int)(player->posX);
-    if (pMapx > 0 && pMapy > 0 &&  map[pMapy] != NULL && map[pMapy][pMapx] != '1' && map[pMapy][pMapx] != '\0' && map[pMapy][pMapx] != '\n')
-        player->posY -= player->planeY * MOVESPEED;
+    if (pMapx > 0 && pMapy > 0 // less than 0
+     && pMapy < head->mapHeight && pMapx < head->mapLineLens[pMapy] // more than map len 
+     && map[pMapy][(int)(pMapx)] != '1')
+            player->posY -= player->planeY * MOVESPEED;
 }
 
 // If possible, updates player x and y position on the map by 
 // + MOVESPEED * pDir
-void PlayerRight(t_player *player, char **map)
+void PlayerRight(t_player *player, char **map, t_cub *head)
 {
-    printf("pressed D\n");
-
     // X axis check
     int pMapy = (int)(player->posY);
     int pMapx =(int)(player->posX + player->planeX * MOVESPEED);
-    // if (map[pMapy][pMapx] != '1')
-    if (pMapx > 0 && pMapy > 0 &&  map[pMapy] != NULL && map[pMapy][pMapx] != '1' && map[pMapy][pMapx] != '\0' && map[pMapy][pMapx] != '\n')
-        player->posX += player->planeX * MOVESPEED;
+    if (pMapx > 0 && pMapy > 0 // less than 0
+     && pMapy < head->mapHeight && pMapx < head->mapLineLens[pMapy] // more than map len 
+     && map[pMapy][(int)(pMapx)] != '1')
+            player->posX += player->planeX * MOVESPEED;
 
     // Y axis check
     pMapx = (int)(player->posY + player->planeY * MOVESPEED);
     pMapy = (int)(player->posX);
-    if (pMapx > 0 && pMapy > 0 &&  map[pMapy] != NULL && map[pMapy][pMapx] != '1' && map[pMapy][pMapx] != '\0' && map[pMapy][pMapx] != '\n')
-        player->posY += player->planeY * MOVESPEED;
+    if (pMapx > 0 && pMapy > 0 // less than 0
+     && pMapy < head->mapHeight && pMapx < head->mapLineLens[pMapy] // more than map len 
+     && map[pMapy][(int)(pMapx)] != '1')
+            player->posY += player->planeY * MOVESPEED;
 }

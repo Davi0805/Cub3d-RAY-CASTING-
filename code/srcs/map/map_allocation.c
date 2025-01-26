@@ -88,18 +88,24 @@ return (PARSE_SUCCESS);
 
 uint8_t     allocateMap(t_cub *head, char **fcontent, char *map_path)
 {
-    int height = getMapHeight(map_path);
+    head->mapHeight = getMapHeight(map_path); 
 
     // something after the map or small map
-    if (height < 3) return MWRONG_FORMAT;
+    if (head->mapHeight < 3) return MWRONG_FORMAT;
+
+    head->mapLineLens = (int *)malloc(sizeof(int) * head->mapHeight);
 
     // map lines from 0 ends in NULL
-    head->map = (char **)ft_calloc(height + 1, sizeof(char *));
+    head->map = (char **)ft_calloc(head->mapHeight + 1, sizeof(char *));
     if (!head->map)
         return SYSCALL_ERROR;
 
     // copies each line
-    if (allocateRows(head, fcontent, height))
+    if (allocateRows(head, fcontent, head->mapHeight))
         return (MWRONG_FORMAT);
+
+    for (int i = 0; i < head->mapHeight; i++)
+        head->mapLineLens[i] = ft_strlen(head->map[i]);
+    
     return (PARSE_SUCCESS);
 }

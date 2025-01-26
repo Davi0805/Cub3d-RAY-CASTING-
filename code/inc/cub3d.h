@@ -22,8 +22,8 @@
 #define WIDTH 800
 #define HEIGHT 600
 
-#define MOVESPEED 0.2
-#define ROTSPEED 0.1
+#define MOVESPEED 0.02
+#define ROTSPEED 0.004
 #define FOV 0.66
 
 // ERROR CODES
@@ -42,13 +42,13 @@
 // ORIENTATION
 enum orientation
 {
-NO = 0,
-SO = 1,
-WE = 2,
-EA = 3,
-F = 4, // Floor
-C = 5, // Ceiling
-OTHER = 100
+    NO = 0,
+    SO = 1,
+    WE = 2,
+    EA = 3,
+    F = 4, // Floor
+    C = 5, // Ceiling
+    OTHER = 100
 };
 
 typedef struct s_dda
@@ -121,6 +121,16 @@ typedef struct s_mlx_data
 	int		endian;
 }				t_mlx_data;
 
+typedef struct s_movement
+{
+    bool w_key;
+    bool s_key;
+    bool a_key;
+    bool d_key;
+    bool l_key;
+    bool r_key;
+}   t_moves;
+
 typedef struct s_player
 {
     double posX;
@@ -129,8 +139,7 @@ typedef struct s_player
     double dirY;
     double planeX;
     double planeY;
-    int8_t  start_dir;
-
+    t_moves moves;
 } t_player;
 
 
@@ -145,6 +154,8 @@ typedef struct cub
 
     // Map
     char **map;
+    int mapHeight;
+    int *mapLineLens;
 
     // Texturas
     t_assets assets;
@@ -171,13 +182,11 @@ uint8_t verifyMap(t_cub *head);
 
 
 // Player movement
-int ReadKeys(int key, t_cub *head);
-
-void PlayerForward(t_player *player, char **map);
-void PlayerBackword(t_player *player, char **map);
-void PlayerLeft(t_player *player, char **map);
-void PlayerRight(t_player *player, char **map);
-void PlayerRotateRight(t_player *player);
+void PlayerForward(t_player *player, char **map, t_cub *head);
+void PlayerBackword(t_player *player, char **map, t_cub *head);
+void PlayerLeft(t_player *player, char **map, t_cub *head);
+void PlayerRight(t_player *player, char **map, t_cub *head);
+void PlayerRotateRight(t_player *player);   
 void PlayerRotateLeft(t_player *player);
 
 // Ray caster
@@ -187,6 +196,12 @@ int Raycaster(t_cub *head);
 void DrawLine(t_mlx_data mlx, int x1, int y1, int x2, int y2, int color);
 void PutPixelToImg(t_mlx_data mlx, int x, int y, int color);
 void DrawVertPixelLine(t_cub *head, int color, t_ray *ray, int x); //todo change whats recieved
+
+// hooks
+int KeyReleased(int key, t_cub *head);
+int KeyPressed(int key, t_cub *head);
+int UpdateLoop(t_cub *head);
+
 
 // Free Funcs
 void freeFile(t_cub *head);

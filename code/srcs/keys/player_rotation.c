@@ -6,7 +6,7 @@ void PlayerRotateRight(t_player *player)
     double rot_speed;
     double temp;
 
-    rot_speed = 0.1;
+    rot_speed = 0.04;
     temp = player->dirX;
     player->dirX = player->dirX * cos(rot_speed) - player->dirY * sin(rot_speed);
     player->dirY = temp * sin(rot_speed) + player->dirY * cos(rot_speed);
@@ -20,7 +20,7 @@ void PlayerRotateLeft(t_player *player)
     double rot_speed;
     double temp;
 
-    rot_speed = -0.1;
+    rot_speed = -0.04;
     temp = player->dirX;
     player->dirX = player->dirX * cos(rot_speed) - player->dirY * sin(rot_speed);
     player->dirY = temp * sin(rot_speed) + player->dirY * cos(rot_speed);
