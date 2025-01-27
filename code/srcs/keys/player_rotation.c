@@ -10,10 +10,9 @@
 */
 
 // rotates player and camara right
-void PlayerRotateRight(t_player *player)
+void PlayerRotateRight(t_cub *head, t_player *player)
 {
-    printf("pressed ->\n");
-    double rot_speed = 0.04;
+    double rot_speed = ROTSPEED * head->deltaTime;
     double temp;
 
     // player dir plane
@@ -27,10 +26,9 @@ void PlayerRotateRight(t_player *player)
 }
 
 // rotates player and camara right
-void PlayerRotateLeft(t_player *player)
+void PlayerRotateLeft(t_cub *head, t_player *player)
 {
-    printf("pressed <-\n");
-    double rot_speed = -0.04;
+    double rot_speed = -ROTSPEED * head->deltaTime;
     double temp;
 
     // player dir plane

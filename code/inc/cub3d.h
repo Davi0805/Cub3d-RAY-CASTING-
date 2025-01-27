@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <math.h>
 #include <errno.h>
+#include <sys/time.h>
 
 // MINILIBX
 #include <X11/keysym.h>
@@ -22,8 +23,8 @@
 #define WIDTH 800
 #define HEIGHT 600
 
-#define MOVESPEED 0.02
-#define ROTSPEED 0.004
+#define MOVESPEED 1.2 // tiles per second
+#define ROTSPEED 1.2 // radians per second
 #define FOV 0.66
 
 // ERROR CODES
@@ -162,6 +163,9 @@ typedef struct cub
     
     // MLX stuff
     t_mlx_data mlx;
+
+    struct timeval time;
+    double deltaTime;
 }       t_cub;
 
 // MAP VALIDATION
@@ -180,14 +184,16 @@ uint8_t collect_lines(char *path, t_cub *head);
 uint8_t allocateMap(t_cub *head, char **fcontent, char *map_path);
 uint8_t verifyMap(t_cub *head);
 
+// Time Utils
+double DeltaTime(struct timeval *old);
 
 // Player movement
 void PlayerForward(t_player *player, char **map, t_cub *head);
 void PlayerBackward(t_player *player, char **map, t_cub *head);
 void PlayerLeft(t_player *player, char **map, t_cub *head);
 void PlayerRight(t_player *player, char **map, t_cub *head);
-void PlayerRotateRight(t_player *player);   
-void PlayerRotateLeft(t_player *player);
+void PlayerRotateRight(t_cub *head, t_player *player);
+void PlayerRotateLeft(t_cub *head, t_player *player);
 
 // Ray caster
 int Raycaster(t_cub *head);
