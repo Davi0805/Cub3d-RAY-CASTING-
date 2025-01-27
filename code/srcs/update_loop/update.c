@@ -14,14 +14,18 @@ static void UpdatePlayerPosition(t_cub *head)
 	if(moves->d_key == true) 
 		PlayerRight(&head->player, head->map, head);
 	if(moves->r_key == true) 
-		PlayerRotateRight(&head->player);
+		PlayerRotateRight(head, &head->player);
 	if(moves->l_key == true) 
-		PlayerRotateLeft(&head->player);
+		PlayerRotateLeft(head, &head->player);
 }
 
 // Game loop that will read player movements, cast rays and draw the map accordingly to its location
 int UpdateLoop(t_cub *head)
 {
+	// deltaTime is used to turn the speed of the game independent of processing time and FPS meter
+	head->deltaTime = DeltaTime(&head->time);
+    gettimeofday(&head->time, NULL); // update the time for the next frame
+
 	UpdatePlayerPosition(head);
 	Raycaster(head);
 
@@ -30,5 +34,10 @@ int UpdateLoop(t_cub *head)
     mlx_destroy_image(head->mlx.mlx_ptr, head->mlx.img_ptr);
     head->mlx.img_ptr = mlx_new_image(head->mlx.mlx_ptr, WIDTH, HEIGHT);
     head->mlx.img_addr = mlx_get_data_addr(head->mlx.img_ptr, &head->mlx.bits_per_pixel, &head->mlx.size_line, &head->mlx.endian);
+	
+	// FPS meter on screen
+	double fps = 1 / head->deltaTime;
+	mlx_string_put(head->mlx.mlx_ptr, head->mlx.win_ptr, WIDTH - 50, 15, 0xFFFFFF, "FPS: ");
+	mlx_string_put(head->mlx.mlx_ptr, head->mlx.win_ptr, WIDTH - 25, 15, 0xFFFFFF, ft_itoa((int)fps));
 	return (0);
 }
