@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_keys.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/27 18:10:46 by artuda-s          #+#    #+#             */
+/*   Updated: 2025/01/27 18:10:58 by artuda-s         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 // This sets a key flag to true when is pressed
-int KeyPressed(int key, t_cub *head)
+int	KeyPressed(int key, t_cub *head)
 {
 	if (key == XK_Right)
 		head->player.moves.r_key = true;
@@ -21,7 +33,7 @@ int KeyPressed(int key, t_cub *head)
 }
 
 // This sets the key flag to false when released
-int KeyReleased(int key, t_cub *head)
+int	KeyReleased(int key, t_cub *head)
 {
 	if (key == XK_Right)
 		head->player.moves.r_key = false;

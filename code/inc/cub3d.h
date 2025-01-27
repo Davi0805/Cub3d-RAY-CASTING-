@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:04:56 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/01/27 17:17:23 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:36:06 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ typedef struct cub
 	// MLX stuff
 	t_mlx_data		mlx;
 	struct timeval	time;
-	double			delta_time;
+	double			deltaTime;
 }	t_cub;
 
 // MAP VALIDATION
