@@ -102,6 +102,11 @@ typedef struct map_assets
     char *we_texture;
     char *ea_texture;
 
+    void *no;
+    void *so;
+    void *we;
+    void *ea;
+
     //Color field String
     char *floor_rgb_s;
     char *ceiling_rgb_s;
@@ -183,6 +188,8 @@ uint8_t collect_lines(char *path, t_cub *head);
 
 uint8_t allocateMap(t_cub *head, char **fcontent, char *map_path);
 uint8_t verifyMap(t_cub *head);
+
+void texture_loader(t_cub *head);
 
 // Time Utils
 double DeltaTime(struct timeval *old);

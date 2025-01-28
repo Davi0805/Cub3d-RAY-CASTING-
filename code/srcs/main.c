@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/01/27 14:59:37 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:57:38 by dmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ uint8_t     setup_validation(int ac, char **av, t_cub *head)
 	if (allocateMap(head, head->fcontent, av[1])) parseFailed(head, MWRONG_TEXTURE);
 	// MAP Validation
 	if (verifyMap(head)) parseFailed (head, MWRONG_TEXTURE);
-	
+
+
 	return (PARSE_SUCCESS);
 }
 
@@ -72,6 +73,7 @@ int main(int ac, char **av)
 	if (setup_minilibx(&head))
 		return (1);
 
+	texture_loader(&head);
 	gettimeofday(&head.time, NULL);
 
 	mlx_loop_hook(head.mlx.mlx_ptr, UpdateLoop, (void *)&head);
