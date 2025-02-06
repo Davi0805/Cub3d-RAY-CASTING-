@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:44 by davi              #+#    #+#             */
-/*   Updated: 2025/01/28 13:06:14 by dmelo-ca         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:36:08 by davi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ uint8_t allocate_file(char ** av, t_cub *head)
 
 void texture_loader(t_cub *head)
 {
-    printf("[TEXUTRES]: NO - %s | SO - %s | WE - %s | EA - %s\n", head->assets.no_texture, head->assets.so_texture, head->assets.we_texture, head->assets.ea_texture);
-
-    int size[1];
-
-    size[0] = 64;
-
-    head->assets.no = mlx_xpm_file_to_image(head->mlx.mlx_ptr, head->assets.no_texture, &size[0], &size[0]);
-    head->assets.so = mlx_xpm_file_to_image(head->mlx.mlx_ptr, head->assets.so_texture, &size[0], &size[0]);
-    head->assets.we = mlx_xpm_file_to_image(head->mlx.mlx_ptr, head->assets.we_texture, &size[0], &size[0]);
-    head->assets.ea = mlx_xpm_file_to_image(head->mlx.mlx_ptr, head->assets.ea_texture, &size[0], &size[0]);
+    printf("TEXTURAS: NO: %s | SO: %s | WE: %s | EA: %s\n", head->assets.no_texture, head->assets.so_texture, head->assets.we_texture, head->assets.ea_texture);
+    head->assets.no = mlx_xpm_file_to_image(head->mlx.mlx_ptr, head->assets.no_texture, &head->assets.no_width, &head->assets.no_height);
+    head->assets.so = mlx_xpm_file_to_image(head->mlx.mlx_ptr, head->assets.so_texture, &head->assets.so_width, &head->assets.so_height);
+    head->assets.we = mlx_xpm_file_to_image(head->mlx.mlx_ptr, head->assets.we_texture, &head->assets.we_width, &head->assets.we_height);
+    head->assets.ea = mlx_xpm_file_to_image(head->mlx.mlx_ptr, head->assets.ea_texture, &head->assets.ea_width, &head->assets.ea_height);
+    if (!head->assets.no || !head->assets.so || !head->assets.we || !head->assets.ea)
+    {
+        printf("Error loading textures\n");
+        ExitFun(head); // UNSAFE
+    }
 }

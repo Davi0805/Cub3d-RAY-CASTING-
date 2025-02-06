@@ -84,6 +84,8 @@ typedef struct s_ray
     int drawStart;
     int drawEnd;
     int lineHeight;
+    double wallX; // Where exactly the wall was hit
+    int texX; // X coordinate on the texture
 } t_ray;
 
 typedef struct rgb
@@ -106,6 +108,17 @@ typedef struct map_assets
     void *so;
     void *we;
     void *ea;
+
+    // Add texture data
+    int no_width;
+    int so_width;
+    int we_width;
+    int ea_width;
+
+    int no_height;
+    int so_height;
+    int we_height;
+    int ea_height;
 
     //Color field String
     char *floor_rgb_s;
@@ -209,6 +222,7 @@ int Raycaster(t_cub *head);
 void DrawLine(t_mlx_data mlx, int x1, int y1, int x2, int y2, int color);
 void PutPixelToImg(t_mlx_data mlx, int x, int y, int color);
 void DrawVertPixelLine(t_cub *head, int color, t_ray *ray, int x); //todo change whats recieved
+void DrawTexturedVertLine(t_cub *head, t_ray *ray, int x);
 
 // hooks
 int KeyReleased(int key, t_cub *head);
