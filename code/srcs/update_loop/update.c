@@ -35,9 +35,12 @@ int UpdateLoop(t_cub *head)
     head->mlx.img_ptr = mlx_new_image(head->mlx.mlx_ptr, WIDTH, HEIGHT);
     head->mlx.img_addr = mlx_get_data_addr(head->mlx.img_ptr, &head->mlx.bits_per_pixel, &head->mlx.size_line, &head->mlx.endian);
 	
+
 	// FPS meter on screen
 	double fps = 1 / head->deltaTime;
+	char *fps_str = ft_itoa((int)fps);
 	mlx_string_put(head->mlx.mlx_ptr, head->mlx.win_ptr, WIDTH - 50, 15, 0xFFFFFF, "FPS: ");
-	mlx_string_put(head->mlx.mlx_ptr, head->mlx.win_ptr, WIDTH - 25, 15, 0xFFFFFF, ft_itoa((int)fps));
+	mlx_string_put(head->mlx.mlx_ptr, head->mlx.win_ptr, WIDTH - 25, 15, 0xFFFFFF, fps_str);
+	free(fps_str);
 	return (0);
 }
