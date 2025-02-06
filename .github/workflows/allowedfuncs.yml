@@ -1,9 +1,5 @@
 name: 42 Allowed Functions Tests
 
-on:
-  push:
-    branches: [ "main" ]
-
 jobs:
   Allowed-functions:
     runs-on: ubuntu-latest
