@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davi <davi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:44 by davi              #+#    #+#             */
-/*   Updated: 2025/02/06 16:36:08 by davi             ###   ########.fr       */
+/*   Updated: 2025/02/10 16:56:15 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ uint8_t allocate_file(char ** av, t_cub *head)
 
 void texture_loader(t_cub *head)
 {
-    printf("TEXTURAS: NO: %s | SO: %s | WE: %s | EA: %s\n", head->assets.no_texture, head->assets.so_texture, head->assets.we_texture, head->assets.ea_texture);
     head->assets.no = mlx_xpm_file_to_image(head->mlx.mlx_ptr, head->assets.no_texture, &head->assets.no_width, &head->assets.no_height);
     head->assets.so = mlx_xpm_file_to_image(head->mlx.mlx_ptr, head->assets.so_texture, &head->assets.so_width, &head->assets.so_height);
     head->assets.we = mlx_xpm_file_to_image(head->mlx.mlx_ptr, head->assets.we_texture, &head->assets.we_width, &head->assets.we_height);

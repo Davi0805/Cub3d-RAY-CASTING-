@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_free.c                                         :+:      :+:    :+:   */
+/*   freeEverything.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:28:21 by dmelo-ca          #+#    #+#             */
-/*   Updated: 2025/01/22 10:28:02 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:55:57 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,10 @@ void    parseFailed(t_cub *head, uint16_t error)
 // Frees everything and exits
 int ExitFun(t_cub *head) 
 {
+    mlx_destroy_image(head->mlx.mlx_ptr, (void *)head->assets.no);
+    mlx_destroy_image(head->mlx.mlx_ptr, (void *)head->assets.so);
+    mlx_destroy_image(head->mlx.mlx_ptr, (void *)head->assets.we);
+    mlx_destroy_image(head->mlx.mlx_ptr, (void *)head->assets.ea);
     if (head->mlx.img_ptr != NULL)
         mlx_destroy_image(head->mlx.mlx_ptr, head->mlx.img_ptr);
     if (head->mlx.win_ptr != NULL)
@@ -75,8 +79,10 @@ int ExitFun(t_cub *head)
     if (head->mlx.mlx_ptr != NULL)
         free(head->mlx.mlx_ptr);
     freeFile(head);
-    if (head->map) freeMap(head);
     free_textures(head);
+    if (head->map) freeMap(head);
+    
+        
     if (head->mapLineLens)
         free(head->mapLineLens);
     exit(0);
