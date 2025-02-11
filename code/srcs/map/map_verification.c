@@ -1,99 +1,84 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_verification.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/11 20:30:32 by artuda-s          #+#    #+#             */
+/*   Updated: 2025/02/11 20:39:15 by artuda-s         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-static void GetStartingDir(t_player *player, char direction)
+static void	get_start_dir_2(t_player *player, char direction)
 {
-    if (direction == 'N') 
-    { 
-        player->dirX = 0;
-        player->dirY = -1;
-        player->planeX = FOV; 
-        player->planeY = 0;
-    }
-    else if (direction == 'S') 
-    { 
-        player->dirX = 0;
-        player->dirY = 1;
-        player->planeX = -FOV;
-        player->planeY = 0;
-
-    }
-    else if (direction == 'E') 
-    { 
-        player->dirX = 1;
-        player->dirY = 0;
-        player->planeX = 0;
-        player->planeY = FOV;
-    }
-    else if (direction == 'W') 
-    { 
-        player->dirX = -1;
-        player->dirY = 0;
-        player->planeX = 0;
-        player->planeY = -FOV;
-    }
+	if (direction == 'E')
+	{
+		player->dirX = 1;
+		player->dirY = 0;
+		player->plane_x = 0;
+		player->plane_y = FOV;
+	}
+	else if (direction == 'W')
+	{
+		player->dirX = -1;
+		player->dirY = 0;
+		player->plane_x = 0;
+		player->plane_y = -FOV;
+	}
 }
 
-static bool hasBadChars(t_cub *head)
+void	get_start_dir(t_player *player, char direction)
 {
-    char **map = head->map;
-
-    bool hasPlayer = false;
-    int x = 0, y = 0;
-    while (map[y]) // ultimo é NULL
-    {
-        x = 0;
-        while (map[y][x] != '\n' && map[y][x] != '\0') // \n ou EOF
-        {
-            if (ft_strchr("NSEW", map[y][x])) // bad char
-            {
-                if (hasPlayer)
-                    return true;
-                GetStartingDir(&head->player, map[y][x]); // fetch player dir
-                head->player.posX = x + 0.5f; // fetch starting px and center it
-                head->player.posY = y + 0.5f; // fetch starting py and center it
-
-                hasPlayer = true;
-            }
-            else if (!ft_strchr("01 ", map[y][x])) // bad char
-                return true;
-            x++;
-        }
-        y++;
-    }
-    return hasPlayer ? false : true;
+	if (direction == 'N')
+	{
+		player->dirX = 0;
+		player->dirY = -1;
+		player->plane_x = FOV;
+		player->plane_y = 0;
+	}
+	else if (direction == 'S')
+	{
+		player->dirX = 0;
+		player->dirY = 1;
+		player->plane_x = -FOV;
+		player->plane_y = 0;
+	}
+	else
+		get_start_dir_2(player, direction);
 }
 
-bool floodFill(char **map, int y, int x, char to_fill)
+bool	flood_fill(char **map, int y, int x, char to_fill)
 {
-    if (x < 0 || y < 0 || map[y] == NULL || (map[y][x] == '\n' || map[y][x] == '\0'))
-        return true; // if out of bounds === map not closed
+	bool	edge;
 
-    if (map[y][x] != to_fill && !ft_strchr("NSEW", map[y][x])) // wall
-        return false;
-    
-    map[y][x] = 'x'; // 0s in the map will become F!!!
-
-    bool edge = false;
-    edge |= floodFill(map, y, x - 1, to_fill);
-    edge |= floodFill(map, y, x + 1, to_fill);
-    edge |= floodFill(map, y - 1, x, to_fill);
-    edge |= floodFill(map, y + 1, x, to_fill);
-    return edge;
+	if (x < 0 || y < 0 || map[y] == NULL \
+		|| (map[y][x] == '\n' || map[y][x] == '\0'))
+		return (true);
+	if (map[y][x] != to_fill && !ft_strchr("NSEW", map[y][x]))
+		return (false);
+	map[y][x] = 'x';
+	edge = false;
+	edge |= flood_fill(map, y, x - 1, to_fill);
+	edge |= flood_fill(map, y, x + 1, to_fill);
+	edge |= flood_fill(map, y - 1, x, to_fill);
+	edge |= flood_fill(map, y + 1, x, to_fill);
+	return (edge);
 }
 
-static bool mapNotClosed(t_cub *head)
+static bool	map_not_closed(t_cub *head)
 {
-    return (floodFill(head->map, head->player.posY, head->player.posX, '0'));
+	return (flood_fill(head->map, head->player.posY, \
+			head->player.posX, '0'));
 }
 
-uint8_t verifyMap(t_cub *head)
+uint8_t	verify_map(t_cub *head)
 {
-    // Checks for invalid charcaters and 1 player only
-    if (hasBadChars(head)) return (MWRONG_FORMAT);
-
-    // Checks for closed map with flood fill
-    if (mapNotClosed(head))
-        return (MWRONG_FORMAT);
-
-    return (PARSE_SUCCESS);
+	if (has_bad_chars(head))
+		return (MWRONG_FORMAT);
+	if (map_not_closed(head))
+		return (MWRONG_FORMAT);
+	return (PARSE_SUCCESS);
 }

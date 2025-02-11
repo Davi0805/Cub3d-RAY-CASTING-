@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 18:17:17 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 19:33:12 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:39:15 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void	init_ray(t_player *player, t_ray *ray, int x)
 {
 	ray->cameraX = 2 * x / (double)WIDTH - 1;
-	ray->DirX = player->dirX + player->planeX * ray->cameraX;
-	ray->DirY = player->dirY + player->planeY * ray->cameraX;
+	ray->DirX = player->dirX + player->plane_x * ray->cameraX;
+	ray->DirY = player->dirY + player->plane_y * ray->cameraX;
 	ray->mapX = (int)player->posX;
 	ray->mapY = (int)player->posY;
 	ray->deltaDistX = fabs(1 / ray->DirX);
@@ -69,8 +69,8 @@ static void	cast_ray(t_ray *ray, char **map, t_cub *head)
 			ray->side = 1;
 		}
 		if (ray->mapX < 0 || ray->mapY < 0
-			|| ray->mapY >= head->mapHeight
-			|| ray->mapX >= head->mapLineLens[ray->mapY]
+			|| ray->mapY >= head->map_height
+			|| ray->mapX >= head->map_l_lens[ray->mapY]
 			|| map[ray->mapY][ray->mapX] == '1'
 			|| map[ray->mapY][ray->mapX] == '\0'
 			|| map[ray->mapY][ray->mapX] == '\n')

@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/02/11 18:43:39 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:35:59 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ uint8_t	setup_validation(int ac, char **av, t_cub *head)
 		return (PARSE_ERROR);
 	if (filetype_checker(av[1]))
 		parse_failed (head, FTYPE_ERROR);
-	if (isFileValid(av[1]))
+	if (is_file_valid(av[1]))
 		parse_failed (head, FINVALID_ERROR);
-	if (isFileEmpty(av[1]))
+	if (is_file_empty(av[1]))
 		parse_failed (head, FEMPTY_ERROR);
 	if (allocate_file(av, head))
 		parse_failed (head, PARSE_ERROR);
-	if (textureValidator(head))
+	if (texture_validator(head))
 		parse_failed(head, MWRONG_TEXTURE);
-	if (allocateMap(head, head->fcontent, av[1]))
+	if (allocate_map(head, head->fcontent, av[1]))
 		parse_failed(head, MWRONG_TEXTURE);
-	if (verifyMap(head))
+	if (verify_map(head))
 		parse_failed (head, MWRONG_TEXTURE);
 	return (PARSE_SUCCESS);
 }

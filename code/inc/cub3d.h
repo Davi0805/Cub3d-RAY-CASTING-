@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:04:56 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 19:35:40 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:39:15 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,8 +184,8 @@ typedef struct s_player
 	double	posY;
 	double	dirX;
 	double	dirY;
-	double	planeX;
-	double	planeY;
+	double	plane_x;
+	double	plane_y;
 	t_moves	moves;
 }	t_player;
 
@@ -198,8 +198,8 @@ typedef struct cub
 	t_player		player;
 	// Map
 	char			**map;
-	int				mapHeight;
-	int				*mapLineLens;
+	int				map_height;
+	int				*map_l_lens;
 	// Texturas
 	t_assets		assets;
 	// MLX stuff
@@ -210,18 +210,24 @@ typedef struct cub
 
 // MAP VALIDATION
 uint8_t	filetype_checker(char *path);
-uint8_t	isFileValid(char *path);
-uint8_t	isFileEmpty(char *path);
-uint8_t	isOrientation(t_cub *head, int i, int textures_parsed);
-uint8_t	textureValidator(t_cub *head);
-uint8_t	isXpm(char *str);
+uint8_t	is_file_valid(char *path);
+uint8_t	is_file_empty(char *path);
+uint8_t	is_orientation(t_cub *head, int i, int textures_parsed);
+uint8_t	texture_validator(t_cub *head);
+uint8_t	is_xpm(char *str);
 
 // MAP INIT
 uint8_t	get_nb_lines(char *path, t_cub *head);
+int		get_map_height(char *map_path);
+bool	is_map_line(char *line);
+bool	has_bad_chars(t_cub *head);
+void	get_start_dir(t_player *player, char direction);
 uint8_t	allocate_file(char **av, t_cub *head);
 uint8_t	collect_lines(char *path, t_cub *head);
-uint8_t	allocateMap(t_cub *head, char **fcontent, char *map_path);
-uint8_t	verifyMap(t_cub *head);
+uint8_t	allocate_map(t_cub *head, char **fcontent, char *map_path);
+uint8_t	verify_map(t_cub *head);
+uint8_t	is_texture_valid(t_cub *head);
+uint8_t	is_color_rgbstring(char *str);
 
 void	texture_loader(t_cub *head);
 
