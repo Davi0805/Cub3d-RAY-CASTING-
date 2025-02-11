@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 18:24:14 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/01/27 18:26:30 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:01:48 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,19 @@ int	UpdateLoop(t_cub *head)
 	gettimeofday(&head->time, NULL);
 	UpdatePlayerPosition(head);
 	Raycaster(head);
-	mlx_put_image_to_window(head->mlx.mlx_ptr, head->mlx.win_ptr, \
-							head->mlx.img_ptr, 0, 0);
-	mlx_destroy_image(head->mlx.mlx_ptr, head->mlx.img_ptr);
-	head->mlx.img_ptr = mlx_new_image(head->mlx.mlx_ptr, WIDTH, \
-							HEIGHT);
-	head->mlx.img_addr = mlx_get_data_addr(head->mlx.img_ptr, \
-							&head->mlx.bits_per_pixel, \
-							&head->mlx.size_line, &head->mlx.endian);
-	fps = 1 / head->deltaTime;
-	mlx_string_put(head->mlx.mlx_ptr, head->mlx.win_ptr, \
-							WIDTH - 50, 15, 0xFFFFFF, "FPS: ");
-	mlx_string_put(head->mlx.mlx_ptr, head->mlx.win_ptr, \
-							WIDTH - 25, 15, 0xFFFFFF, ft_itoa((int)fps));
+
+	// put to the screen
+    mlx_put_image_to_window(head->mlx.mlx_ptr, head->mlx.win_ptr, head->mlx.img_ptr, 0, 0);
+    mlx_destroy_image(head->mlx.mlx_ptr, head->mlx.img_ptr);
+    head->mlx.img_ptr = mlx_new_image(head->mlx.mlx_ptr, WIDTH, HEIGHT);
+    head->mlx.img_addr = mlx_get_data_addr(head->mlx.img_ptr, &head->mlx.bits_per_pixel, &head->mlx.size_line, &head->mlx.endian);
+	
+
+	// FPS meter on screen
+	double fps = 1 / head->deltaTime;
+	char *fps_str = ft_itoa((int)fps);
+	mlx_string_put(head->mlx.mlx_ptr, head->mlx.win_ptr, WIDTH - 50, 15, 0xFFFFFF, "FPS: ");
+	mlx_string_put(head->mlx.mlx_ptr, head->mlx.win_ptr, WIDTH - 25, 15, 0xFFFFFF, fps_str);
+	free(fps_str);
 	return (0);
 }

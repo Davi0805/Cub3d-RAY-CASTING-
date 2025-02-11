@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:04:56 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/01/27 17:36:06 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 15:57:12 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ typedef struct s_ray
 	int		drawStart;
 	int		drawEnd;
 	int		lineHeight;
+    double	wallX; // Where exactly the wall was hit
+    int		texX; // X coordinate on the texture
 }	t_ray;
 
 typedef struct rgb
@@ -110,6 +112,22 @@ typedef struct map_assets
 	char	*so_texture;
 	char	*we_texture;
 	char	*ea_texture;
+
+    void	*no;
+    void	*so;
+    void	*we;
+    void	*ea;
+
+    // Add texture data
+    int		no_width;
+    int		so_width;
+    int		we_width;
+    int		ea_width;
+
+    int		no_height;
+    int		so_height;
+    int		we_height;
+    int		ea_height;
 	//Color field String
 	char	*floor_rgb_s;
 	char	*ceiling_rgb_s;
@@ -184,6 +202,8 @@ uint8_t	collect_lines(char *path, t_cub *head);
 uint8_t	allocateMap(t_cub *head, char **fcontent, char *map_path);
 uint8_t	verifyMap(t_cub *head);
 
+void	texture_loader(t_cub *head);
+
 // Time Utils
 double	DeltaTime(struct timeval *old);
 
@@ -201,8 +221,8 @@ int		Raycaster(t_cub *head);
 // Draw utils
 void	DrawLine(t_mlx_data mlx, int x1, int y1, int x2, int y2, int color);
 void	PutPixelToImg(t_mlx_data mlx, int x, int y, int color);
-//todo change whats recieved
 void	DrawVertPixelLine(t_cub *head, int color, t_ray *ray, int x);
+void	DrawTexturedVertLine(t_cub *head, t_ray *ray, int x);
 
 // hooks
 int		KeyReleased(int key, t_cub *head);

@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 18:17:17 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/01/27 18:19:45 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:01:15 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,21 +102,28 @@ static void	BuildRay(t_player *player, t_ray *ray )
 
 int	Raycaster(t_cub *head)
 {
-	t_ray	ray;
-	int		x;
-	int		color;
+    t_ray ray;
+    for (int x = 0; x < WIDTH; x++)
+    {
+        // start the current ray
+        InitRay(&head->player, &ray, x);
+        // get side distance and step based on direction
+        GetSideDist(&head->player, &ray);
+        // dda until hit a wall
+        CastRay(&ray, head->map, head);
+        // Start and end position of the wall hit
+        BuildRay(&head->player, &ray);
 
-	while (x < WIDTH)
-	{
-		InitRay(&head->player, &ray, x);
-		GetSideDist(&head->player, &ray);
-		CastRay(&ray, head->map, head);
-		BuildRay(&head->player, &ray);
-		color = 0x0000FF;
-		if (ray.side)
-			color = 0xFF0000;
-		DrawVertPixelLine(head, color, &ray, x);
-		x++;
-	}
-	return (0);
+        //todo side colors. CHANGE THIS
+       /* int color = 0x0000FF;
+        if (ray.side)
+            color = 0xFF0000; */
+        
+
+        // Drawing every vertical line of pixels of the image
+        //DrawVertPixelLine(head, color, &ray, x);
+        DrawTexturedVertLine(head, &ray, x);
+    }
+    
+    return (0);
 }
