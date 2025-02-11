@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 18:24:14 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 18:34:40 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:38:23 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	UpdatePlayerPosition(t_cub *head)
 // rays and draw the map accordingly to its location
 int	UpdateLoop(t_cub *head)
 {
-	head->deltaTime = DeltaTime(&head->time);
+	head->delta_time = delta_time(&head->time);
 	gettimeofday(&head->time, NULL);
 	UpdatePlayerPosition(head);
 	Raycaster(head);
@@ -51,7 +51,7 @@ int	UpdateLoop(t_cub *head)
 	
 
 	// FPS meter on screen
-	double fps = 1 / head->deltaTime;
+	double fps = 1 / head->delta_time;
 	char *fps_str = ft_itoa((int)fps);
 	mlx_string_put(head->mlx.mlx_ptr, head->mlx.win_ptr, WIDTH - 50, 15, 0xFFFFFF, "FPS: ");
 	mlx_string_put(head->mlx.mlx_ptr, head->mlx.win_ptr, WIDTH - 25, 15, 0xFFFFFF, fps_str);

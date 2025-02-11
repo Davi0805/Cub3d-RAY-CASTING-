@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 18:10:30 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 18:34:40 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:38:23 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	player_rotate_right(t_cub *head, t_player *player)
 	double	rot_speed;
 	double	temp;
 
-	rot_speed = ROTSPEED * head->deltaTime;
+	rot_speed = ROTSPEED * head->delta_time;
 	temp = player->dirX;
 	player->dirX = player->dirX * cos(rot_speed) \
 					- player->dirY * sin(rot_speed);
@@ -44,7 +44,7 @@ void	player_rotate_left(t_cub *head, t_player *player)
 	double	rot_speed;
 	double	temp;
 
-	rot_speed = -ROTSPEED * head->deltaTime;
+	rot_speed = -ROTSPEED * head->delta_time;
 	temp = player->dirX;
 	player->dirX = player->dirX * cos(rot_speed) \
 					- player->dirY * sin(rot_speed);
