@@ -2,7 +2,7 @@
 
 # Variáveis globais para paths
 EXECUTABLE="./Cub3d"
-MAPS_DIR="Maps"
+MAPS_DIR="Assets/Maps"
 VALID_MAPS_DIR="$MAPS_DIR/Valid"
 INVALID_MAPS_DIR="$MAPS_DIR/Invalid"
 
