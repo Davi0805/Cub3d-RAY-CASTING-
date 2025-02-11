@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 18:24:14 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 16:10:18 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:34:40 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ static void	UpdatePlayerPosition(t_cub *head)
 
 	moves = &head->player.moves;
 	if (moves->w_key == true)
-		PlayerForward(&head->player, head->map, head);
+		player_forward(&head->player, head->map, head);
 	if (moves->s_key == true)
-		PlayerBackward(&head->player, head->map, head);
+		player_backward(&head->player, head->map, head);
 	if (moves->a_key == true)
-		PlayerLeft(&head->player, head->map, head);
+		player_left(&head->player, head->map, head);
 	if (moves->d_key == true)
-		PlayerRight(&head->player, head->map, head);
+		player_right(&head->player, head->map, head);
 	if (moves->r_key == true)
-		PlayerRotateRight(head, &head->player);
+		player_rotate_right(head, &head->player);
 	if (moves->l_key == true)
-		PlayerRotateLeft(head, &head->player);
+		player_rotate_left(head, &head->player);
 	return ;
 }
 

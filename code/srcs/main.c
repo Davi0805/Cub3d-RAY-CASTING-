@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/02/11 18:31:25 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:34:59 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int	main(int ac, char **av)
 	texture_loader(&head);
 	gettimeofday(&head.time, NULL);
 	mlx_loop_hook(head.mlx.mlx_ptr, UpdateLoop, (void *)&head);
-	mlx_hook(head.mlx.win_ptr, KeyPress, KeyPressMask, KeyPressed, &head);
-	mlx_hook(head.mlx.win_ptr, KeyRelease, KeyReleaseMask, KeyReleased, &head);
+	mlx_hook(head.mlx.win_ptr, KeyPress, KeyPressMask, key_pressed, &head);
+	mlx_hook(head.mlx.win_ptr, KeyRelease, KeyReleaseMask, key_released, &head);
 	mlx_hook(head.mlx.win_ptr, DestroyNotify, 1L << 0, exit_fun, &head);
 	mlx_loop(head.mlx.mlx_ptr);
 	exit_fun(&head);

@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:04:56 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 18:27:22 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:34:59 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,12 +214,12 @@ void	texture_loader(t_cub *head);
 double	DeltaTime(struct timeval *old);
 
 // Player movement
-void	PlayerForward(t_player *player, char **map, t_cub *head);
-void	PlayerBackward(t_player *player, char **map, t_cub *head);
-void	PlayerLeft(t_player *player, char **map, t_cub *head);
-void	PlayerRight(t_player *player, char **map, t_cub *head);
-void	PlayerRotateRight(t_cub *head, t_player *player);
-void	PlayerRotateLeft(t_cub *head, t_player *player);
+void	player_forward(t_player *player, char **map, t_cub *head);
+void	player_backward(t_player *player, char **map, t_cub *head);
+void	player_left(t_player *player, char **map, t_cub *head);
+void	player_right(t_player *player, char **map, t_cub *head);
+void	player_rotate_right(t_cub *head, t_player *player);
+void	player_rotate_left(t_cub *head, t_player *player);
 
 // Ray caster
 int		Raycaster(t_cub *head);
@@ -231,15 +231,15 @@ void	DrawVertPixelLine(t_cub *head, int color, t_ray *ray, int x);
 void	DrawTexturedVertLine(t_cub *head, t_ray *ray, int x);
 
 // hooks
-int		KeyReleased(int key, t_cub *head);
-int		KeyPressed(int key, t_cub *head);
+int		key_released(int key, t_cub *head);
+int		key_pressed(int key, t_cub *head);
 int		UpdateLoop(t_cub *head);
 
 // Free Funcs
-void	freeFile(t_cub *head);
+void	free_file(t_cub *head);
 void	free_textures(t_cub *head);
-void	freeMap(t_cub *head);
-void	parseFailed(t_cub *head, uint16_t error);
-int		ExitFun(t_cub *head);
+void	free_map(t_cub *head);
+void	parse_failed(t_cub *head, uint16_t error);
+int		exit_fun(t_cub *head);
 
 #endif
