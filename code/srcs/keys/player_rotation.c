@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 18:10:30 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 20:39:15 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:42:00 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	player_rotate_right(t_cub *head, t_player *player)
 	double	temp;
 
 	rot_speed = ROTSPEED * head->delta_time;
-	temp = player->dirX;
-	player->dirX = player->dirX * cos(rot_speed) \
-					- player->dirY * sin(rot_speed);
-	player->dirY = temp * sin(rot_speed) + player->dirY * cos(rot_speed);
+	temp = player->dir_x;
+	player->dir_x = player->dir_x * cos(rot_speed) \
+					- player->dir_y * sin(rot_speed);
+	player->dir_y = temp * sin(rot_speed) + player->dir_y * cos(rot_speed);
 	temp = player->plane_x;
 	player->plane_x = player->plane_x * cos(rot_speed) \
 					- player->plane_y * sin(rot_speed);
@@ -45,10 +45,10 @@ void	player_rotate_left(t_cub *head, t_player *player)
 	double	temp;
 
 	rot_speed = -ROTSPEED * head->delta_time;
-	temp = player->dirX;
-	player->dirX = player->dirX * cos(rot_speed) \
-					- player->dirY * sin(rot_speed);
-	player->dirY = temp * sin(rot_speed) + player->dirY * cos(rot_speed);
+	temp = player->dir_x;
+	player->dir_x = player->dir_x * cos(rot_speed) \
+					- player->dir_y * sin(rot_speed);
+	player->dir_y = temp * sin(rot_speed) + player->dir_y * cos(rot_speed);
 	temp = player->plane_x;
 	player->plane_x = player->plane_x * cos(rot_speed) \
 					- player->plane_y * sin(rot_speed);

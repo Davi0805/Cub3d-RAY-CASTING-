@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 18:17:17 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 20:39:15 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:46:47 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static void	init_ray(t_player *player, t_ray *ray, int x)
 {
-	ray->cameraX = 2 * x / (double)WIDTH - 1;
-	ray->DirX = player->dirX + player->plane_x * ray->cameraX;
-	ray->DirY = player->dirY + player->plane_y * ray->cameraX;
-	ray->mapX = (int)player->posX;
-	ray->mapY = (int)player->posY;
-	ray->deltaDistX = fabs(1 / ray->DirX);
-	ray->deltaDistY = fabs(1 / ray->DirY);
+	ray->camera_x = 2 * x / (double)WIDTH - 1;
+	ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;
+	ray->dir_y = player->dir_y + player->plane_y * ray->camera_x;
+	ray->map_x = (int)player->pos_x;
+	ray->map_y = (int)player->pos_y;
+	ray->delta_dist_x = fabs(1 / ray->dir_x);
+	ray->delta_dist_y = fabs(1 / ray->dir_y);
 	ray->hit = 0;
 	return ;
 }
@@ -28,25 +28,27 @@ static void	init_ray(t_player *player, t_ray *ray, int x)
 // Calculate step and side dist
 static void	get_side_dist(const t_player *player, t_ray *ray)
 {
-	if (ray->DirX < 0)
+	if (ray->dir_x < 0)
 	{
-		ray->stepX = -1;
-		ray->sideDistX = (player->posX - ray->mapX) * ray->deltaDistX;
+		ray->step_x = -1;
+		ray->side_dist_x = (player->pos_x - ray->map_x) * ray->delta_dist_x;
 	}
 	else
 	{
-		ray->stepX = 1;
-		ray->sideDistX = (ray->mapX + 1.0 - player->posX) * ray->deltaDistX;
+		ray->step_x = 1;
+		ray->side_dist_x = (ray->map_x + 1.0 - player->pos_x) * \
+		ray->delta_dist_x;
 	}
-	if (ray->DirY < 0)
+	if (ray->dir_y < 0)
 	{
-		ray->stepY = -1;
-		ray->sideDistY = (player->posY - ray->mapY) * ray->deltaDistY;
+		ray->step_y = -1;
+		ray->side_dist_y = (player->pos_y - ray->map_y) * ray->delta_dist_y;
 	}
 	else
 	{
-		ray->stepY = 1;
-		ray->sideDistY = (ray->mapY + 1.0 - player->posY) * ray->deltaDistY;
+		ray->step_y = 1;
+		ray->side_dist_y = (ray->map_y + 1.0 - player->pos_y) * \
+		ray->delta_dist_y;
 	}
 	return ;
 }
@@ -56,24 +58,24 @@ static void	cast_ray(t_ray *ray, char **map, t_cub *head)
 {
 	while (true)
 	{
-		if (ray->sideDistX < ray->sideDistY)
+		if (ray->side_dist_x < ray->side_dist_y)
 		{
-			ray->sideDistX += ray->deltaDistX;
-			ray->mapX += ray->stepX;
+			ray->side_dist_x += ray->delta_dist_x;
+			ray->map_x += ray->step_x;
 			ray->side = 0;
 		}
 		else
 		{
-			ray->sideDistY += ray->deltaDistY;
-			ray->mapY += ray->stepY;
+			ray->side_dist_y += ray->delta_dist_y;
+			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (ray->mapX < 0 || ray->mapY < 0
-			|| ray->mapY >= head->map_height
-			|| ray->mapX >= head->map_l_lens[ray->mapY]
-			|| map[ray->mapY][ray->mapX] == '1'
-			|| map[ray->mapY][ray->mapX] == '\0'
-			|| map[ray->mapY][ray->mapX] == '\n')
+		if (ray->map_x < 0 || ray->map_y < 0
+			|| ray->map_y >= head->map_height
+			|| ray->map_x >= head->map_l_lens[ray->map_y]
+			|| map[ray->map_y][ray->map_x] == '1'
+			|| map[ray->map_y][ray->map_x] == '\0'
+			|| map[ray->map_y][ray->map_x] == '\n')
 		{
 			ray->hit = 1;
 			return ;
@@ -85,18 +87,18 @@ static void	cast_ray(t_ray *ray, char **map, t_cub *head)
 static void	build_ray(t_player *player, t_ray *ray )
 {
 	if (ray->side == 0)
-		ray->perpWallDist = (ray->mapX - player->posX + \
-							(1 - ray->stepX) / 2) / ray->DirX;
+		ray->perp_wall_dist = (ray->map_x - player->pos_x + \
+							(1 - ray->step_x) / 2) / ray->dir_x;
 	else
-		ray->perpWallDist = (ray->mapY - player->posY + \
-							(1 - ray->stepY) / 2) / ray->DirY;
-	ray->lineHeight = (int)(HEIGHT / ray->perpWallDist);
-	ray->drawStart = -ray->lineHeight / 2 + HEIGHT / 2;
-	if (ray->drawStart < 0)
-		ray->drawStart = 0;
-	ray->drawEnd = ray->lineHeight / 2 + HEIGHT / 2;
-	if (ray->drawEnd >= HEIGHT)
-		ray->drawEnd = HEIGHT;
+		ray->perp_wall_dist = (ray->map_y - player->pos_y + \
+							(1 - ray->step_y) / 2) / ray->dir_y;
+	ray->line_height = (int)(HEIGHT / ray->perp_wall_dist);
+	ray->draw_start = -ray->line_height / 2 + HEIGHT / 2;
+	if (ray->draw_start < 0)
+		ray->draw_start = 0;
+	ray->draw_end = ray->line_height / 2 + HEIGHT / 2;
+	if (ray->draw_end >= HEIGHT)
+		ray->draw_end = HEIGHT;
 	return ;
 }
 

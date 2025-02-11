@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:04:56 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 20:39:15 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:44:51 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,25 +97,23 @@ typedef struct s_dda
 
 typedef struct s_ray
 {
-	double	cameraX;
-	double	DirX;
-	double	DirY;
-	int		mapX;
-	int		mapY;
-	double	deltaDistX;
-	double	deltaDistY;
+	double	camera_x;
+	double	dir_x;
+	double	dir_y;
+	int		map_x;
+	int		map_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
 	int		hit;
-	int		stepX;
-	int		stepY;
-	double	sideDistX;
-	double	sideDistY;
-	double	perpWallDist;
+	int		step_x;
+	int		step_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	perp_wall_dist;
 	int		side;
-	int		drawStart;
-	int		drawEnd;
-	int		lineHeight;
-    double	wallX; // Where exactly the wall was hit
-    int		texX; // X coordinate on the texture
+	int		draw_start;
+	int		draw_end;
+	int		line_height;
 }	t_ray;
 
 typedef struct rgb
@@ -134,21 +132,21 @@ typedef struct map_assets
 	char	*we_texture;
 	char	*ea_texture;
 
-    void	*no;
-    void	*so;
-    void	*we;
-    void	*ea;
+	void	*no;
+	void	*so;
+	void	*we;
+	void	*ea;
 
-    // Add texture data
-    int		no_width;
-    int		so_width;
-    int		we_width;
-    int		ea_width;
+	// Add texture data
+	int		no_width;
+	int		so_width;
+	int		we_width;
+	int		ea_width;
 
-    int		no_height;
-    int		so_height;
-    int		we_height;
-    int		ea_height;
+	int		no_height;
+	int		so_height;
+	int		we_height;
+	int		ea_height;
 	//Color field String
 	char	*floor_rgb_s;
 	char	*ceiling_rgb_s;
@@ -180,10 +178,10 @@ typedef struct s_movement
 
 typedef struct s_player
 {
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
 	double	plane_x;
 	double	plane_y;
 	t_moves	moves;

@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 20:30:32 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 20:39:15 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:42:00 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ static void	get_start_dir_2(t_player *player, char direction)
 {
 	if (direction == 'E')
 	{
-		player->dirX = 1;
-		player->dirY = 0;
+		player->dir_x = 1;
+		player->dir_y = 0;
 		player->plane_x = 0;
 		player->plane_y = FOV;
 	}
 	else if (direction == 'W')
 	{
-		player->dirX = -1;
-		player->dirY = 0;
+		player->dir_x = -1;
+		player->dir_y = 0;
 		player->plane_x = 0;
 		player->plane_y = -FOV;
 	}
@@ -34,15 +34,15 @@ void	get_start_dir(t_player *player, char direction)
 {
 	if (direction == 'N')
 	{
-		player->dirX = 0;
-		player->dirY = -1;
+		player->dir_x = 0;
+		player->dir_y = -1;
 		player->plane_x = FOV;
 		player->plane_y = 0;
 	}
 	else if (direction == 'S')
 	{
-		player->dirX = 0;
-		player->dirY = 1;
+		player->dir_x = 0;
+		player->dir_y = 1;
 		player->plane_x = -FOV;
 		player->plane_y = 0;
 	}
@@ -70,8 +70,8 @@ bool	flood_fill(char **map, int y, int x, char to_fill)
 
 static bool	map_not_closed(t_cub *head)
 {
-	return (flood_fill(head->map, head->player.posY, \
-			head->player.posX, '0'));
+	return (flood_fill(head->map, head->player.pos_y, \
+			head->player.pos_x, '0'));
 }
 
 uint8_t	verify_map(t_cub *head)

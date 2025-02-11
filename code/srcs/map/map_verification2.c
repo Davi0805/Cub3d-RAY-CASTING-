@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 20:29:28 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 20:35:06 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:40:32 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static bool	is_valid_char(char c)
 static bool	setup_player(t_cub *head, char dir, int x, int y)
 {
 	get_start_dir(&head->player, dir);
-	head->player.posX = x + 0.5f;
-	head->player.posY = y + 0.5f;
+	head->player.pos_x = x + 0.5f;
+	head->player.pos_y = y + 0.5f;
 	return (true);
 }
 
