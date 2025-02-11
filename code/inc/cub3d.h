@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:04:56 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 18:34:59 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:38:23 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ typedef struct cub
 	// MLX stuff
 	t_mlx_data		mlx;
 	struct timeval	time;
-	double			deltaTime;
+	double			delta_time;
 }	t_cub;
 
 // MAP VALIDATION
@@ -211,7 +211,7 @@ uint8_t	verifyMap(t_cub *head);
 void	texture_loader(t_cub *head);
 
 // Time Utils
-double	DeltaTime(struct timeval *old);
+double	delta_time(struct timeval *old);
 
 // Player movement
 void	player_forward(t_player *player, char **map, t_cub *head);
