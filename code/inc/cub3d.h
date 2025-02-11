@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:04:56 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 18:43:39 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:59:40 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,21 @@ typedef struct s_point
 	int		x;
 	int		y;
 }	t_point;
+
+typedef struct s_drawline_helper
+{
+	void	*texture;
+	int		tex_width;
+	int		tex_height;
+	int		tex_x;
+	int		tex_y;
+	double	tex_pos;
+	double	wall_x;
+	int		*texture_data;
+	int		size_line;
+	double	step;
+	int		color;
+}	t_davitone;
 
 typedef struct s_dda
 {
@@ -228,7 +243,7 @@ int		Raycaster(t_cub *head);
 void	draw_line(t_mlx_data mlx, t_point p1, t_point p2, int color);
 void	put_pixel_to_img(t_mlx_data mlx, int x, int y, int color);
 void	DrawVertPixelLine(t_cub *head, int color, t_ray *ray, int x);
-void	DrawTexturedVertLine(t_cub *head, t_ray *ray, int x);
+void	draw_vline_textured(t_cub *head, t_ray *ray, int x);
 
 // hooks
 int		key_released(int key, t_cub *head);
