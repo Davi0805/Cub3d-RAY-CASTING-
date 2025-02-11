@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:04:56 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 19:33:12 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:35:40 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ uint8_t	textureValidator(t_cub *head);
 uint8_t	isXpm(char *str);
 
 // MAP INIT
-uint8_t	getNbLines(char *path, t_cub *head);
+uint8_t	get_nb_lines(char *path, t_cub *head);
 uint8_t	allocate_file(char **av, t_cub *head);
 uint8_t	collect_lines(char *path, t_cub *head);
 uint8_t	allocateMap(t_cub *head, char **fcontent, char *map_path);

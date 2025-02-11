@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_aux.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:28:42 by davi              #+#    #+#             */
-/*   Updated: 2025/01/09 16:45:19 by dmelo-ca         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:35:40 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-uint8_t    getNbLines(char *path, t_cub *head)
+uint8_t    get_nb_lines(char *path, t_cub *head)
 {
     int32_t fd;
     char *str;
