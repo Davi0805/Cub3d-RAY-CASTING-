@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:04:56 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 18:38:23 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:43:39 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ void	DrawTexturedVertLine(t_cub *head, t_ray *ray, int x);
 // hooks
 int		key_released(int key, t_cub *head);
 int		key_pressed(int key, t_cub *head);
-int		UpdateLoop(t_cub *head);
+int		update_loop(t_cub *head);
 
 // Free Funcs
 void	free_file(t_cub *head);
