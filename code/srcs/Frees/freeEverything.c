@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:28:21 by dmelo-ca          #+#    #+#             */
-/*   Updated: 2025/02/10 16:55:57 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:49:49 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void    parseFailed(t_cub *head, uint16_t error)
     freeFile(head);
     if (head->map) freeMap(head);
     free_textures(head);
+    if (head->mapLineLens)
+        free(head->mapLineLens);
     exit(error); // Macro para Parse Test
 }
 
@@ -80,9 +82,8 @@ int ExitFun(t_cub *head)
         free(head->mlx.mlx_ptr);
     freeFile(head);
     free_textures(head);
-    if (head->map) freeMap(head);
-    
-        
+    if (head->map)
+        freeMap(head);
     if (head->mapLineLens)
         free(head->mapLineLens);
     exit(0);
