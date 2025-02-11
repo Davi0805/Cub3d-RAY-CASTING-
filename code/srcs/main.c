@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/02/11 15:57:50 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:31:25 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ uint8_t	setup_validation(int ac, char **av, t_cub *head)
 	if (ac != 2)
 		return (PARSE_ERROR);
 	if (filetype_checker(av[1]))
-		parseFailed (head, FTYPE_ERROR);
+		parse_failed (head, FTYPE_ERROR);
 	if (isFileValid(av[1]))
-		parseFailed (head, FINVALID_ERROR);
+		parse_failed (head, FINVALID_ERROR);
 	if (isFileEmpty(av[1]))
-		parseFailed (head, FEMPTY_ERROR);
+		parse_failed (head, FEMPTY_ERROR);
 	if (allocate_file(av, head))
-		parseFailed (head, PARSE_ERROR);
+		parse_failed (head, PARSE_ERROR);
 	if (textureValidator(head))
-		parseFailed(head, MWRONG_TEXTURE);
+		parse_failed(head, MWRONG_TEXTURE);
 	if (allocateMap(head, head->fcontent, av[1]))
-		parseFailed(head, MWRONG_TEXTURE);
+		parse_failed(head, MWRONG_TEXTURE);
 	if (verifyMap(head))
-		parseFailed (head, MWRONG_TEXTURE);
+		parse_failed (head, MWRONG_TEXTURE);
 	return (PARSE_SUCCESS);
 }
 
@@ -68,8 +68,8 @@ int	main(int ac, char **av)
 	mlx_loop_hook(head.mlx.mlx_ptr, UpdateLoop, (void *)&head);
 	mlx_hook(head.mlx.win_ptr, KeyPress, KeyPressMask, KeyPressed, &head);
 	mlx_hook(head.mlx.win_ptr, KeyRelease, KeyReleaseMask, KeyReleased, &head);
-	mlx_hook(head.mlx.win_ptr, DestroyNotify, 1L << 0, ExitFun, &head);
+	mlx_hook(head.mlx.win_ptr, DestroyNotify, 1L << 0, exit_fun, &head);
 	mlx_loop(head.mlx.mlx_ptr);
-	ExitFun(&head);
+	exit_fun(&head);
 	return (0);
 }

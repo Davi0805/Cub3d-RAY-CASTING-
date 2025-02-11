@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:44 by davi              #+#    #+#             */
-/*   Updated: 2025/02/10 16:56:15 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:31:25 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ uint8_t allocate_file(char ** av, t_cub *head)
     if (!head->fcontent)
         return (SYSCALL_ERROR);
 
-    if (collect_lines(av[1], head)) return (freeFile(head), SYSCALL_ERROR);    
+    if (collect_lines(av[1], head)) return (free_file(head), SYSCALL_ERROR);    
     return (0);
 }
 
@@ -54,6 +54,6 @@ void texture_loader(t_cub *head)
     if (!head->assets.no || !head->assets.so || !head->assets.we || !head->assets.ea)
     {
         printf("Error loading textures\n");
-        ExitFun(head); // UNSAFE
+        exit_fun(head); // UNSAFE
     }
 }

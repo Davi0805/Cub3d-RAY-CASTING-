@@ -5,16 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/02/11 15:58:16 by artuda-s         ###   ########.fr       */
+/*   Created: 2025/02/11 18:30:31 by artuda-s          #+#    #+#             */
+/*   Updated: 2025/02/11 18:31:49 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "cub3d.h"
 
 // Da free ao mapa inteiro
-void	freeFile(t_cub *head)
+void	free_file(t_cub *head)
 {
 	uint32_t	i;
 
@@ -48,7 +47,7 @@ void	free_textures(t_cub *head)
 		free(head->assets.ceiling_rgb_s);
 }
 
-void	freeMap(t_cub *head)
+void	free_map(t_cub *head)
 {
 	int	i;
 
@@ -62,22 +61,22 @@ void	freeMap(t_cub *head)
 	return ;
 }
 
-void	parseFailed(t_cub *head, uint16_t error)
+void	parse_failed(t_cub *head, uint16_t error)
 {
-	freeFile(head);
+	free_file(head);
 	if (head->map)
-		freeMap(head);
+		free_map(head);
 	free_textures(head);
 	exit(error);
 }
 
 // Frees everything and exits
-int	ExitFun(t_cub *head)
+int	exit_fun(t_cub *head)
 {
-    mlx_destroy_image(head->mlx.mlx_ptr, (void *)head->assets.no);
-    mlx_destroy_image(head->mlx.mlx_ptr, (void *)head->assets.so);
-    mlx_destroy_image(head->mlx.mlx_ptr, (void *)head->assets.we);
-    mlx_destroy_image(head->mlx.mlx_ptr, (void *)head->assets.ea);
+	mlx_destroy_image(head->mlx.mlx_ptr, (void *)head->assets.no);
+	mlx_destroy_image(head->mlx.mlx_ptr, (void *)head->assets.so);
+	mlx_destroy_image(head->mlx.mlx_ptr, (void *)head->assets.we);
+	mlx_destroy_image(head->mlx.mlx_ptr, (void *)head->assets.ea);
 	if (head->mlx.img_ptr != NULL)
 		mlx_destroy_image(head->mlx.mlx_ptr, head->mlx.img_ptr);
 	if (head->mlx.win_ptr != NULL)
@@ -86,10 +85,10 @@ int	ExitFun(t_cub *head)
 		mlx_destroy_display(head->mlx.mlx_ptr);
 	if (head->mlx.mlx_ptr != NULL)
 		free(head->mlx.mlx_ptr);
-	freeFile(head);
-    free_textures(head);
+	free_file(head);
+	free_textures(head);
 	if (head->map)
-		freeMap(head);
+		free_map(head);
 	if (head->mapLineLens)
 		free(head->mapLineLens);
 	exit(0);

@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 18:10:46 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/01/27 18:10:58 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:31:25 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	KeyPressed(int key, t_cub *head)
 	else if (key == XK_d)
 		head->player.moves.d_key = true;
 	else if (key == XK_Escape)
-		ExitFun(head);
+		exit_fun(head);
 	return (0);
 }
 
