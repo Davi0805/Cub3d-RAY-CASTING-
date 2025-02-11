@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 18:24:14 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 16:01:48 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:10:18 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ static void	UpdatePlayerPosition(t_cub *head)
 // rays and draw the map accordingly to its location
 int	UpdateLoop(t_cub *head)
 {
-	double	fps;
-
 	head->deltaTime = DeltaTime(&head->time);
 	gettimeofday(&head->time, NULL);
 	UpdatePlayerPosition(head);

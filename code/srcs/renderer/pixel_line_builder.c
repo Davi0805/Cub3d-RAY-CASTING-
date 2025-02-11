@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 18:13:43 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 16:00:28 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:27:22 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,6 @@ int	split_to_color(t_rgb color)
 	result = (color.r << 16) | (color.g << 8) | color.b;
 	return (result);
 }
-
-/* void DrawVertPixelLine(t_cub *head, int color, t_ray *ray, int x) //todo change whats recieved
-{
-    // Ceiling - pinta do inicio ate 1 pixel antes da parede
-    DrawLine(head->mlx, x, 0, x, ray->drawStart - 1, split_to_color(head->assets.ceil_color));
-
-    // Wall 
-    DrawLine(head->mlx, x, ray->drawStart, x, ray->drawEnd, color);
-    
-    // Floor - pinta a partir de 1 pixel depois da parede ate o limite da janela
-    DrawLine(head->mlx, x, ray->drawEnd + 1, x, HEIGHT - 1, split_to_color(head->assets.floor_color));
-} */
 
 void DrawTexturedVertLine(t_cub *head, t_ray *ray, int x)
 {
@@ -62,8 +50,8 @@ void DrawTexturedVertLine(t_cub *head, t_ray *ray, int x)
     texX = texX < 0 ? 0 : (texX >= texWidth ? texWidth - 1 : texX);
 
     // Ceiling
-    DrawLine(head->mlx, x, 0, x, ray->drawStart - 1, 
-             split_to_color(head->assets.ceil_color));
+    draw_line(head->mlx, (t_point){.x=x, .y=0}, (t_point){.x=x, .y=ray->drawStart - 1},
+            split_to_color(head->assets.ceil_color));
 
     // GET TEXTURA IMG E DATA
     int *textureData;
@@ -89,10 +77,9 @@ void DrawTexturedVertLine(t_cub *head, t_ray *ray, int x)
         if(ray->side == 1) 
             color = (color >> 1) & 8355711;
 
-        PutPixelToImg(head->mlx, x, y, color);
+        put_pixel_to_img(head->mlx, x, y, color);
     }
-
     // Floor
-    DrawLine(head->mlx, x, ray->drawEnd + 1, x, HEIGHT - 1, 
-             split_to_color(head->assets.floor_color));
+    draw_line(head->mlx, (t_point){.x=x, .y=ray->drawEnd + 1}, 
+            (t_point){.x=x, .y=HEIGHT - 1} ,split_to_color(head->assets.floor_color));
 }
