@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:45:11 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 18:46:43 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:33:12 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	update_loop(t_cub *head)
 	head->delta_time = delta_time(&head->time);
 	gettimeofday(&head->time, NULL);
 	update_player_pos(head);
-	Raycaster(head);
+	raycaster(head);
 	mlx_put_image_to_window(head->mlx.mlx_ptr, head->mlx.win_ptr, \
 			head->mlx.img_ptr, 0, 0);
 	mlx_destroy_image(head->mlx.mlx_ptr, head->mlx.img_ptr);

@@ -6,13 +6,13 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 18:17:17 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 18:48:56 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:33:12 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	InitRay(t_player *player, t_ray *ray, int x)
+static void	init_ray(t_player *player, t_ray *ray, int x)
 {
 	ray->cameraX = 2 * x / (double)WIDTH - 1;
 	ray->DirX = player->dirX + player->planeX * ray->cameraX;
@@ -26,7 +26,7 @@ static void	InitRay(t_player *player, t_ray *ray, int x)
 }
 
 // Calculate step and side dist
-static void	GetSideDist(const t_player *player, t_ray *ray)
+static void	get_side_dist(const t_player *player, t_ray *ray)
 {
 	if (ray->DirX < 0)
 	{
@@ -52,7 +52,7 @@ static void	GetSideDist(const t_player *player, t_ray *ray)
 }
 
 // Perform DDA
-static void	CastRay(t_ray *ray, char **map, t_cub *head)
+static void	cast_ray(t_ray *ray, char **map, t_cub *head)
 {
 	while (true)
 	{
@@ -82,7 +82,7 @@ static void	CastRay(t_ray *ray, char **map, t_cub *head)
 }
 
 // Calculate distance and height
-static void	BuildRay(t_player *player, t_ray *ray )
+static void	build_ray(t_player *player, t_ray *ray )
 {
 	if (ray->side == 0)
 		ray->perpWallDist = (ray->mapX - player->posX + \
@@ -100,30 +100,20 @@ static void	BuildRay(t_player *player, t_ray *ray )
 	return ;
 }
 
-int	Raycaster(t_cub *head)
+int	raycaster(t_cub *head)
 {
-    t_ray ray;
-    for (int x = 0; x < WIDTH; x++)
-    {
-        // start the current ray
-        InitRay(&head->player, &ray, x);
-        // get side distance and step based on direction
-        GetSideDist(&head->player, &ray);
-        // dda until hit a wall
-        CastRay(&ray, head->map, head);
-        // Start and end position of the wall hit
-        BuildRay(&head->player, &ray);
+	t_ray	ray;
+	int		x;
 
-        //todo side colors. CHANGE THIS
-       /* int color = 0x0000FF;
-        if (ray.side)
-            color = 0xFF0000; */
-        
-
-        // Drawing every vertical line of pixels of the image
-        //DrawVertPixelLine(head, color, &ray, x);
-        draw_vline_textured(head, &ray, x);
-    }
-    
-    return (0);
+	x = 0;
+	while (x < WIDTH)
+	{
+		init_ray(&head->player, &ray, x);
+		get_side_dist(&head->player, &ray);
+		cast_ray(&ray, head->map, head);
+		build_ray(&head->player, &ray);
+		draw_vline_textured(head, &ray, x);
+		x++;
+	}
+	return (0);
 }
