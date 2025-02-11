@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:04:56 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 15:57:12 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:27:22 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ enum e_orientation
 	C = 5, // Ceiling
 	OTHER = 100
 };
+
+typedef struct s_point
+{
+	int		x;
+	int		y;
+}	t_point;
 
 typedef struct s_dda
 {
@@ -219,8 +225,8 @@ void	PlayerRotateLeft(t_cub *head, t_player *player);
 int		Raycaster(t_cub *head);
 
 // Draw utils
-void	DrawLine(t_mlx_data mlx, int x1, int y1, int x2, int y2, int color);
-void	PutPixelToImg(t_mlx_data mlx, int x, int y, int color);
+void	draw_line(t_mlx_data mlx, t_point p1, t_point p2, int color);
+void	put_pixel_to_img(t_mlx_data mlx, int x, int y, int color);
 void	DrawVertPixelLine(t_cub *head, int color, t_ray *ray, int x);
 void	DrawTexturedVertLine(t_cub *head, t_ray *ray, int x);
 
