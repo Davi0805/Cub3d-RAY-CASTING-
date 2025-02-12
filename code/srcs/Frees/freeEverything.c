@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:28:21 by dmelo-ca          #+#    #+#             */
-/*   Updated: 2025/02/11 20:49:49 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:21:22 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void    parseFailed(t_cub *head, uint16_t error)
     free_textures(head);
     if (head->mapLineLens)
         free(head->mapLineLens);
+    ft_putstr_fd("Error\n", 2);
     exit(error); // Macro para Parse Test
 }
 

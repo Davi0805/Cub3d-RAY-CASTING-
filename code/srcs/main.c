@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmelo-ca <dmelo-ca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/01/28 11:57:38 by dmelo-ca         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:20:04 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,19 @@ uint8_t     setup_minilibx(t_cub *head)
 {
 	head->mlx.mlx_ptr = mlx_init();
 	if (head->mlx.mlx_ptr == NULL)
-		return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
+		return (ft_putstr_fd("Error\n", 2), PARSE_ERROR);
 	
 	head->mlx.win_ptr = mlx_new_window(head->mlx.mlx_ptr, WIDTH, HEIGHT, "CUB3D - Oq tu quer ta mole");
 	if (head->mlx.win_ptr == NULL)
-		return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
+		return (ft_putstr_fd("Error\n", 2), PARSE_ERROR);
 	
 	head->mlx.img_ptr = mlx_new_image(head->mlx.mlx_ptr, WIDTH, HEIGHT);
 	if (head->mlx.img_ptr == NULL)
-		return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
+		return (ft_putstr_fd("Error\n", 2), PARSE_ERROR);
 	
 	head->mlx.img_addr = mlx_get_data_addr(head->mlx.img_ptr, &head->mlx.bits_per_pixel, &head->mlx.size_line, &head->mlx.endian);
 	if (head->mlx.img_addr == NULL)
-		return (printf("[MINILIBX]: Falha no setup!"), PARSE_ERROR);
+		return (ft_putstr_fd("Error\n", 2), PARSE_ERROR);
 
 	return (0);
 }

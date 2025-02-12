@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:44 by davi              #+#    #+#             */
-/*   Updated: 2025/02/10 16:56:15 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:18:22 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void texture_loader(t_cub *head)
     head->assets.ea = mlx_xpm_file_to_image(head->mlx.mlx_ptr, head->assets.ea_texture, &head->assets.ea_width, &head->assets.ea_height);
     if (!head->assets.no || !head->assets.so || !head->assets.we || !head->assets.ea)
     {
-        printf("Error loading textures\n");
-        ExitFun(head); // UNSAFE
+        ft_putstr_fd("Error\n", 2);
+        ExitFun(head);
     }
 }
