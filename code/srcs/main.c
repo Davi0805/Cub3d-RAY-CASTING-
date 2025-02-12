@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/02/11 20:35:59 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:24:04 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int	main(int ac, char **av)
 
 	ft_bzero(&head, sizeof(head));
 	if (setup_validation(ac, av, &head))
-		return (1);
+    	return (ft_putstr_fd("Error\n", 2), 1);
 	if (setup_minilibx(&head))
-		return (1);
+		return (ft_putstr_fd("Error\n", 2), 1);
 	texture_loader(&head);
 	gettimeofday(&head.time, NULL);
 	mlx_loop_hook(head.mlx.mlx_ptr, update_loop, (void *)&head);

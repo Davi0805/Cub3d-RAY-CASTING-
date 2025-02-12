@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:30:31 by artuda-s          #+#    #+#             */
-/*   Updated: 2025/02/11 20:38:44 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:24:22 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	parse_failed(t_cub *head, uint16_t error)
 	free_textures(head);
 	if (head->map_l_lens)
 		free(head->map_l_lens);
+	ft_putstr_fd("Error\n", 2);
 	exit(error);
 }
 
