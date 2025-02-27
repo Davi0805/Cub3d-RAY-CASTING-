@@ -1,6 +1,6 @@
 MAKEFLAGS += --silent
 
-NAME = Cub3d
+NAME = cub3D
 
 # Diretórios
 INCDIR = code/inc
