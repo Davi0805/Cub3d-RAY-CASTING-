@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:08:46 by davi              #+#    #+#             */
-/*   Updated: 2025/02/12 10:24:04 by artuda-s         ###   ########.fr       */
+/*   Updated: 2025/03/03 14:27:11 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int ac, char **av)
 
 	ft_bzero(&head, sizeof(head));
 	if (setup_validation(ac, av, &head))
-    	return (ft_putstr_fd("Error\n", 2), 1);
+		return (ft_putstr_fd("Error\n", 2), 1);
 	if (setup_minilibx(&head))
 		return (ft_putstr_fd("Error\n", 2), 1);
 	texture_loader(&head);
