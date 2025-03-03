@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/03/03 12:34:23 by artuda-s          #+#    #+#              #
+#    Updated: 2025/03/03 12:35:00 by artuda-s         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 MAKEFLAGS += --silent
 
 NAME = cub3D
@@ -23,12 +35,12 @@ LFLAGS = -L$(LIBFTDIR) -L$(MINILIBXDIR) -lft -lmlx -lm -lX11 -lXext
 SANFLAGS = -Wall -Wextra -Werror $(IFLAGS) -g -fsanitize=address -fsanitize=leak -fsanitize=undefined -fno-omit-frame-pointer
 
 # Obtém todos os arquivos .c no diretório Srcs
-#SRC = $(shell find $(SRCDIR) -name '*.c')
 SRC = code/srcs/draw_tools/draw_line.c code/srcs/draw_tools/put_pixel_img.c code/srcs/keys/player_movement.c \
 	code/srcs/keys/player_rotation.c code/srcs/keys/read_keys.c code/srcs/map/file_init.c code/srcs/map/map_allocation.c \
 	code/srcs/map/map_allocation_2.c code/srcs/map/map_aux.c code/srcs/map/map_aux_2.c code/srcs/map/map_validation.c \
 	code/srcs/map/map_validation_2.c code/srcs/map/map_verification.c code/srcs/map/map_verification2.c code/srcs/renderer/pixel_line_builder.c \
 	code/srcs/renderer/ray_caster.c code/srcs/update_loop/update.c code/srcs/time_utils/delta_time.c code/srcs/frees/freeEverything.c code/srcs/main.c
+
 # Substitui os sufixos dos arquivos .c por .o no diretório Objs
 OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
 
