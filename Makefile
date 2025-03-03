@@ -6,7 +6,7 @@
 #    By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 12:34:23 by artuda-s          #+#    #+#              #
-#    Updated: 2025/03/03 12:35:00 by artuda-s         ###   ########.fr        #
+#    Updated: 2025/03/03 12:38:03 by artuda-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ INCDIR = code/inc
 SRCDIR = code/srcs
 OBJDIR = code/objs
 LIBDIR = code/lib
+MINIREPO = https://github.com/42Paris/minilibx-linux
 
 # Diretório da biblioteca
 LIBFTDIR = $(LIBDIR)/libft
@@ -65,6 +66,13 @@ $(LIBFT):
 # Minilibx
 $(MINILIBXDIR)/$(MINILIBX):
 	@make -C $(MINILIBXDIR) && echo MINILIBX Compilada
+
+mini:
+	@if [ ! -d $(MINILIBXDIR) ]; then \
+		mkdir -p $(LIBDIR); \
+		git clone $(MINIREPO) $(LIBDIR)/minilibx-linux; \
+		echo "Minilibx check"; \
+	fi
 
 # San compilation
 san: CFLAGS=$(SANFLAGS)
