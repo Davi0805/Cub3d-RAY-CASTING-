@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variáveis globais para paths
-EXECUTABLE="./Cub3d"
+EXECUTABLE="./cub3D"
 MAPS_DIR="Assets/Maps"
 VALID_MAPS_DIR="$MAPS_DIR/Valid"
 INVALID_MAPS_DIR="$MAPS_DIR/Invalid"
