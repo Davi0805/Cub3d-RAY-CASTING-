@@ -65,6 +65,8 @@ Run the application with the following command:
 ./cub3D Assets/Maps/Valid/<map-of-choice>
 ```
 
+Move around with WASD keys and rotate the camare with left and right arrow keys
+
 Example:
 
 ```
