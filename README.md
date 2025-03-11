@@ -17,6 +17,7 @@ It starts by parsing the map to ensure it follows the correct structure - valid 
 - Window Management: Handled using the MiniLibX graphics library.
 - 3D Rendering: Utilizes raycasting and the DDA algorithm to generate a 3D environment.
 - Resource Management: Focuses on making the program error-free and leak-free.
+- Player Movement: Movement of the player with WADS and left and arrow keys
 
 ## Getting Started
 
